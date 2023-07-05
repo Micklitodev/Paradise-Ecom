@@ -44,7 +44,7 @@ function App() {
       <Router>
         <div>
           <StoreProvider>
-            {/* <Nav /> */}
+            {/* <Nav />  */}
             <Routes>
             <Route 
                 path="/" 

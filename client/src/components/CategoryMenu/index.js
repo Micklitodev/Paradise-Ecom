@@ -42,10 +42,10 @@ function CategoryMenu() {
   };
 
   return (
-    <div>
-      <h2>Choose a Category:</h2>
+    <div >
+      <h2>Search By Category:</h2>
       {categories.map((item) => (
-        <button
+        <button style={{marginLeft: 10}}
           key={item._id}
           onClick={() => {
             handleClick(item._id);

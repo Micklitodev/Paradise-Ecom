@@ -21,7 +21,7 @@ function Nav() {
         </ul>
       );
     } else {
-      return (
+      return (      
         <ul className="flex-row">
           <li className="mx-2">
             <Link to="/signup"  className="leftnav">
@@ -39,10 +39,11 @@ function Nav() {
   }
 
   return (
+  
     <header className="flex-row px-1">
       <h1>
-        <Link to="/">
-          Kronos
+        <Link className='navh1' to="/home">
+          Paradise
         </Link>
       </h1>
       <nav>

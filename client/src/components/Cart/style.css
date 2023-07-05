@@ -24,7 +24,7 @@
   top: .5rem;
   right: .5rem;
   cursor: pointer;
-  color: var(--tertiary);
+  color: var(--primary);
 }
 
 .cart .close:hover {
@@ -33,7 +33,7 @@
 
 .cart-closed {
   position: fixed;
-  top: 2%;
+  top: 0.5%;
   right: 1%;
   font-size: 2rem;
   cursor: pointer;

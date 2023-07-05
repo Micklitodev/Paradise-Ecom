@@ -14,7 +14,7 @@ const LandingPage = () => {
       window.innerWidth / window.innerHeight,
       0.1,
       100
-    );
+    ); 
 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
@@ -110,14 +110,20 @@ const LandingPage = () => {
     };
   }, []);
 
+  const handleClick = (e) => {
+    if (window.confirm("Are you 21 or older?" )) {
+       window.location.href = '/home'
+    }
+  }
+
   return (
     <>
       <div className="container2">
-        <h1> Kronos Market </h1>
+        <h1> Paradise Hemp Co. </h1>
       </div>
-      <Link className="landingP" to="/home">
-        <button className="landingBtn"> Visit Site </button>
-      </Link>
+      <div className="landingP">
+        <button onClick={handleClick} className="landingBtn"> Visit Site </button>
+      </div>
       <canvas ref={canvasRef} />
     </>
   );
