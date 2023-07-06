@@ -34,7 +34,9 @@ function Signup(props) {
     <div className="container my-1">
       <Link to="/login">← Go to Login</Link>
 
+<div className='borderwrap'> 
       <h2>Signup</h2>
+      <br />
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
           <label htmlFor="firstName">First Name:</label>
@@ -80,6 +82,8 @@ function Signup(props) {
           <button type="submit">Submit</button>
         </div>
       </form>
+      <br />
+      </div>
     </div>
   );
 }

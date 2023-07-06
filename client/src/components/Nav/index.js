@@ -7,7 +7,7 @@ function Nav() {
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
+        <ul className="flex-row center">
           <li className="mx-1">
             <Link to="/orderHistory">
               Order History
@@ -22,7 +22,7 @@ function Nav() {
       );
     } else {
       return (      
-        <ul className="flex-row">
+        <ul className="flex-row center">
           <li className="mx-2">
             <Link to="/signup"  className="leftnav">
               Signup
@@ -42,7 +42,7 @@ function Nav() {
   
     <header className="flex-row px-1">
       <h1>
-        <Link className='navh1' to="/home">
+        <Link to="/home">
           Paradise
         </Link>
       </h1>

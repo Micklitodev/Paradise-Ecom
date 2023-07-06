@@ -72,6 +72,10 @@ p {
   margin-top: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 a {
   color: var(--tertiary);
   text-decoration: none;
@@ -91,6 +95,7 @@ header {
 
 header a {
   color: var(--light);
+  margin-left: 20px;
 }
 
 header h1 {
@@ -145,7 +150,7 @@ button {
   margin: 0 1px;
   background-color:#2b2b2b;
   color: var(--secondary);
-   box-shadow: 1px 1px  var(--secondary);
+  box-shadow: 1px 1px  var(--secondary);
 }
 
 button:hover {
@@ -168,6 +173,15 @@ span[role="img"] {
 
 form {
   width: 40%;
+}
+
+.borderwrap {
+border: solid 1px  var(--secondary);
+border-radius: 5px;
+display: grid;
+place-items: center;
+margin-top: 50px;
+max-width: 800px;
 }
 
 input {
@@ -202,6 +216,14 @@ input:focus {
 
 .flex-end {
   justify-content: flex-end;
+}
+
+.center {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
 }
 
 .mx-1 {
