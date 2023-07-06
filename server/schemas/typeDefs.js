@@ -27,6 +27,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
+    isAdmin: Boolean
     orders: [Order]
   }
 

@@ -22,6 +22,18 @@ class AuthService {
     }
   }
 
+  isAdmin() {
+    try {
+      const token = this.getToken();
+      const decoded = decode(token);
+      if (decoded.data.isAdmin == true) {
+        return true;
+      } else {return false;}
+    } catch (err) {
+      return false;
+    }
+  }
+
   getToken() {
     // Retrieves the user token from localStorage
     return localStorage.getItem('id_token');

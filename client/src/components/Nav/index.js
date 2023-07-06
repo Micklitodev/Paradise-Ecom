@@ -5,7 +5,32 @@ import { Link } from "react-router-dom";
 function Nav() {
 
   function showNavigation() {
-    if (Auth.loggedIn()) {
+    if (Auth.isAdmin()) {
+      return (
+        <ul className="flex-row center">
+          <li className="mx-1">
+            <Link to="/orderHistory">
+              View Orders
+            </Link>
+          </li>
+          <li className="mx-1">
+            <a href="/" onClick={() => Auth.logout()}>
+              Manage Products
+            </a>
+          </li>
+          <li className="mx-1">
+            <a href="/" onClick={() => Auth.logout()}>
+              Verify Users
+            </a>
+          </li>
+          <li className="mx-1">
+            <a href="/" onClick={() => Auth.logout()}>
+              Logout
+            </a>
+          </li>
+        </ul>
+      );
+    } else if (Auth.loggedIn() && !Auth.isAdmin()) {
       return (
         <ul className="flex-row center">
           <li className="mx-1">
@@ -20,7 +45,7 @@ function Nav() {
           </li>
         </ul>
       );
-    } else {
+    } else if (!Auth.loggedIn()) {
       return (      
         <ul className="flex-row center">
           <li className="mx-2">
@@ -35,7 +60,7 @@ function Nav() {
           </li>
         </ul>
       );
-    }
+    } 
   }
 
   return (
