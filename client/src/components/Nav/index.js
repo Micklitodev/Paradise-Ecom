@@ -14,12 +14,12 @@ function Nav() {
             </Link>
           </li>
           <li className="mx-1">
-            <a href="/" onClick={() => Auth.logout()}>
+            <a href="/manageproducts">
               Manage Products
             </a>
           </li>
           <li className="mx-1">
-            <a href="/" onClick={() => Auth.logout()}>
+            <a href="/verifusers">
               Verify Users
             </a>
           </li>

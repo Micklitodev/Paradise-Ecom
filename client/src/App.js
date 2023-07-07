@@ -14,7 +14,8 @@ import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Nav from './components/Nav';
+import ManageProducts from './pages/ManageProducts';
+import VerifUsers from './pages/VerifUsers';
 import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
@@ -44,7 +45,6 @@ function App() {
       <Router>
         <div>
           <StoreProvider>
-            {/* <Nav />  */}
             <Routes>
             <Route 
                 path="/" 
@@ -78,6 +78,16 @@ function App() {
                 path="*" 
                 element={<NoMatch />} 
               />
+              {/* admin tools  */}
+              <Route 
+               path='ManageProducts'
+               element={<ManageProducts /> }
+              />
+                 <Route 
+               path='VerifUsers'
+               element={<VerifUsers /> }
+              />
+
             </Routes>
           </StoreProvider>
         </div>
