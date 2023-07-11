@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
+import { ADD_PRODUCT } from "../utils/mutations";
 
 import Nav from "../components/Nav";
 
 const ManageProducts = () => {
   const [previewImage, setPreviewImage] = useState(null);
+
+  const [addProduct] = useMutation(ADD_PRODUCT);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,40 +25,52 @@ const ManageProducts = () => {
   };
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setFormData({ ...formData, image: file });
-    setPreviewImage(URL.createObjectURL(file));
-  };
+  const file = event.target.files[0];
+  setFormData({ ...formData, image: file });
+  setPreviewImage(URL.createObjectURL(file));
+};
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    if (formData.name) {
-      try {
-        
-        //   const { data } = await createProject({
-        //     variables: { input: formData },
-        //   });
-        //   if (!data) {
-        //     throw new Error("Something went wrong!");
-        //   }
+  if (formData.name) {
+    try {
+      const { name, category, description, image, price, quantity } = formData;
 
-        console.log(formData);
+      const variables = {
+        name,
+        category,
+        description,
+        image: image.name, 
+        price: parseFloat(price),
+        quantity: parseInt(quantity),
+      };
 
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setFormData({
-          name: "",
-          category: "",
-          description: "",
-          image: "",
-          price: "",
-          quantity: "",
-        });
+      const { data } = await addProduct({
+        variables,
+      });
+
+      if (!data) {
+        throw new Error("Something went wrong!");
       }
+
+      console.log(data);
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setFormData({
+        name: "",
+        category: "",
+        description: "",
+        image: "",
+        price: "",
+        quantity: "",
+      });
+      setPreviewImage(null);
     }
-  };
+  }
+};
 
   if (Auth.isAdmin() === true) {
     return (
@@ -89,10 +104,11 @@ const ManageProducts = () => {
               onChange={handleInputChange}
               value={formData.category}
             >
-              <option value={1}>Edible</option>
-              <option value={2}>Flower</option>
-              <option value={3}>Pens</option>
-              <option value={4}>Extras</option>
+              <option value="">Select a category</option>
+              <option value="Edible">Edible</option>
+              <option value="Flower">Flower</option>
+              <option value="Pens">Pens</option>
+              <option value="Extras">Extras</option>
             </select>
             <br />
             <br />
