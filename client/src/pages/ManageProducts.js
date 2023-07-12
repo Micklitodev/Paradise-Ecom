@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT } from "../utils/mutations";
+import { storage } from "../firebase";
+import { ref, uploadBytes, listAll } from "firebase/storage";
 
 import Nav from "../components/Nav";
 
@@ -25,52 +27,71 @@ const ManageProducts = () => {
   };
 
   const handleImageChange = (event) => {
-  const file = event.target.files[0];
-  setFormData({ ...formData, image: file });
-  setPreviewImage(URL.createObjectURL(file));
-};
+    const file = event.target.files[0];
+    setFormData({ ...formData, image: file });
+    setPreviewImage(URL.createObjectURL(file));
+  };
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
+  const fileUploadHandler = () => {
+    const protocol = "https";
+    const host = "firebasestorage.googleapis.com/";
+    const bucket = "paradise-hemp-imgbucket";
+    const url = `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${formData.image.name}?alt=media`;
+    const imageRef = ref(storage, `images/${formData.image.name}`);
+    uploadBytes(imageRef, formData.image).then((res) => {
+      console.log(res);
+    });
+  };
 
-  if (formData.name) {
-    try {
-      const { name, category, description, image, price, quantity } = formData;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-      const variables = {
-        name,
-        category,
-        description,
-        image: image.name, 
-        price: parseFloat(price),
-        quantity: parseInt(quantity),
-      };
+    if (formData.name) {
+      try {
+        if (formData.image) {
+          fileUploadHandler();
+        }
+        const protocol = "https";
+        const host = "firebasestorage.googleapis.com/";
+        const bucket = "paradise-hemp-imgbucket";
 
-      const { data } = await addProduct({
-        variables,
-      });
+        const { name, category, description, image, price, quantity } =
+          formData;
 
-      if (!data) {
-        throw new Error("Something went wrong!");
+        const variables = {
+          name,
+          category,
+          description,
+          image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${image.name}?alt=media`,
+          price: parseFloat(price),
+          quantity: parseInt(quantity),
+        };
+
+        const { data } = await addProduct({
+          variables,
+        });
+
+        if (!data) {
+          throw new Error("Something went wrong!");
+        }
+
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setFormData({
+          name: "",
+          category: "",
+          description: "",
+          image: "",
+          price: "",
+          quantity: "",
+        });
+        setPreviewImage(null);
+        window.location.assign('/manageproducts')
       }
-
-      console.log(data);
-
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setFormData({
-        name: "",
-        category: "",
-        description: "",
-        image: "",
-        price: "",
-        quantity: "",
-      });
-      setPreviewImage(null);
     }
-  }
-};
+  };
 
   if (Auth.isAdmin() === true) {
     return (

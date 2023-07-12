@@ -42,16 +42,16 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     adminOrderView: async (parent, args, context) => {
-      // if (context.user.isAdmin !== true) {
-      //   throw new AuthenticationError("Not authorized to view this page.");
-      // }
+      if (context.user.isAdmin !== true) {
+        throw new AuthenticationError("Not authorized to view this page.");
+      }
 
       try {
         const orders = await User.find()
           .select("-_V -password")
           .populate({ path: "orders.products", populate: "category" })
           .sort({ purchaseDate: -1 });
-        console.log(orders);
+
         return orders;
       } catch (err) {
         console.log(err);

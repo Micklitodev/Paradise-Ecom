@@ -50,7 +50,7 @@ function ProductItem(item) {
         <img
           style={{height: 220, width: 260}}
           alt={name}
-          src={`/images/${image}`}
+          src={`${image}`}
         />
         <p>{name}</p>
       </Link>
