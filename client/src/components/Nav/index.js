@@ -9,24 +9,24 @@ function Nav() {
       return (
         <ul className="flex-row center">
           <li className="mx-1">
-            <Link to="/orderHistory">
+            <Link to="/adminorderview">
               View Orders
             </Link>
           </li>
           <li className="mx-1">
-            <a href="/manageproducts">
+            <Link to="/manageproducts">
               Manage Products
-            </a>
+            </Link>
           </li>
           <li className="mx-1">
-            <a href="/verifusers">
+            <Link to="/verifusers">
               Verify Users
-            </a>
+            </Link>
           </li>
           <li className="mx-1">
-            <a href="/" onClick={() => Auth.logout()}>
+            <Link to="/" onClick={() => Auth.logout()}>
               Logout
-            </a>
+            </Link>
           </li>
         </ul>
       );

@@ -19,6 +19,7 @@ import VerifUsers from './pages/VerifUsers';
 import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
+import AdminOrderView from './pages/AdminViewOrders';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -87,7 +88,10 @@ function App() {
                path='VerifUsers'
                element={<VerifUsers /> }
               />
-
+              <Route 
+              path='AdminOrderView'
+              element={<AdminOrderView />}
+    /> 
             </Routes>
           </StoreProvider>
         </div>

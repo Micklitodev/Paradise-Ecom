@@ -1,6 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Product, Category, Order } = require("../models");
 const { signToken } = require("../utils/auth");
+const { populate } = require("../models/Order");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 
 const resolvers = {
@@ -39,6 +40,22 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    adminOrderView: async (parent, args, context) => {
+      // if (context.user.isAdmin !== true) {
+      //   throw new AuthenticationError("Not authorized to view this page.");
+      // }
+
+      try {
+        const orders = await User.find()
+          .select("-_V -password")
+          .populate({ path: "orders.products", populate: "category" })
+          .sort({ purchaseDate: -1 });
+        console.log(orders);
+        return orders;
+      } catch (err) {
+        console.log(err);
+      }
     },
     order: async (parent, { _id }, context) => {
       if (context.user) {
