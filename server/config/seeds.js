@@ -99,6 +99,7 @@ db.once('open', async () => {
     email: 'admin@test.com',
     password: 'password',
     isAdmin: true, 
+    isVerified: true,
     orders: [
       {
         products: [products[0]._id, products[0]._id, products[1]._id]

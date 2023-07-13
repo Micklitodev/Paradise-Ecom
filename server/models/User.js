@@ -28,6 +28,9 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean
   },
+  isVerified: {
+    type: Boolean
+  },
   orders: [Order.schema]
 });
 

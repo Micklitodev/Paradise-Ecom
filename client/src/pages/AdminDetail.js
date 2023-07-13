@@ -1,7 +1,19 @@
 
 import Nav from '../components/Nav'
 import Auth from '../utils/auth'
+// import { useQuery } from '@apollo/client';
+
+
+
 const AdminDetail = () => {
+  const token = localStorage.getItem("id_token");
+  Auth.isTokenExpired(token);
+
+  const url = window.location.href
+  const id = url.split('/').pop()
+
+  console.log(id) 
+
     if (Auth.isAdmin()) {
         return (
           <>
@@ -12,6 +24,10 @@ const AdminDetail = () => {
     
             <div>
              <p> admin order detail. </p>
+            </div>
+            <div className='borderwrap'> 
+            <h1> Order #: {id} </h1>
+
             </div>
           </>
         );

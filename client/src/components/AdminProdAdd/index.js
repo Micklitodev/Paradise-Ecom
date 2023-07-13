@@ -22,7 +22,7 @@ const AdminProdAdd = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-  };
+  }; 
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -30,9 +30,9 @@ const AdminProdAdd = () => {
     setPreviewImage(URL.createObjectURL(file));
   };
 
-  const fileUploadHandler = () => {
+  const fileUploadHandler = async () => {
     const imageRef = ref(storage, `images/${formData.image.name}`);
-    uploadBytes(imageRef, formData.image).then((res) => {
+    await uploadBytes(imageRef, formData.image).then((res) => {
       console.log(res);
     });
   };

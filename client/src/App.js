@@ -18,9 +18,9 @@ import ManageProducts from './pages/ManageProducts';
 import VerifUsers from './pages/VerifUsers';
 import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
-import OrderHistory from './pages/OrderHistory';
 import AdminOrderView from './pages/AdminViewOrders';
 import AdminDetail from './pages/AdminDetail';
+import Dashboard from './pages/Dashboard';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -68,9 +68,9 @@ function App() {
                 path="/success" 
                 element={<Success />} 
               />
-              <Route 
-                path="/orderHistory" 
-                element={<OrderHistory />} 
+               <Route 
+                path="/dashboard" 
+                element={<Dashboard />} 
               />
               <Route 
                 path="/products/:id" 

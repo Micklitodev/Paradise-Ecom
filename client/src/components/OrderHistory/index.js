@@ -1,14 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Auth from "../utils/auth"
+import React from "react";
+import { Link } from "react-router-dom";
+import Auth from "../../utils/auth";
 
-import { useQuery } from '@apollo/client';
-import { QUERY_USER } from '../utils/queries';
+import { useQuery } from "@apollo/client";
+import { QUERY_USER } from "../../utils/queries";
 
 function OrderHistory() {
-  const token = localStorage.getItem('id_token');
-  Auth.isTokenExpired(token)
-  
+  const token = localStorage.getItem("id_token");
+  Auth.isTokenExpired(token);
+
   const { data } = useQuery(QUERY_USER);
   let user;
 
@@ -19,7 +19,7 @@ function OrderHistory() {
   return (
     <>
       <div className="container my-1">
-        <Link to="/home">← Back to Products</Link>
+        <Link to="/home">← Back to Home</Link>
 
         {user ? (
           <>

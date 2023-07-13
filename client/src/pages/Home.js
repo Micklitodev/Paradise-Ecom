@@ -4,10 +4,12 @@ import CategoryMenu from "../components/CategoryMenu";
 import Cart from "../components/Cart";
 import Nav from "../components/Nav";
 import Auth from "../utils/auth";
+import NotVerifiedBar from "../components/NotVerifiedBar";
 
 const Home = () => {
   const token = localStorage.getItem("id_token");
   Auth.isTokenExpired(token);
+
   if (Auth.isAdmin()) {
     return (
       <>
@@ -19,8 +21,14 @@ const Home = () => {
           alt="header of delta 8 chemical structure."
           style={{ width: "100vw", borderRadius: 0 }}
         />
-        <div style={{display: "grid", placeItems: "center", marginTop: 200}}>
-          <h1 style={{ textTransform: "uppercase", fontSize: 80, fontWeight: 900 }}>
+        <div style={{ display: "grid", placeItems: "center", marginTop: 200 }}>
+          <h1
+            style={{
+              textTransform: "uppercase",
+              fontSize: 80,
+              fontWeight: 900,
+            }}
+          >
             {" "}
             admin portal{" "}
           </h1>
@@ -38,6 +46,7 @@ const Home = () => {
           alt="header of delta 8 chemical structure."
           style={{ width: "100vw", borderRadius: 0 }}
         />
+        {Auth.isVerified() ? "" : <NotVerifiedBar />}
         <div className="container">
           <CategoryMenu />
           <ProductList />

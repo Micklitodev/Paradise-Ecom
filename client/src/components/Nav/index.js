@@ -3,25 +3,18 @@ import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 
 function Nav() {
-
   function showNavigation() {
     if (Auth.isAdmin()) {
       return (
         <ul className="flex-row center">
           <li className="mx-1">
-            <Link to="/adminorderview">
-              View Orders
-            </Link>
+            <Link to="/adminorderview">View Orders</Link>
           </li>
           <li className="mx-1">
-            <Link to="/manageproducts">
-              Manage Products
-            </Link>
+            <Link to="/manageproducts">Manage Products</Link>
           </li>
           <li className="mx-1">
-            <Link to="/verifusers">
-              Verify Users
-            </Link>
+            <Link to="/verifusers">Verify Users</Link>
           </li>
           <li className="mx-1">
             <Link to="/" onClick={() => Auth.logout()}>
@@ -34,46 +27,37 @@ function Nav() {
       return (
         <ul className="flex-row center">
           <li className="mx-1">
-            <Link to="/orderHistory">
-              Order History
-            </Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li className="mx-1">
-            <a href="/" onClick={() => Auth.logout()}>
+            <Link href="/" onClick={() => Auth.logout()}>
               Logout
-            </a>
+            </Link>
           </li>
         </ul>
       );
     } else if (!Auth.loggedIn()) {
-      return (      
+      return (
         <ul className="flex-row center">
           <li className="mx-2">
-            <Link to="/signup"  className="leftnav">
+            <Link to="/signup" className="leftnav">
               Signup
             </Link>
           </li>
           <li className="mx-1">
-            <Link to="/login">
-              Login
-            </Link>
+            <Link to="/login">Login</Link>
           </li>
         </ul>
       );
-    } 
+    }
   }
 
   return (
-  
     <header className="flex-row px-1">
       <h1>
-        <Link to="/home">
-          Paradise
-        </Link>
+        <Link to="/home">Paradise</Link>
       </h1>
-      <nav>
-        {showNavigation()}
-      </nav>
+      <nav>{showNavigation()}</nav>
     </header>
   );
 }

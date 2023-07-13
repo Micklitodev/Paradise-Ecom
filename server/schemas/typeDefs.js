@@ -29,6 +29,7 @@ const typeDefs = gql`
     lastName: String
     email: String
     isAdmin: Boolean
+    isVerified: Boolean
     orders: [Order]
   }
 
