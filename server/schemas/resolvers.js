@@ -160,6 +160,14 @@ const resolvers = {
         { new: true }
       );
     },
+    delProduct: async (parent, args, context) => {
+      if (context.user.isAdmin !== true) {
+        throw new AuthenticationError("Not authorized to view this page.");
+      }
+
+      const product = Product.findByIdAndRemove(args._id);
+      return product;
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 

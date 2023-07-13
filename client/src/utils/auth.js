@@ -1,4 +1,4 @@
-import decode from 'jwt-decode';
+import decode from "jwt-decode";
 
 class AuthService {
   getProfile() {
@@ -15,6 +15,8 @@ class AuthService {
     try {
       const decoded = decode(token);
       if (decoded.exp < Date.now() / 1000) {
+        localStorage.removeItem("id_token");
+        window.location.assign('/')
         return true;
       } else return false;
     } catch (err) {
@@ -26,9 +28,11 @@ class AuthService {
     try {
       const token = this.getToken();
       const decoded = decode(token);
-      if (decoded.data.isAdmin == true) {
+      if (decoded.data.isAdmin === true) {
         return true;
-      } else {return false;}
+      } else {
+        return false;
+      }
     } catch (err) {
       return false;
     }
@@ -36,21 +40,21 @@ class AuthService {
 
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token');
+    return localStorage.getItem("id_token");
   }
 
   login(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken);
+    localStorage.setItem("id_token", idToken);
 
-    window.location.assign('/home');
+    window.location.assign("/home");
   }
 
   logout() {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
+    localStorage.removeItem("id_token");
     // this will reload the page and reset the state of the application
-    window.location.assign('/');
+    window.location.assign("/");
   }
 }
 

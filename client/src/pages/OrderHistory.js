@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Auth from "../utils/auth"
 
 import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
 
 function OrderHistory() {
+  const token = localStorage.getItem('id_token');
+  Auth.isTokenExpired(token)
+  
   const { data } = useQuery(QUERY_USER);
   let user;
 

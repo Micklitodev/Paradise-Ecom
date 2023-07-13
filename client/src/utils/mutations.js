@@ -59,7 +59,7 @@ export const ADD_PRODUCT = gql`
     $quantity: Int
     $price: Float
   ) {
-    addProduct( 
+    addProduct(
       name: $name
       category: $category
       description: $description
@@ -72,6 +72,15 @@ export const ADD_PRODUCT = gql`
       name
       price
       quantity
+    }
+  }
+`;
+
+export const DEL_PRODUCT = gql`
+  mutation delProduct($id: ID!) {
+    delProduct(_id: $id) {
+      _id
+      name
     }
   }
 `;

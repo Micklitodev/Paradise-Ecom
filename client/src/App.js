@@ -20,6 +20,7 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 import AdminOrderView from './pages/AdminViewOrders';
+import AdminDetail from './pages/AdminDetail';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -75,23 +76,31 @@ function App() {
                 path="/products/:id" 
                 element={<Detail />} 
               />
+              {/* admin tools  */}
+              <Route 
+               path='/ManageProducts'
+               element={<ManageProducts /> }
+              />
+              <Route 
+               path='/VerifUsers'
+               element={<VerifUsers /> }
+              />
+              <Route 
+              path='/AdminOrderView'
+              element={<AdminOrderView />}
+              /> 
+              <Route 
+                path="/order/:id" 
+                element={<AdminDetail/>} 
+              />
+
+
+
+
               <Route
                 path="*" 
                 element={<NoMatch />} 
               />
-              {/* admin tools  */}
-              <Route 
-               path='ManageProducts'
-               element={<ManageProducts /> }
-              />
-                 <Route 
-               path='VerifUsers'
-               element={<VerifUsers /> }
-              />
-              <Route 
-              path='AdminOrderView'
-              element={<AdminOrderView />}
-    /> 
             </Routes>
           </StoreProvider>
         </div>
