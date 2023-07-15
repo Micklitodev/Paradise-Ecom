@@ -118,7 +118,7 @@ const LandingPage = () => {
   return (
     <>
       <div className="container2">
-        <h1> Paradise Hemp Co. </h1>
+        <h1> Paradise Dispensery. </h1>
       </div>
       <div className="landingP">
         <button onClick={handleClick} className="landingBtn"> Visit Site </button>

@@ -2,11 +2,11 @@
 
 :root {
   --primary: #2b2b2b;
-  --secondary: rgb(174, 237, 164);
-  --tertiary: #cbe9a8;
-  --light: #c0e888;
-  --dark: #a4b571;
-  --error: rgb(228, 46, 1);
+  --secondary: rgb(77, 77, 77);
+  --tertiary: #565656;
+  --light: #a7a7a7;
+  --dark: #444444;
+  --error: rgba(228, 46, 1, 0.792);
   --spacing-one: calc(1rem * 0.5);
   --spacing-two: calc(1rem);
 }
@@ -18,7 +18,7 @@
 html,
 body {
   min-height: 100%;
-  background-color: rgb(24, 24, 24);
+  background-color: rgb(244, 244, 244);
 }
 
 body {
@@ -87,6 +87,7 @@ a:hover {
 }
 
 header {
+  z-index: 2; 
   background: var(--primary);
   position: fixed;
   width: 100vw;
@@ -173,7 +174,7 @@ form {
 }
 
 .borderwrap {
-  border: solid 1px var(--secondary);
+  background-color: white; 
   border-radius: 5px;
   display: grid;
   place-items: center;
@@ -182,9 +183,12 @@ form {
 }
 
 .unverifiedbar {
-  z-index: 2; 
+  z-index: 1; 
+  margin-top: 6px;
   background-color: red;
   opacity: .8;
+  text-align: center;
+  color: rgb(15, 15, 15);
 }
 
 input {

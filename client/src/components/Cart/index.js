@@ -47,9 +47,9 @@ const Cart = () => {
   }
 
   function submitCheckout() {
-    if(!Auth.isVerified()) {
-      return alert('Your Account must be verified first. ')
-    }
+    // if(!Auth.isVerified()) {
+    //   return alert('Your Account must be verified first. ')
+    // }
     
     const productIds = [];
 

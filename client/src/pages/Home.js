@@ -17,8 +17,8 @@ const Home = () => {
         <br />
         <br />
         <img
-          src="./images/deltaheader.png"
-          alt="header of delta 8 chemical structure."
+          src="./images/delta8header.png"
+          alt="header of delta 8."
           style={{ width: "100vw", borderRadius: 0 }}
         />
         <div style={{ display: "grid", placeItems: "center", marginTop: 200 }}>
@@ -41,12 +41,13 @@ const Home = () => {
         <Nav />
         <br />
         <br />
+        {Auth.loggedIn() ?  Auth.isVerified() ? "" : <NotVerifiedBar /> : console.log('false')}
+       
         <img
-          src="./images/deltaheader.png"
-          alt="header of delta 8 chemical structure."
+          src="./images/delta8header.png"
+          alt="header of delta 8."
           style={{ width: "100vw", borderRadius: 0 }}
         />
-        {Auth.isVerified() ? "" : <NotVerifiedBar />}
         <div className="container">
           <CategoryMenu />
           <ProductList />
