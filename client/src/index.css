@@ -87,11 +87,11 @@ a:hover {
 }
 
 header {
-  z-index: 2; 
   background: var(--primary);
   position: fixed;
   width: 100vw;
   top: 0;
+  z-index: 1;
 }
 
 header a {
@@ -185,10 +185,12 @@ form {
 .unverifiedbar {
   z-index: 1; 
   margin-top: 6px;
-  background-color: red;
+  background-color: rgba(237, 52, 52, 0.898);
   opacity: .8;
   text-align: center;
   color: rgb(15, 15, 15);
+  width: 100vw; 
+  position: fixed; 
 }
 
 input {
