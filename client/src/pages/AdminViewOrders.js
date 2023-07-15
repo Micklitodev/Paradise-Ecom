@@ -24,7 +24,7 @@ const AdminOrderView = () => {
 
         <div>
           {data.adminOrderView.map((order) => (
-            <div key={order._id}>
+            <div key={order._id} className="container">
               <a href={"order/" + order._id}>
                 <h3>Order ID: {order._id}</h3>
                 <p>Purchase Date: {order.purchaseDate}</p>

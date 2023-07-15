@@ -1,8 +1,8 @@
 import React from "react";
 import Auth from "../utils/auth";
 import Nav from "../components/Nav";
-import AdminProdAdd from '../components/AdminProdAdd';
-import AdminProdDel from '../components/AdminProdDel';
+import AdminProdAdd from "../components/AdminProdAdd";
+import AdminProdDel from "../components/AdminProdDel";
 
 const ManageProducts = () => {
   const token = localStorage.getItem("id_token");
@@ -20,9 +20,9 @@ const ManageProducts = () => {
           You're authorized to manage products additional checks will be made at
           server level.{" "}
         </div>
-        <div>
+        <div className="container">
           <AdminProdAdd />
-          <AdminProdDel /> 
+          <AdminProdDel />
         </div>
       </>
     );

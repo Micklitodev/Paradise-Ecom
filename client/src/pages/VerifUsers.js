@@ -37,7 +37,7 @@ const VerifUsers = () => {
           You're authorized to view all orders additional checks will be made at
           server level.{" "}
         </div>
-        <div className="borderwrap">
+        <div className="borderwrap container">
           {data.map((user, index) => (
             <div key={index} value={user._id}>
               <h1>

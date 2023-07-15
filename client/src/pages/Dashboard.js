@@ -14,7 +14,7 @@ const Dashboard = () => {
         style={{
           display: "grid",
           placeItems: "center",
-          fontSize: 40,
+          fontSize: 30,
           textTransform: "uppercase",
           fontWeight: 900,
         }}
@@ -25,13 +25,14 @@ const Dashboard = () => {
       <div>
         <OrderHistory />
         {!Auth.isVerified() ? (
-          <div className="borderwrap">
+          <div className="borderwrap container">
             {" "}
             <VerifForm />{" "}
           </div>
         ) : (
           ""
         )}
+        <br/> 
       </div>
     </>
   );

@@ -21,7 +21,7 @@ const Home = () => {
           alt="header of delta 8."
           style={{ width: "100vw", borderRadius: 0 }}
         />
-        <div style={{ display: "grid", placeItems: "center", marginTop: 200 }}>
+        <div style={{ display: "grid", placeItems: "center", marginTop: 50 }}>
           <h1
             style={{
               textTransform: "uppercase",
@@ -33,6 +33,9 @@ const Home = () => {
             admin portal{" "}
           </h1>
         </div>
+        <br/> 
+        <br/> 
+        <br/> 
       </>
     );
   } else {
@@ -42,7 +45,6 @@ const Home = () => {
         <br />
         <br />
         {Auth.loggedIn() ?  Auth.isVerified() ? "" : <NotVerifiedBar /> : console.log('false')}
-       
         <img
           src="./images/delta8header.png"
           alt="header of delta 8."
