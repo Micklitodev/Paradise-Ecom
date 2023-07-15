@@ -30,6 +30,8 @@ const typeDefs = gql`
     email: String
     isAdmin: Boolean
     isVerified: Boolean
+    idFront: String
+    idBack: String
     orders: [Order]
   }
 
@@ -50,15 +52,18 @@ const typeDefs = gql`
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
     adminOrderView: [User]
+    queryUserAdmin: [User]
   }
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     addOrder(products: [ID]!): Order
     updateUser(firstName: String, lastName: String, email: String, password: String): User
+    userVerifAdmin(_id: ID!, action: String!): User
     addProduct(name: String, category: String, description: String, image: String, quantity: Int, price: Float): Product
     updateProduct(_id: ID!, quantity: Int!): Product
     delProduct(_id: ID!): Product
+    idUpload(idFront: String!, idBack: String!): User
     login(email: String!, password: String!): Auth
   }
 `;

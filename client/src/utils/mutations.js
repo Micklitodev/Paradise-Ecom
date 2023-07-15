@@ -84,3 +84,26 @@ export const DEL_PRODUCT = gql`
     }
   }
 `;
+
+export const ID_UPLOAD = gql`
+  mutation idUpload($idFront: String!, $idBack: String!) {
+    idUpload(idFront: $idFront, idBack: $idBack) {
+      _id
+      idFront
+      idBack
+      isVerified
+      firstName
+      lastName
+    }
+  }
+`;
+
+export const USER_VERIF_ADMIN = gql`
+  mutation userVerifAdmin($id: ID!, $action: String!) {
+    userVerifAdmin(_id: $id, action: $action) {
+      isVerified
+      firstName
+      lastName
+    }
+  }
+`;

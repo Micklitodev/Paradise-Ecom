@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Auth from "../../utils/auth";
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
-// import { useMutation } from "@apollo/client";
-// import { UPLOAD_ID } from "../../utils/mutations";
+import { useMutation } from "@apollo/client";
+import { ID_UPLOAD } from "../../utils/mutations";
 
 const VerifForm = () => {
   const [formState, setFormState] = useState({ idFront: "", idBack: "" });
+
+  const [idUpload] = useMutation(ID_UPLOAD);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -18,21 +20,22 @@ const VerifForm = () => {
       const bucket = "paradise-hemp-imgbucket";
       const dir = "idphotos";
 
-      const { idFront } = formState;
+      const { idFront, idBack } = formState;
 
       const variables = {
         idFront: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${idFront.name}?alt=media`,
+        idBack: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${idBack.name}?alt=media`,
       };
 
-      console.log(variables)
+      console.log(variables);
 
-      // const { data } = await uploadId({
-      //   variables,
-      // });
+      const { data } = await idUpload({
+        variables,
+      });
 
-      // if (!data) {
-      //   throw new Error("Something went wrong!");
-      // }
+      if (!data) {
+        throw new Error("Something went wrong!");
+      }
 
       console.log(formState);
     } catch (e) {
@@ -49,8 +52,13 @@ const VerifForm = () => {
   };
 
   const fileUploadHandler = async () => {
-    const imageRef = ref(storage, `idphotos/${formState.idFront.name}`);
-    await uploadBytes(imageRef, formState.idFront).then((res) => {
+    const idFrontRef = ref(storage, `idphotos/${formState.idFront.name}`);
+    const idBackRef = ref(storage, `idphotos/${formState.idBack.name}`);
+
+    const idFrontUpload = uploadBytes(idFrontRef, formState.idFront);
+    const idBackUpload = uploadBytes(idBackRef, formState.idBack);
+
+    await Promise.all([idFrontUpload, idBackUpload]).then((res) => {
       console.log(res);
     });
   };

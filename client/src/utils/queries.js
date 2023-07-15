@@ -74,8 +74,8 @@ export const ADMIN_ORDER_VIEW = gql`
     adminOrderView {
       firstName
       lastName
-       email
-       _id
+      email
+      _id
       orders {
         _id
         purchaseDate
@@ -86,6 +86,19 @@ export const ADMIN_ORDER_VIEW = gql`
           _id
         }
       }
+    }
+  }
+`;
+
+export const QUERY_USER_ADMIN = gql`
+  query Query {
+    queryUserAdmin {
+      _id
+      firstName
+      lastName
+      idFront
+      idBack
+      isVerified
     }
   }
 `;

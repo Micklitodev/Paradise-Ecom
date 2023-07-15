@@ -43,7 +43,7 @@ const resolvers = {
     },
     adminOrderView: async (parent, args, context) => {
       if (context.user.isAdmin !== true) {
-        throw new AuthenticationError("Not authorized to view this page.");
+        throw new AuthenticationError("Not authorized to make this action.");
       }
 
       try {
@@ -53,6 +53,17 @@ const resolvers = {
           .sort({ purchaseDate: -1 });
 
         return orders;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    queryUserAdmin: async (parent, args, context) => {
+      if (context.user.isAdmin !== true) {
+        throw new AuthenticationError("Not authorized to make this action.");
+      }
+      try {
+        const user = User.find().select("-_V -password");
+        return user;
       } catch (err) {
         console.log(err);
       }
@@ -136,6 +147,38 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+
+    idUpload: async (parent, args, context) => {
+      if (context.user) {
+        try {
+          const user = await User.findById(context.user._id);
+          user.idFront = args.idFront;
+          user.idBack = args.idBack;
+          const updatedUser = await user.save();
+          return updatedUser;
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    },
+    userVerifAdmin: async (parent, args, context) => {
+      if (context.user.isAdmin === false) {
+        throw new AuthenticationError("Must be Admin to make this Request");
+      }
+      try {
+        const user = await User.findById(args._id).select("-_v -password");
+        if(args.action === 'accept') {
+          user.isVerified = true 
+        }
+          user.idFront = ''
+          user.idBack = ''
+          const updatedUser = await user.save()
+          return updatedUser; 
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     addProduct: async (parent, args, context) => {
       if (context.user.isAdmin === true) {
         try {

@@ -29,7 +29,14 @@ const userSchema = new Schema({
     type: Boolean
   },
   isVerified: {
-    type: Boolean
+    type: Boolean,
+    default: false
+  },
+  idFront: {
+    type: String
+  },
+  idBack: {
+    type: String
   },
   orders: [Order.schema]
 });
