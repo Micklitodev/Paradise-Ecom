@@ -42,18 +42,17 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     adminOrderView: async (parent, args, context) => {
-      if (!context.user.isAdmin) {
-        throw new AuthenticationError("Not authorized to make this action.");
-      }
+      // if (!context.user.isAdmin) {
+      //   throw new AuthenticationError("Not authorized to make this action.");
+      // }
 
       try {
-        const orders = await Order.find();
-        //   .populate({
-        //   path: "products",
-        //   populate: { path: "user", select: "firstName lastName" },
-        // });
+        const orders = await Order.find(); 
 
         console.log(orders);
+        return orders; 
+
+  
       } catch (err) {
         console.log(err);
         throw new Error("An error occurred while fetching the data.");
@@ -115,6 +114,8 @@ const resolvers = {
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${url}/`,
       });
+
+      await order.save();
 
       return { session: session.id };
     },

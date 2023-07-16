@@ -1,5 +1,5 @@
 const db = require('./connection');
-const { User, Product, Category } = require('../models');
+const { User, Product, Category, Order} = require('../models');
 
 db.once('open', async () => {
   await Category.deleteMany();
@@ -92,6 +92,7 @@ db.once('open', async () => {
   console.log('products seeded');
 
   await User.deleteMany();
+  await Order.deleteMany()
 
   await User.create({
     firstName: 'Admin',

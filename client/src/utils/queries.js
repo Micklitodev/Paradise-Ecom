@@ -70,24 +70,16 @@ export const QUERY_USER = gql`
 `;
 
 export const ADMIN_ORDER_VIEW = gql`
-  query Query {
-    adminOrderView {
-      firstName
-      lastName
-      email
-      _id
-      orders {
-        _id
-        purchaseDate
-        products {
-          name
-          image
-          price
-          _id
-        }
-      }
+query AdminOrderView {
+  adminOrderView {
+    _id
+    purchaseDate
+    products {
+      price
+      name
     }
   }
+}
 `;
 
 export const QUERY_USER_ADMIN = gql`
