@@ -94,17 +94,12 @@ db.once('open', async () => {
   await User.deleteMany();
 
   await User.create({
-    firstName: 'Pamela',
-    lastName: 'Washington',
+    firstName: 'Admin',
+    lastName: 'Account',
     email: 'admin@test.com',
     password: 'password',
     isAdmin: true, 
     isVerified: true,
-    orders: [
-      {
-        products: [products[0]._id, products[0]._id, products[1]._id]
-      }
-    ]
   });
 
   console.log('users seeded');

@@ -21,21 +21,24 @@ const AdminOrderView = () => {
         <br />
         <br />
         <br />
-
-        <div>
-          {data.adminOrderView.map((order) => (
-            <div key={order._id} className="container">
-              <a href={"order/" + order._id}>
-                <h3>Order ID: {order._id}</h3>
-                <p>Purchase Date: {order.purchaseDate}</p>
-                <p>
-                  User: {order.firstName} {order.lastName}
-                </p>
-              </a>
-              <hr />
-            </div>
-          ))}
-        </div>
+        {data.adminOrderView !== null ? (
+          <div>
+            {data.adminOrderView?.map((order) => (
+              <div key={order._id} className="container">
+                <a href={"order/" + order._id}>
+                  <h3>Order ID: {order._id}</h3>
+                  <p>Purchase Date: {order.purchaseDate}</p>
+                  <p>
+                    User: {order.firstName} {order.lastName}
+                  </p>
+                </a>
+                <hr />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="container borderwrap"> No Orders Yet!!! </div>
+        )}
       </>
     );
   } else {

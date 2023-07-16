@@ -42,19 +42,21 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     adminOrderView: async (parent, args, context) => {
-      if (context.user.isAdmin !== true) {
+      if (!context.user.isAdmin) {
         throw new AuthenticationError("Not authorized to make this action.");
       }
 
       try {
-        const orders = await User.find()
-          .select("-_V -password")
-          .populate({ path: "orders.products", populate: "category" })
-          .sort({ purchaseDate: -1 });
+        const orders = await Order.find();
+        //   .populate({
+        //   path: "products",
+        //   populate: { path: "user", select: "firstName lastName" },
+        // });
 
-        return orders;
+        console.log(orders);
       } catch (err) {
         console.log(err);
+        throw new Error("An error occurred while fetching the data.");
       }
     },
     queryUserAdmin: async (parent, args, context) => {
@@ -167,13 +169,13 @@ const resolvers = {
       }
       try {
         const user = await User.findById(args._id).select("-_v -password");
-        if(args.action === 'accept') {
-          user.isVerified = true 
+        if (args.action === "accept") {
+          user.isVerified = true;
         }
-          user.idFront = ''
-          user.idBack = ''
-          const updatedUser = await user.save()
-          return updatedUser; 
+        user.idFront = "";
+        user.idBack = "";
+        const updatedUser = await user.save();
+        return updatedUser;
       } catch (err) {
         console.log(err);
       }
