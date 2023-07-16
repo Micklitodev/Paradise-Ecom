@@ -44,7 +44,6 @@ const Home = () => {
         <Nav />
         <br />
         <br />
-        {console.log(Auth.isVerified())}
         {Auth.loggedIn() ?  Auth.isVerified() ? "" : <NotVerifiedBar /> : console.log('false')}
         <img
           src="./images/delta8header.png"

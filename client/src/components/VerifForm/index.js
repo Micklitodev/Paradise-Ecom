@@ -7,6 +7,7 @@ import { ID_UPLOAD } from "../../utils/mutations";
 
 const VerifForm = () => {
   const [formState, setFormState] = useState({ idFront: "", idBack: "" });
+  const [submitted, setSubmitted] = useState(false);
 
   const [idUpload] = useMutation(ID_UPLOAD);
 
@@ -42,7 +43,7 @@ const VerifForm = () => {
       console.log(e);
     } finally {
       setFormState({ idFront: "", idBack: "" });
-      // window.location.assign("/dashboard");
+      setSubmitted(true)
     }
   };
 
@@ -63,7 +64,7 @@ const VerifForm = () => {
     });
   };
 
-  if (!Auth.isVerified()) {
+  if (!Auth.isVerified() && !submitted) {
     return (
       <>
         <div className="container my-1">
@@ -100,6 +101,8 @@ const VerifForm = () => {
         </div>
       </>
     );
+  } else if(submitted) {
+    return <div> Submitted Please Wait for Review! </div>;
   } else {
     return <div>Your account has already been verified.</div>;
   }

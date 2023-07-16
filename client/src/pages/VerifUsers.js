@@ -35,6 +35,8 @@ const VerifUsers = () => {
       console.log(data);
     } catch (err) {
       console.log(err);
+    } finally {
+      window.location.assign("/verifusers");
     }
   };
 
@@ -52,6 +54,8 @@ const VerifUsers = () => {
       console.log(data);
     } catch (err) {
       console.log(err);
+    } finally {
+      window.location.assign("/verifusers");
     }
   };
 
@@ -68,20 +72,25 @@ const VerifUsers = () => {
           server level.{" "}
         </div>
         <div className="borderwrap container">
-          {filteredUser?.map((user, index) => (
-            <div key={index} value={user._id}>
-              <h1>
-                {" "}
-                {user.firstName} {user.lastName}{" "}
-              </h1>
-              <p> {user._id} </p>
-              <img src={user.idFront} alt="" style={{ maxHeight: 200 }} />
-              <img src={user.idBack} alt="" style={{ maxHeight: 200 }} />
-              <br />
-              <button onClick={handleReject}> Reject </button>
-              <button onClick={handleAccept}> Accept </button>
-            </div>
-          ))}
+          {!filteredUser?.length ? (
+            <div> No users to verify now. </div>
+          ) : (
+            filteredUser?.map((user, index) => (
+              <div key={index} value={user._id}>
+                <h1>
+                  {" "}
+                  {user.firstName} {user.lastName}{" "}
+                </h1>
+                <p> {user._id} </p>
+                <img src={user.idFront} alt="" style={{ maxHeight: 200 }} />
+                <img src={user.idBack} alt="" style={{ maxHeight: 200 }} />
+                <br />
+                <button onClick={handleReject}> Reject </button>
+                <button onClick={handleAccept}> Accept </button>
+              </div>
+            ))
+          )}
+
           <br />
         </div>
       </>
