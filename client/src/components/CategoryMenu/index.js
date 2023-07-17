@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
-import { useStoreContext } from '../../utils/GlobalState';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { useStoreContext } from "../../utils/GlobalState";
 import {
   UPDATE_CATEGORIES,
   UPDATE_CURRENT_CATEGORY,
-} from '../../utils/actions';
-import { QUERY_CATEGORIES } from '../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
+} from "../../utils/actions";
+import { QUERY_CATEGORIES } from "../../utils/queries";
+import { idbPromise } from "../../utils/helpers";
 
 function CategoryMenu() {
   const [state, dispatch] = useStoreContext();
@@ -22,10 +23,10 @@ function CategoryMenu() {
         categories: categoryData.categories,
       });
       categoryData.categories.forEach((category) => {
-        idbPromise('categories', 'put', category);
+        idbPromise("categories", "put", category);
       });
     } else if (!loading) {
-      idbPromise('categories', 'get').then((categories) => {
+      idbPromise("categories", "get").then((categories) => {
         dispatch({
           type: UPDATE_CATEGORIES,
           categories: categories,
@@ -43,20 +44,27 @@ function CategoryMenu() {
 
   return (
     <div >
-      <h2>Categories:</h2>
+      <h2 style={{textAlign: 'center'}}>Categories</h2>
+      <hr />
       {categories.map((item) => (
-        <button style={{marginLeft: 10}}
+        <Link
+          style={{ marginLeft: 10, display: 'inline-block' }}
           key={item._id}
-          href={`/products/${item.name}`}
+          to={`/products/categories/${item.name}`}
           onClick={() => {
             handleClick(item._id);
           }}
         >
-        <img src={`./images/${item.image}`} alt='categoryimg' style={{maxHeight: 200, width: 250}}/>
-        <br /> 
-          {item.name}
-        </button>
+          <img
+            src={`./images/${item.image}`}
+            alt="categoryimg"
+            style={{ maxHeight: 200, width: 250 }}
+          />
+          <br />
+          <p style={{textAlign: 'center'}}> {item.name} </p>
+        </Link>
       ))}
+      <hr />
     </div>
   );
 }

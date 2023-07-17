@@ -21,6 +21,8 @@ import Success from './pages/Success';
 import AdminOrderView from './pages/AdminViewOrders';
 import AdminDetail from './pages/AdminDetail';
 import Dashboard from './pages/Dashboard';
+import ProductCata from './components/ProductsCata'
+import Footer from './components/Footer';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -76,6 +78,11 @@ function App() {
                 path="/products/:id" 
                 element={<Detail />} 
               />
+              <Route 
+                path="/products/categories/:id"
+                element={<ProductCata />}
+              />
+
               {/* admin tools  */}
               <Route 
                path='/ManageProducts'
@@ -95,13 +102,14 @@ function App() {
               />
 
 
-
+  
 
               <Route
                 path="*" 
                 element={<NoMatch />} 
               />
             </Routes>
+            <Footer />
           </StoreProvider>
         </div>
       </Router>
