@@ -21,41 +21,45 @@ const VerifUsers = () => {
   }
 
   const handleAccept = (e) => {
-    const target = e.target.parentNode;
-    try {
-      console.log("accepted user:", target.getAttribute("value"));
+    if (window.confirm("Are you sure you want to reject this user?")) {
+      const target = e.target.parentNode;
+      try {
+        console.log("accepted user:", target.getAttribute("value"));
 
-      const id = target.getAttribute("value");
-      const { data } = userVerifAdmin({
-        variables: {
-          action: "accept",
-          id: id,
-        },
-      });
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      window.location.assign("/verifusers");
+        const id = target.getAttribute("value");
+        const { data } = userVerifAdmin({
+          variables: {
+            action: "accept",
+            id: id,
+          },
+        });
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        window.location.assign("/verifusers");
+      }
     }
   };
 
   const handleReject = (e) => {
-    const target = e.target.parentNode;
-    try {
-      console.log("rejected user:", target.getAttribute("value"));
-      const id = target.getAttribute("value");
-      const { data } = userVerifAdmin({
-        variables: {
-          action: "reject",
-          id: id,
-        },
-      });
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      window.location.assign("/verifusers");
+    if (window.confirm("Are you sure you want to reject this user?")) {
+      const target = e.target.parentNode;
+      try {
+        console.log("rejected user:", target.getAttribute("value"));
+        const id = target.getAttribute("value");
+        const { data } = userVerifAdmin({
+          variables: {
+            action: "reject",
+            id: id,
+          },
+        });
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        window.location.assign("/verifusers");
+      }
     }
   };
 

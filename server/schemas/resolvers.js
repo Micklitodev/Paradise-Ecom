@@ -1,7 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Product, Category, Order } = require("../models");
 const { signToken } = require("../utils/auth");
-const { populate } = require("../models/Order");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 
 const resolvers = {
@@ -42,17 +41,15 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     adminOrderView: async (parent, args, context) => {
-      // if (!context.user.isAdmin) {
-      //   throw new AuthenticationError("Not authorized to make this action.");
-      // }
+      if (!context.user.isAdmin) {
+        throw new AuthenticationError("Not authorized to make this action.");
+      }
 
       try {
-        const orders = await Order.find(); 
+        const orders = await Order.find();
 
         console.log(orders);
-        return orders; 
-
-  
+        return orders;
       } catch (err) {
         console.log(err);
         throw new Error("An error occurred while fetching the data.");
@@ -92,7 +89,7 @@ const resolvers = {
         const product = await stripe.products.create({
           name: products[i].name,
           description: products[i].description,
-          images: [`${url}/images/${products[i].image}`],
+          images: [`${products[i].image}`],
         });
 
         const price = await stripe.prices.create({

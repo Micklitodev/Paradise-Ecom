@@ -44,7 +44,7 @@ const Home = () => {
         <Nav />
         <br />
         <br />
-        {Auth.loggedIn() ?  Auth.isVerified() ? "" : <NotVerifiedBar /> : console.log('false')}
+        {Auth.loggedIn() ?  Auth.isVerified() ? "" : <NotVerifiedBar /> : null}
         <img
           src="./images/delta8header.png"
           alt="header of delta 8."

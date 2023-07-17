@@ -102,9 +102,9 @@ const VerifForm = () => {
       </>
     );
   } else if(submitted) {
-    return <div> Submitted Please Wait for Review! </div>;
+    return <div> Submitted, Please Wait for Review! </div>;
   } else {
-    return <div>Your account has already been verified.</div>;
+    return <div>Your account has already been verified!</div>;
   }
 };
 

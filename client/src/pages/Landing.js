@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import Modal from "../components/Modal";
 
 const LandingPage = () => {
+  const [displayModal, setDisplayModal] = useState(false);
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -13,7 +15,7 @@ const LandingPage = () => {
       window.innerWidth / window.innerHeight,
       0.1,
       100
-    ); 
+    );
 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
@@ -24,21 +26,20 @@ const LandingPage = () => {
     camera.position.set(0, 0, -6.5);
 
     const pointLight = new THREE.PointLight(0xffffff, 0.02);
-    pointLight.position.set(-5 , 5 , -15 );
-
+    pointLight.position.set(-5, 5, -15);
 
     const pointLight2 = new THREE.PointLight(0xffffff, 0.02);
-    pointLight2.position.set(-7 , -1 , -10 );
+    pointLight2.position.set(-7, -1, -10);
 
     scene.add(pointLight2);
 
     const pointLight3 = new THREE.PointLight(0xffffff, 0.02);
-    pointLight3.position.set(10 , 1, -18 );
+    pointLight3.position.set(10, 1, -18);
 
     scene.add(pointLight, pointLight2, pointLight3);
 
     const ambiant = new THREE.AmbientLight(0x292929, 0.02);
-    scene.add(ambiant)
+    scene.add(ambiant);
 
     // const lightHelper = new THREE.PointLightHelper(pointLight3);
     // scene.add(lightHelper);
@@ -110,19 +111,24 @@ const LandingPage = () => {
   }, []);
 
   const handleClick = (e) => {
-    if (window.confirm("Are you 21 or older?" )) {
-       window.location.href = '/home'
-    }
-  }
+    setDisplayModal(true);
+  };
 
   return (
     <>
       <div className="container2">
-        <h1> Paradise Dispensery. </h1>
+        <h1> paradise dispensary </h1>
       </div>
       <div className="landingP">
-        <button onClick={handleClick} className="landingBtn"> Visit Site </button>
+        <button onClick={handleClick} className="landingBtn">
+          {" "}
+          Visit Site{" "}
+        </button>
       </div>
+      {displayModal ? (
+        <Modal displayModal={setDisplayModal}/>
+      ) : null}
+
       <canvas ref={canvasRef} />
     </>
   );
