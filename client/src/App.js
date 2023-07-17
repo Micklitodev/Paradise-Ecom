@@ -23,6 +23,7 @@ import AdminDetail from './pages/AdminDetail';
 import Dashboard from './pages/Dashboard';
 import ProductCata from './components/ProductsCata'
 import Footer from './components/Footer';
+import Contact from './pages/Contact';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -82,7 +83,10 @@ function App() {
                 path="/products/categories/:id"
                 element={<ProductCata />}
               />
-
+              <Route 
+                path='/contact' 
+                element={<Contact />}
+              />
               {/* admin tools  */}
               <Route 
                path='/ManageProducts'
