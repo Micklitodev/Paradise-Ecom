@@ -43,28 +43,35 @@ function CategoryMenu() {
   };
 
   return (
-    <div >
-      <h2 style={{textAlign: 'center'}}>Categories</h2>
-      <hr />
-      {categories.map((item) => (
-        <Link
-          style={{ marginLeft: 10, display: 'inline-block' }}
-          key={item._id}
-          to={`/products/categories/${item.name}`}
-          onClick={() => {
-            handleClick(item._id);
-          }}
-        >
-          <img
-            src={`./images/${item.image}`}
-            alt="categoryimg"
-            style={{ maxHeight: 200, width: 250 }}
-          />
-          <br />
-          <p style={{textAlign: 'center'}}> {item.name} </p>
-        </Link>
-      ))}
-      <hr />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div>
+        <h2 style={{ textAlign: "center" }}>Categories</h2>
+        <hr style={{ borderTop: "1px solid #d3d3d3" }} />
+        {categories.map((item) => (
+          <Link
+            style={{ marginLeft: 10, display: "inline-block" }}
+            key={item._id}
+            to={`/products/categories/${item._id}`}
+            onClick={() => {
+              handleClick(item._id);
+            }}
+          >
+            <img
+              src={`./images/${item.image}`}
+              alt="categoryimg"
+              style={{ maxHeight: 270, width: 300 }}
+            />
+            <br />
+            <p style={{ textAlign: "center" }}> {item.name} </p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

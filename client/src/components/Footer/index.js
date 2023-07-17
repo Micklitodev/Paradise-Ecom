@@ -5,8 +5,8 @@ const Footer = () => {
       <div
         style={{
           backgroundColor: "rgb(77, 77, 77)",
-          position: "static",
-          bottom: 0,
+          position: "absolute",
+          bottom: -300,
           width: "100vw",
           color: "#d3d3d3",
           padding: 10,
@@ -17,9 +17,6 @@ const Footer = () => {
           Products sold on this site contain 0.3% THC or less. Products sold on
           this site are derived from Cannabis.
         </p>
-        <Link to='/contact'>
-            Contact
-        </Link>
       </div>
     </>
   );

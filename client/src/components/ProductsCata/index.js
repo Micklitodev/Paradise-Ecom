@@ -3,10 +3,12 @@ import Nav from "../Nav";
 import Cart from "../Cart";
 
 const ProductCata = () => {
-  return (
+  const url = window.location.href 
+  const action = url.split('/').pop()
+    return (
     <>
       <Nav />
-      <ProductList />
+      <ProductList action={action}/>
       <Cart /> 
     </>
   );
