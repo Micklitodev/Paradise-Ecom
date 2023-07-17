@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { useLazyQuery } from '@apollo/client';
-import { QUERY_CHECKOUT } from '../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
-import CartItem from '../CartItem';
-import Auth from '../../utils/auth';
-import { useStoreContext } from '../../utils/GlobalState';
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
-import './style.css';
+import React, { useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useLazyQuery } from "@apollo/client";
+import { QUERY_CHECKOUT } from "../../utils/queries";
+import { idbPromise } from "../../utils/helpers";
+import CartItem from "../CartItem";
+import Auth from "../../utils/auth";
+import { useStoreContext } from "../../utils/GlobalState";
+import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
+import "./style.css";
+import { CiShoppingCart } from "react-icons/ci";
 
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
@@ -25,7 +26,7 @@ const Cart = () => {
 
   useEffect(() => {
     async function getCart() {
-      const cart = await idbPromise('cart', 'get');
+      const cart = await idbPromise("cart", "get");
       dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
     }
 
@@ -47,10 +48,10 @@ const Cart = () => {
   }
 
   function submitCheckout() {
-    if(!Auth.isVerified()) {
-      return alert('Your Account must be verified first.')
+    if (!Auth.isVerified()) {
+      return alert("Your Account must be verified first.");
     }
-    
+
     const productIds = [];
 
     state.cart.forEach((item) => {
@@ -67,13 +68,11 @@ const Cart = () => {
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
-        <span role="img" aria-label="trash">
-          🛒
-        </span>
+        <CiShoppingCart style={{ color: "white", marginLeft: 4 }} />
       </div>
     );
   }
- 
+
   return (
     <div className="cart">
       <div className="close" onClick={toggleCart}>
@@ -97,12 +96,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <h3>
-          <span role="img" aria-label="shocked">
-            😱
-          </span>
-          You haven't added anything to your cart yet!
-        </h3>
+        <h3>You haven't added anything to your cart yet!</h3>
       )}
     </div>
   );

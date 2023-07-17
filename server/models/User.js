@@ -25,6 +25,21 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
+  phone: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String, 
+  }, 
+  zip: {
+    type: Number,
+  }, 
   isAdmin: {
     type: Boolean
   },

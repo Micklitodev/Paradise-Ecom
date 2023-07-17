@@ -47,10 +47,13 @@ function CategoryMenu() {
       {categories.map((item) => (
         <button style={{marginLeft: 10}}
           key={item._id}
+          href={`/products/${item.name}`}
           onClick={() => {
             handleClick(item._id);
           }}
         >
+        <img src={`./images/${item.image}`} alt='categoryimg' style={{maxHeight: 200, width: 250}}/>
+        <br /> 
           {item.name}
         </button>
       ))}

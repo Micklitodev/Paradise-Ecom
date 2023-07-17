@@ -146,8 +146,8 @@ button {
   outline: none;
   cursor: pointer;
   margin: 0 1px;
-  background-color: #2b2b2b;
-  color: var(--secondary);
+  background-color: var(--primary);
+  color: var(--light);
   box-shadow: 1px 1px var(--secondary);
 }
 
@@ -174,7 +174,7 @@ form {
 }
 
 .borderwrap {
-  background-color: white; 
+  background-color: white;
   border-radius: 5px;
   display: grid;
   place-items: center;
@@ -183,14 +183,14 @@ form {
 }
 
 .unverifiedbar {
-  z-index: 1; 
+  z-index: 1;
   margin-top: 6px;
   background-color: rgba(237, 52, 52, 0.898);
-  opacity: .8;
+  opacity: 0.8;
   text-align: center;
   color: rgb(15, 15, 15);
-  width: 100vw; 
-  position: fixed; 
+  width: 100vw;
+  position: fixed;
 }
 
 input {

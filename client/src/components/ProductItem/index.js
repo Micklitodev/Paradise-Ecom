@@ -76,7 +76,7 @@ function ProductItem(item) {
     );
   } else {
     return (
-      <div className="card px-1 py-1">
+      <div className="card px-1 mx-1 py-1 borderwrap">
         <Link to={`/products/${_id}`}>
           <img
             style={{ height: 220, width: 260 }}

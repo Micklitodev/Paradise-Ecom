@@ -5,6 +5,7 @@ const typeDefs = gql`
   type Category {
     _id: ID
     name: String
+    image: String
   }
 
   type Product {
@@ -28,6 +29,11 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
+    phone: String
+    address: String
+    city: String
+    state: String
+    zip: Int
     isAdmin: Boolean
     isVerified: Boolean
     idFront: String
