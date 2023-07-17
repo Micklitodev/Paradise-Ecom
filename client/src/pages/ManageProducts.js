@@ -15,11 +15,6 @@ const ManageProducts = () => {
         <br />
         <br />
         <br />
-        <div>
-          {" "}
-          You're authorized to manage products additional checks will be made at
-          server level.{" "}
-        </div>
         <div className="container">
           <AdminProdAdd />
           <AdminProdDel />

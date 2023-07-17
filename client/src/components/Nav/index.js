@@ -58,6 +58,23 @@ function Nav() {
         <Link to="/home">Paradise</Link>
       </h1>
       <nav>{showNavigation()}</nav>
+      {console.log(`
+            "We only have room
+            for one specimen,       "Let us take the small,
+            Dtlxvr. Which shall      low-decible one, Ftxbp.
+                we take?"               I like peace."
+                           _.-'~~~~'-._   /
+                .       .-~            ~-.         .
+                     .-~   (oo)  (oo)    ~-.
+                    (______//~~//~~ ||_______)
+                _.-~"                         "~-._
+               |O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O|    *
+              |_____________________________________|
+                          x x x x x x x
+                .  *       x_x_x_x_x_x.                  
+                              
+                             DEV: ML.                       
+                                                             `)}
     </header>
   );
 }

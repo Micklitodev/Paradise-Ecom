@@ -89,7 +89,7 @@ const AdminProdAdd = () => {
 
   return (
     <>
-      <div className="borderwrap">
+      <div className="borderwrap container">
         <h1> Add Product </h1>
         <form
           onSubmit={handleSubmit}
