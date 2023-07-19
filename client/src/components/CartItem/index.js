@@ -1,52 +1,48 @@
-import React from 'react';
+import React from "react";
 import { useStoreContext } from "../../utils/GlobalState";
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
+import { BiTrashAlt } from "react-icons/bi";
 
 const CartItem = ({ item }) => {
-
   const [, dispatch] = useStoreContext();
 
-  const removeFromCart = item => {
+  const removeFromCart = (item) => {
     dispatch({
       type: REMOVE_FROM_CART,
-      _id: item._id
+      _id: item._id,
     });
-    idbPromise('cart', 'delete', { ...item });
-
+    idbPromise("cart", "delete", { ...item });
   };
 
   const onChange = (e) => {
     const value = e.target.value;
-    if (value === '0') {
+    if (value === "0") {
       dispatch({
         type: REMOVE_FROM_CART,
-        _id: item._id
+        _id: item._id,
       });
-      idbPromise('cart', 'delete', { ...item });
-
+      idbPromise("cart", "delete", { ...item });
     } else {
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: item._id,
-        purchaseQuantity: parseInt(value)
+        purchaseQuantity: parseInt(value),
       });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: parseInt(value) });
-
+      idbPromise("cart", "put", { ...item, purchaseQuantity: parseInt(value) });
     }
-  }
+  };
 
   return (
     <div className="flex-row">
       <div>
-        <img
-          src={`${item.image}`}
-          alt=""
-        />
+        <img src={`${item.image}`} alt="" />
       </div>
       <div>
-        <div>{item.name}, ${item.price}</div>
         <div>
+          {item.name}, ${item.price}
+        </div>
+        <div style={{ display: "inline" }}>
           <span>Qty:</span>
           <input
             type="number"
@@ -54,17 +50,15 @@ const CartItem = ({ item }) => {
             value={item.purchaseQuantity}
             onChange={onChange}
           />
-          <span
-            role="img"
-            aria-label="trash"
-            onClick={() => removeFromCart(item)}
-          >
-            🗑️
-          </span>
         </div>
+        <BiTrashAlt
+          style={{ position: "relative", top: 3.5 }}
+          size={22}
+          onClick={() => removeFromCart(item)}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

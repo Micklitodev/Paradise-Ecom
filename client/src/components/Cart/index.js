@@ -1,20 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { QUERY_CHECKOUT } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import CartItem from "../CartItem";
 import Auth from "../../utils/auth";
 import { useStoreContext } from "../../utils/GlobalState";
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
-import "./style.css";
 import { CiShoppingCart } from "react-icons/ci";
+import { QUERY_USER } from "../../utils/queries";
+import "./style.css";
+
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+  const [displayForm, setDisplayForm] = useState(false);
+
+  const [shippingAddress, setShippingAddress] = useState({
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
+
+  const { loading, data: data2 } = useQuery(QUERY_USER);
+
+  let user;
+
+  if (!loading) {
+    user = data2;
+  }
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setShippingAddress({ ...shippingAddress, [name]: value });
+  };
 
   useEffect(() => {
     if (data) {
@@ -52,6 +75,10 @@ const Cart = () => {
       return alert("Your Account must be verified first.");
     }
 
+    if (!displayForm) {
+      return alert("Please enter in a shipping address");
+    }
+
     const productIds = [];
 
     state.cart.forEach((item) => {
@@ -64,6 +91,32 @@ const Cart = () => {
       variables: { products: productIds },
     });
   }
+
+  const toggleForm = () => {
+    setDisplayForm(true);
+    const addShipBtn = document.querySelector(".addShip");
+    addShipBtn.style.cssText = "display: none";
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (shippingAddress.street) {
+      try {
+        console.log(shippingAddress);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setShippingAddress({
+          street: "",
+          city: "",
+          state: "",
+          zip: "",
+        });
+        setDisplayForm(false);
+      }
+    }
+  };
 
   if (!state.cartOpen) {
     return (
@@ -85,6 +138,66 @@ const Cart = () => {
             <CartItem key={item._id} item={item} />
           ))}
 
+          <br />
+
+          <p className="container">
+            shipping address:
+            {user.address ? user.address : "no address set"}
+            <button className="addShip" onClick={toggleForm}>
+              Add Shipping Address{" "}
+            </button>
+
+          </p>
+          {displayForm ? (
+            <form onSubmit={handleSubmit} className="container">
+              <input
+                className="formInput"
+                label="street"
+                name="street"
+                placeholder="112 test street"
+                value={shippingAddress.street}
+                onChange={handleInputChange}
+              />
+              <br />
+              <input
+                className="formInput"
+                label="city"
+                name="city"
+                placeholder="Atlanta"
+                value={shippingAddress.city}
+                onChange={handleInputChange}
+              />
+              <br />
+              <input
+                className="formInput"
+                label="state"
+                name="state"
+                placeholder="Georgia"
+                value={shippingAddress.state}
+                onChange={handleInputChange}
+              />
+              <br />
+              <input
+                className="formInput"
+                label="zip"
+                name="zip"
+                placeholder="30041"
+                value={shippingAddress.zip}
+                onChange={handleInputChange}
+              />
+              <br />
+              <button
+                disabled={!shippingAddress.street}
+                type="submit"
+                variant="success"
+                width="w-fit"
+              >
+                Update
+              </button>
+              <br /> <br />
+            </form>
+          ) : null}
+
           <div className="flex-row space-between">
             <strong>Total: ${calculateTotal()}</strong>
 
@@ -96,7 +209,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <h3>You haven't added anything to your cart yet!</h3>
+        <h3>You have not added anything to your cart yet!</h3>
       )}
     </div>
   );
