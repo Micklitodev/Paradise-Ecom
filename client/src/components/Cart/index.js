@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery, useMutation } from "@apollo/client";
 import { QUERY_CHECKOUT } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import CartItem from "../CartItem";
@@ -9,8 +9,8 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
 import { CiShoppingCart } from "react-icons/ci";
 import { QUERY_USER } from "../../utils/queries";
+import { ADD_SHIP_INFO } from "../../utils/mutations";
 import "./style.css";
-
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
@@ -31,8 +31,14 @@ const Cart = () => {
   let user;
 
   if (!loading) {
-    user = data2;
+    user = data2.user;
   }
+
+  if (displayForm) {
+    user = "";
+  }
+
+  const [addShipInfo] = useMutation(ADD_SHIP_INFO);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -75,7 +81,7 @@ const Cart = () => {
       return alert("Your Account must be verified first.");
     }
 
-    if (!displayForm) {
+    if (!user.street) {
       return alert("Please enter in a shipping address");
     }
 
@@ -93,9 +99,10 @@ const Cart = () => {
   }
 
   const toggleForm = () => {
+    user = null;
     setDisplayForm(true);
-    const addShipBtn = document.querySelector(".addShip");
-    addShipBtn.style.cssText = "display: none";
+    const upShipBtn = document.querySelector(".upShip");
+    upShipBtn.style.cssText = "display: none";
   };
 
   const handleSubmit = async (event) => {
@@ -103,7 +110,14 @@ const Cart = () => {
 
     if (shippingAddress.street) {
       try {
-        console.log(shippingAddress);
+        await addShipInfo({
+          variables: {
+            street: shippingAddress.street,
+            city: shippingAddress.city,
+            state: shippingAddress.state,
+            zip: parseInt(shippingAddress.zip),
+          },
+        });
       } catch (err) {
         console.error(err);
       } finally {
@@ -140,63 +154,78 @@ const Cart = () => {
 
           <br />
 
-          <p className="container">
-            shipping address:
-            {user.address ? user.address : "no address set"}
-            <button className="addShip" onClick={toggleForm}>
-              Add Shipping Address{" "}
-            </button>
+          <div className="container">
+            <p>Shipping Address:</p>
+            {user?.street ? (
+              <div>
+                <p style={{ color: "#6499A4" }}>
+                  {user.street} <br /> {user.city}, {user.state} {user.zip}
+                </p>
+                <button className="upShip" onClick={toggleForm}>
+                  Update Shipping Address{" "}
+                </button>
 
-          </p>
-          {displayForm ? (
-            <form onSubmit={handleSubmit} className="container">
-              <input
-                className="formInput"
-                label="street"
-                name="street"
-                placeholder="112 test street"
-                value={shippingAddress.street}
-                onChange={handleInputChange}
-              />
-              <br />
-              <input
-                className="formInput"
-                label="city"
-                name="city"
-                placeholder="Atlanta"
-                value={shippingAddress.city}
-                onChange={handleInputChange}
-              />
-              <br />
-              <input
-                className="formInput"
-                label="state"
-                name="state"
-                placeholder="Georgia"
-                value={shippingAddress.state}
-                onChange={handleInputChange}
-              />
-              <br />
-              <input
-                className="formInput"
-                label="zip"
-                name="zip"
-                placeholder="30041"
-                value={shippingAddress.zip}
-                onChange={handleInputChange}
-              />
-              <br />
-              <button
-                disabled={!shippingAddress.street}
-                type="submit"
-                variant="success"
-                width="w-fit"
-              >
-                Update
-              </button>
-              <br /> <br />
-            </form>
-          ) : null}
+                <br />
+                <br />
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="container">
+                <input
+                  className="formInput"
+                  label="street"
+                  name="street"
+                  placeholder="112 test street"
+                  value={shippingAddress.street}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <input
+                  className="formInput"
+                  label="city"
+                  name="city"
+                  placeholder="Atlanta"
+                  value={shippingAddress.city}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <input
+                  className="formInput"
+                  label="state"
+                  name="state"
+                  placeholder="Georgia"
+                  value={shippingAddress.state}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <input
+                  className="formInput"
+                  label="zip"
+                  name="zip"
+                  placeholder="30041"
+                  value={shippingAddress.zip}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <button
+                  disabled={
+                    !shippingAddress.street ||
+                    !shippingAddress.city ||
+                    !shippingAddress.state ||
+                    !shippingAddress.zip
+                  }
+                  type="submit"
+                  variant="success"
+                  width="w-fit"
+                >
+                  Update
+                </button>
+                <button onClick={() => setDisplayForm(false)} width="w-fit">
+                  Close
+                </button>
+                <br /> <br />
+              </form>
+            )}
+          </div>
 
           <div className="flex-row space-between">
             <strong>Total: ${calculateTotal()}</strong>

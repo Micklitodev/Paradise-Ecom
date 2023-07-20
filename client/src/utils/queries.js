@@ -54,7 +54,7 @@ export const QUERY_USER = gql`
     user {
       firstName
       lastName
-      address
+      street
       city
       state
       zip

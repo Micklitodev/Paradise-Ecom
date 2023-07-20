@@ -107,3 +107,21 @@ export const USER_VERIF_ADMIN = gql`
     }
   }
 `;
+
+export const ADD_SHIP_INFO = gql`
+  mutation addShipInfo(
+    $street: String
+    $city: String
+    $state: String
+    $zip: Int
+  ) {
+    addShipInfo(street: $street, city: $city, state: $state, zip: $zip) {
+      firstName
+      lastName
+      street
+      city
+      state
+      zip
+    }
+  }
+`;

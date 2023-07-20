@@ -147,7 +147,20 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-
+    addShipInfo: async (parent, args, context) => {
+      if (!context.user || !context.user.isVerified) {
+        throw new AuthenticationError("Not logged in or not verified! ");
+      }
+      try {
+        const user = await User.findByIdAndUpdate(context.user._id, args, {
+          new: true,
+        });
+        
+        return user;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     idUpload: async (parent, args, context) => {
       if (context.user) {
         try {

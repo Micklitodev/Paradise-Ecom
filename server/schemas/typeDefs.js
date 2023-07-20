@@ -30,7 +30,7 @@ const typeDefs = gql`
     lastName: String
     email: String
     phone: String
-    address: String
+    street: String
     city: String
     state: String
     zip: Int
@@ -65,6 +65,7 @@ const typeDefs = gql`
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     addOrder(products: [ID]!): Order
     updateUser(firstName: String, lastName: String, email: String, password: String): User
+    addShipInfo(street: String, city: String, state: String, zip: Int): User
     userVerifAdmin(_id: ID!, action: String!): User
     addProduct(name: String, category: String, description: String, image: String, quantity: Int, price: Float): Product
     updateProduct(_id: ID!, quantity: Int!): Product
