@@ -31,7 +31,7 @@ const Cart = () => {
   let user;
 
   if (!loading) {
-    user = data2.user;
+    user = data2?.user;
   }
 
   if (displayForm) {
@@ -68,14 +68,74 @@ const Cart = () => {
     dispatch({ type: TOGGLE_CART });
   }
 
+  const addRet = {
+    total: 0,
+  };
+
   function calculateTotal() {
+    let shipTotal = addRet.total;
     let sum = 0;
     state.cart.forEach((item) => {
       sum += item.price * item.purchaseQuantity;
     });
-    return sum.toFixed(2);
+    let completeTotal = shipTotal + sum;
+
+    return completeTotal.toFixed(2);
   }
 
+  // const Easypost = require('@easypost/api');
+  // const api = new Easypost('<YOUR_TEST/PRODUCTION_API_KEY>');
+
+  // const fromAddress = new api.Address({
+  //   company: 'EasyPost',
+  //   street1: '417 Montgomery Street',
+  //   street2: '5th Floor',
+  //   city: 'San Francisco',
+  //   state: 'CA',
+  //   zip: '94104',
+  //   phone: '415-528-7555',
+  // });
+
+  // fromAddress.save().then(console.log);
+
+  // const toAddress = new api.Address({
+  //   name: 'George Costanza',
+  //   company: 'Vandelay Industries',
+  //   street1: '1 E 161st St.',
+  //   city: 'Bronx',
+  //   state: 'NY',
+  //   zip: '10451',
+  // });
+
+  // toAddress.save().then(console.log);
+
+  // const parcel = new api.Parcel({
+  //   length: 9,
+  //   width: 6,
+  //   height: 2,
+  //   weight: 10,
+  // });
+
+  // parcel.save().then(console.log);
+
+  // const shipment = new api.Shipment({
+  //   to_address: toAddress,
+  //   from_address: fromAddress,
+  //   parcel: parcel,
+  // });
+
+  // shipment.save().then(console.log);
+
+  // shipment.buy(shipment.lowestRate(['USPS'], ['First'])).then(console.log);
+
+  // // or
+
+  // shipment.buy('{RATE_ID}').then(console.log);
+
+  // // If you do not have a saved shipment yet, you must save it first:
+  // shipment.save().then((s) => s.buy(shipment.lowestRate(['USPS'], ['First'])).then(console.log));
+
+  
   function submitCheckout() {
     if (!Auth.isVerified()) {
       return alert("Your Account must be verified first.");
@@ -154,78 +214,80 @@ const Cart = () => {
 
           <br />
 
-          <div className="container">
-            <p>Shipping Address:</p>
-            {user?.street ? (
-              <div>
-                <p style={{ color: "#6499A4" }}>
-                  {user.street} <br /> {user.city}, {user.state} {user.zip}
-                </p>
-                <button className="upShip" onClick={toggleForm}>
-                  Update Shipping Address{" "}
-                </button>
+          {Auth.loggedIn() ? (
+            <div className="container">
+              <p>Shipping Address:</p>
+              {user?.street ? (
+                <div>
+                  <p style={{ color: "#6499A4" }}>
+                    {user.street} <br /> {user.city}, {user.state} {user.zip}
+                  </p>
+                  <button className="upShip" onClick={toggleForm}>
+                    Update Shipping Address{" "}
+                  </button>
 
-                <br />
-                <br />
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="container">
-                <input
-                  className="formInput"
-                  label="street"
-                  name="street"
-                  placeholder="112 test street"
-                  value={shippingAddress.street}
-                  onChange={handleInputChange}
-                />
-                <br />
-                <input
-                  className="formInput"
-                  label="city"
-                  name="city"
-                  placeholder="Atlanta"
-                  value={shippingAddress.city}
-                  onChange={handleInputChange}
-                />
-                <br />
-                <input
-                  className="formInput"
-                  label="state"
-                  name="state"
-                  placeholder="Georgia"
-                  value={shippingAddress.state}
-                  onChange={handleInputChange}
-                />
-                <br />
-                <input
-                  className="formInput"
-                  label="zip"
-                  name="zip"
-                  placeholder="30041"
-                  value={shippingAddress.zip}
-                  onChange={handleInputChange}
-                />
-                <br />
-                <button
-                  disabled={
-                    !shippingAddress.street ||
-                    !shippingAddress.city ||
-                    !shippingAddress.state ||
-                    !shippingAddress.zip
-                  }
-                  type="submit"
-                  variant="success"
-                  width="w-fit"
-                >
-                  Update
-                </button>
-                <button onClick={() => setDisplayForm(false)} width="w-fit">
-                  Close
-                </button>
-                <br /> <br />
-              </form>
-            )}
-          </div>
+                  <br />
+                  <br />
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="container">
+                  <input
+                    className="formInput"
+                    label="street"
+                    name="street"
+                    placeholder="112 test street"
+                    value={shippingAddress.street}
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <input
+                    className="formInput"
+                    label="city"
+                    name="city"
+                    placeholder="Atlanta"
+                    value={shippingAddress.city}
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <input
+                    className="formInput"
+                    label="state"
+                    name="state"
+                    placeholder="Georgia"
+                    value={shippingAddress.state}
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <input
+                    className="formInput"
+                    label="zip"
+                    name="zip"
+                    placeholder="30041"
+                    value={shippingAddress.zip}
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <button
+                    disabled={
+                      !shippingAddress.street ||
+                      !shippingAddress.city ||
+                      !shippingAddress.state ||
+                      !shippingAddress.zip
+                    }
+                    type="submit"
+                    variant="success"
+                    width="w-fit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={() => setDisplayForm(false)} width="w-fit">
+                    Close
+                  </button>
+                  <br /> <br />
+                </form>
+              )}
+            </div>
+          ) : null}
 
           <div className="flex-row space-between">
             <strong>Total: ${calculateTotal()}</strong>
