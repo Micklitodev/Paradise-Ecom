@@ -75,16 +75,16 @@ export const QUERY_USER = gql`
 `;
 
 export const ADMIN_ORDER_VIEW = gql`
-query AdminOrderView {
-  adminOrderView {
-    _id
-    purchaseDate
-    products {
-      price
-      name
+  query AdminOrderView {
+    adminOrderView {
+      _id
+      purchaseDate
+      products {
+        price
+        name
+      }
     }
   }
-}
 `;
 
 export const QUERY_USER_ADMIN = gql`
@@ -97,5 +97,11 @@ export const QUERY_USER_ADMIN = gql`
       idBack
       isVerified
     }
+  }
+`;
+
+export const CALC_SHIP = gql`
+  query CalcShip {
+    calcShip
   }
 `;

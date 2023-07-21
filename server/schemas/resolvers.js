@@ -2,6 +2,8 @@ const { AuthenticationError } = require("apollo-server-express");
 const { User, Product, Category, Order } = require("../models");
 const { signToken } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+const EasyPostClient = require("@easypost/api");
+require('dotenv').config();
 
 const resolvers = {
   Query: {
@@ -77,6 +79,48 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    calcShip: async (parent, args, context) => {
+      const api = process.env.EP_KEY;
+
+      const client = new EasyPostClient(api);
+
+      const user = await User.findById(context.user._id).select(
+        "-_V -password"
+      );
+
+      const shipment = await client.Shipment.create({
+        from_address: {
+          street1: "417 MONTGOMERY ST",
+          street2: "FLOOR 5",
+          city: "SAN FRANCISCO",
+          state: "CA",
+          zip: "94104",
+          country: "US",
+          company: "EasyPost",
+          phone: "415-123-4567",
+        },
+        to_address: {
+          name: `${user.firstName} ${user.lastName}`,
+          street1: user.street,
+          city: user.city,
+          state: user.state,
+          zip: user.zip,
+          country: "US",
+          phone: "4155559999",
+        },
+        parcel: {
+          length: 8,
+          width: 5,
+          height: 5,
+          weight: 5,
+        },
+      });
+
+      return shipment;
+
+      // const boughtShipment = await client.Shipment.buy(shipment.id, shipment.lowestRate(['USPS']));
+      // return boughtShipment;
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
@@ -155,7 +199,7 @@ const resolvers = {
         const user = await User.findByIdAndUpdate(context.user._id, args, {
           new: true,
         });
-        
+
         return user;
       } catch (err) {
         console.log(err);

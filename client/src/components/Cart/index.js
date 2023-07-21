@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery, useQuery, useMutation } from "@apollo/client";
-import { QUERY_CHECKOUT } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import CartItem from "../CartItem";
 import Auth from "../../utils/auth";
@@ -9,7 +8,9 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
 import { CiShoppingCart } from "react-icons/ci";
 import { QUERY_USER } from "../../utils/queries";
+import { QUERY_CHECKOUT } from "../../utils/queries";
 import { ADD_SHIP_INFO } from "../../utils/mutations";
+import { CALC_SHIP } from "../../utils/queries";
 import "./style.css";
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
@@ -26,7 +27,13 @@ const Cart = () => {
     zip: "",
   });
 
-  const { loading, data: data2 } = useQuery(QUERY_USER);
+  const { loading, data: data2, refetch: refetchUser } = useQuery(QUERY_USER);
+
+  const {
+    loading: load,
+    data: rate,
+    refetch: refetchShip,
+  } = useQuery(CALC_SHIP);
 
   let user;
 
@@ -68,73 +75,41 @@ const Cart = () => {
     dispatch({ type: TOGGLE_CART });
   }
 
-  const addRet = {
-    total: 0,
-  };
-
   function calculateTotal() {
-    let shipTotal = addRet.total;
+    let lowestRate = { rate: 0 }; 
+
+    
+  
+    if (!load) {
+      const rates = rate?.calcShip.rates;
+  
+      if (rates && rates.length > 0) {
+  
+        lowestRate = rates.reduce((minRate, currentRate) => {
+          const minRateValue = parseFloat(minRate.rate);
+          const currentRateValue = parseFloat(currentRate.rate);
+  
+          if (currentRateValue < minRateValue) {
+            return currentRate;
+          } else {
+            return minRate;
+          }
+        });
+      }
+    }
+  
+    let shipTotal = parseFloat(lowestRate.rate);
+  
     let sum = 0;
+  
     state.cart.forEach((item) => {
       sum += item.price * item.purchaseQuantity;
     });
+  
     let completeTotal = shipTotal + sum;
-
+  
     return completeTotal.toFixed(2);
   }
-
-  // const Easypost = require('@easypost/api');
-  // const api = new Easypost('<YOUR_TEST/PRODUCTION_API_KEY>');
-
-  // const fromAddress = new api.Address({
-  //   company: 'EasyPost',
-  //   street1: '417 Montgomery Street',
-  //   street2: '5th Floor',
-  //   city: 'San Francisco',
-  //   state: 'CA',
-  //   zip: '94104',
-  //   phone: '415-528-7555',
-  // });
-
-  // fromAddress.save().then(console.log);
-
-  // const toAddress = new api.Address({
-  //   name: 'George Costanza',
-  //   company: 'Vandelay Industries',
-  //   street1: '1 E 161st St.',
-  //   city: 'Bronx',
-  //   state: 'NY',
-  //   zip: '10451',
-  // });
-
-  // toAddress.save().then(console.log);
-
-  // const parcel = new api.Parcel({
-  //   length: 9,
-  //   width: 6,
-  //   height: 2,
-  //   weight: 10,
-  // });
-
-  // parcel.save().then(console.log);
-
-  // const shipment = new api.Shipment({
-  //   to_address: toAddress,
-  //   from_address: fromAddress,
-  //   parcel: parcel,
-  // });
-
-  // shipment.save().then(console.log);
-
-  // shipment.buy(shipment.lowestRate(['USPS'], ['First'])).then(console.log);
-
-  // // or
-
-  // shipment.buy('{RATE_ID}').then(console.log);
-
-  // // If you do not have a saved shipment yet, you must save it first:
-  // shipment.save().then((s) => s.buy(shipment.lowestRate(['USPS'], ['First'])).then(console.log));
-
   
   function submitCheckout() {
     if (!Auth.isVerified()) {
@@ -188,6 +163,9 @@ const Cart = () => {
           zip: "",
         });
         setDisplayForm(false);
+        refetchUser().then(() => {
+          refetchShip();
+        });
       }
     }
   };

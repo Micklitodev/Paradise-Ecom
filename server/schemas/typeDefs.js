@@ -1,6 +1,7 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+scalar JSON
 
   type Category {
     _id: ID
@@ -57,6 +58,7 @@ const typeDefs = gql`
     user: User
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
+    calcShip: JSON
     adminOrderView: [Order]
     queryUserAdmin: [User]
   }
