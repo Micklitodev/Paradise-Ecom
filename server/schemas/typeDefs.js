@@ -57,8 +57,8 @@ scalar JSON
     product(_id: ID!): Product
     user: User
     order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
-    calcShip: JSON
+    checkout(products: [ID]!, shipPrice: Float!): Checkout
+    calcShip(productInt: Int!): JSON
     adminOrderView: [Order]
     queryUserAdmin: [User]
   }

@@ -49,8 +49,6 @@ const resolvers = {
 
       try {
         const orders = await Order.find();
-
-        console.log(orders);
         return orders;
       } catch (err) {
         console.log(err);
@@ -81,11 +79,11 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     calcShip: async (parent, args, context) => {
-      const productList = 2;
-      const length = 2 * productList;
-      const width = 2 * productList;
-      const weight = 0.5 * productList;
-      const height = 2 * productList;
+      await args;
+      const length = 4 * args.productInt;
+      const width = 3.5 * args.productInt;
+      const weight = 1 * args.productInt;
+      const height = 3.5 * args.productInt;
 
       const api = process.env.EP_KEY;
       const client = new EasyPostClient(api);
@@ -127,8 +125,13 @@ const resolvers = {
       // return boughtShipment;
     },
     checkout: async (parent, args, context) => {
+      await args
+      if(args.shipPrice < 0) {
+        throw new AuthenticationError('shipping price was not set.')
+      }
       const url = new URL(context.headers.referer).origin;
       const order = new Order({ products: args.products });
+      const shippingPrice = args.shipPrice * 100;
       const line_items = [];
 
       const { products } = await order.populate("products");
@@ -152,6 +155,18 @@ const resolvers = {
         });
       }
 
+      line_items.push({
+        price_data: {
+          currency: "usd",
+          unit_amount: shippingPrice,
+          product_data: {
+            name: "Shipping",
+            description: "Shipping fee",
+          },
+        },
+        quantity: 1,
+      });
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items,
@@ -173,7 +188,6 @@ const resolvers = {
       return { token, user };
     },
     addOrder: async (parent, { products }, context) => {
-      console.log(context);
       if (context.user) {
         const order = new Order({ products });
 

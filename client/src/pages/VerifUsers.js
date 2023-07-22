@@ -21,7 +21,7 @@ const VerifUsers = () => {
   }
 
   const handleAccept = (e) => {
-    if (window.confirm("Are you sure you want to reject this user?")) {
+    if (window.confirm("Are you sure you want to accept this user?")) {
       const target = e.target.parentNode;
       try {
         console.log("accepted user:", target.getAttribute("value"));

@@ -17,8 +17,8 @@ export const QUERY_PRODUCTS = gql`
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($products: [ID]!) {
-    checkout(products: $products) {
+  query getCheckout($products: [ID]!, $shipPrice: Float!) {
+    checkout(products: $products, shipPrice: $shipPrice) {
       session
     }
   }
@@ -101,7 +101,7 @@ export const QUERY_USER_ADMIN = gql`
 `;
 
 export const CALC_SHIP = gql`
-  query CalcShip {
-    calcShip
+  query Query($productInt: Int!) {
+    calcShip(productInt: $productInt)
   }
 `;

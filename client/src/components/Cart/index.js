@@ -27,11 +27,15 @@ const Cart = () => {
   const [addShipInfo] = useMutation(ADD_SHIP_INFO);
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const { loading, data: data2, refetch: refetchUser } = useQuery(QUERY_USER);
+  const productInt = state.cart.length;
+
   const {
     loading: load,
     data: rate,
     refetch: refetchShip,
-  } = useQuery(CALC_SHIP);
+  } = useQuery(CALC_SHIP, {
+    variables: { productInt },
+  });
 
   let user;
 
@@ -104,7 +108,7 @@ const Cart = () => {
 
   const pricing = calculateTotal();
 
-  function submitCheckout() {
+  async function submitCheckout() {
     if (!Auth.isVerified()) {
       return alert("Your Account must be verified first.");
     }
@@ -112,6 +116,11 @@ const Cart = () => {
     if (!user.street) {
       return alert("Please enter in a shipping address");
     }
+
+    while (load || loading) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+
 
     const productIds = [];
 
@@ -122,7 +131,7 @@ const Cart = () => {
     });
 
     getCheckout({
-      variables: { products: productIds },
+      variables: { products: productIds, shipPrice: pricing[1] },
     });
   }
 
@@ -182,83 +191,83 @@ const Cart = () => {
           {state.cart.map((item) => (
             <CartItem key={item._id} item={item} />
           ))}
-
           <br />
-          <hr />
-
           {Auth.loggedIn() ? (
-            <div className="container">
-              Shipping Address:
-              {user?.street ? (
-                <div>
-                  <p style={{ color: "#6499A4" }}>
-                    {user.street} <br /> {user.city}, {user.state} {user.zip}
-                  </p>
-                  <button className="upShip" onClick={toggleForm}>
-                    Update Shipping Address{" "}
-                  </button>
+            <>
+              <hr />
+              <div className="container">
+                Shipping Address:
+                {user?.street ? (
+                  <div>
+                    <p style={{ color: "#6499A4" }}>
+                      {user.street} <br /> {user.city}, {user.state} {user.zip}
+                    </p>
+                    <button className="upShip" onClick={toggleForm}>
+                      Update Shipping Address{" "}
+                    </button>
 
-                  <br />
-                  <br />
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="container">
-                  <input
-                    className="formInput"
-                    label="street"
-                    name="street"
-                    placeholder="112 test street"
-                    value={shippingAddress.street}
-                    onChange={handleInputChange}
-                  />
-                  <br />
-                  <input
-                    className="formInput"
-                    label="city"
-                    name="city"
-                    placeholder="Atlanta"
-                    value={shippingAddress.city}
-                    onChange={handleInputChange}
-                  />
-                  <br />
-                  <input
-                    className="formInput"
-                    label="state"
-                    name="state"
-                    placeholder="Georgia"
-                    value={shippingAddress.state}
-                    onChange={handleInputChange}
-                  />
-                  <br />
-                  <input
-                    className="formInput"
-                    label="zip"
-                    name="zip"
-                    placeholder="30041"
-                    value={shippingAddress.zip}
-                    onChange={handleInputChange}
-                  />
-                  <br />
-                  <button
-                    disabled={
-                      !shippingAddress.street ||
-                      !shippingAddress.city ||
-                      !shippingAddress.state ||
-                      !shippingAddress.zip
-                    }
-                    type="submit"
-                    variant="success"
-                    width="w-fit"
-                  >
-                    Update
-                  </button>
-                  <button onClick={() => setDisplayForm(false)} width="w-fit">
-                    Close
-                  </button>
-                  <br /> <br />
-                </form>
-              )}
-            </div>
+                    <br />
+                    <br />
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="container">
+                    <input
+                      className="formInput"
+                      label="street"
+                      name="street"
+                      placeholder="112 test street"
+                      value={shippingAddress.street}
+                      onChange={handleInputChange}
+                    />
+                    <br />
+                    <input
+                      className="formInput"
+                      label="city"
+                      name="city"
+                      placeholder="Atlanta"
+                      value={shippingAddress.city}
+                      onChange={handleInputChange}
+                    />
+                    <br />
+                    <input
+                      className="formInput"
+                      label="state"
+                      name="state"
+                      placeholder="Georgia"
+                      value={shippingAddress.state}
+                      onChange={handleInputChange}
+                    />
+                    <br />
+                    <input
+                      className="formInput"
+                      label="zip"
+                      name="zip"
+                      placeholder="30041"
+                      value={shippingAddress.zip}
+                      onChange={handleInputChange}
+                    />
+                    <br />
+                    <button
+                      disabled={
+                        !shippingAddress.street ||
+                        !shippingAddress.city ||
+                        !shippingAddress.state ||
+                        !shippingAddress.zip
+                      }
+                      type="submit"
+                      variant="success"
+                      width="w-fit"
+                    >
+                      Update
+                    </button>
+                    <button onClick={() => setDisplayForm(false)} width="w-fit">
+                      Close
+                    </button>
+                    <br /> <br />
+                  </form>
+                )}
+              </div>
+            </>
           ) : null}
 
           <hr />
@@ -266,16 +275,20 @@ const Cart = () => {
           <div className="flex-row space-between">
             <div>
               <strong> Subtotal: ${pricing[2].toFixed(2)}</strong>
-              <br />
-              <strong> Shipping: ${pricing[1].toFixed(2)}</strong>
-              <br />
-              <strong> Total: ${pricing[0].toFixed(2)}</strong>
-              <br />
+              {Auth.loggedIn() ? (
+                <>
+                  <br />
+                  <strong> Shipping: ${pricing[1].toFixed(2)}</strong>
+                  <br />
+                  <strong> Total: ${pricing[0].toFixed(2)}</strong>
+                  <br />
+                </>
+              ) : null}
             </div>
             {Auth.loggedIn() ? (
               <button onClick={submitCheckout}>Checkout</button>
             ) : (
-              <span>(log in to check out)</span>
+              <a href="/login"> (log in to check out) </a>
             )}
           </div>
         </div>
