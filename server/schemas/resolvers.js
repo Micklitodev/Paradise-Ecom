@@ -81,14 +81,11 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     calcShip: async (parent, args, context) => {
-     const productList  = 2
-     const length = 2 * productList
-     const width = 2 * productList
-     const weight = .5 * productList
-     const height = 2 * productList
-
-     console.log(length, width, height, weight )
-  
+      const productList = 2;
+      const length = 2 * productList;
+      const width = 2 * productList;
+      const weight = 0.5 * productList;
+      const height = 2 * productList;
 
       const api = process.env.EP_KEY;
       const client = new EasyPostClient(api);

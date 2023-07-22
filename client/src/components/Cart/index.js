@@ -7,17 +7,14 @@ import Auth from "../../utils/auth";
 import { useStoreContext } from "../../utils/GlobalState";
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
 import { CiShoppingCart } from "react-icons/ci";
-import { QUERY_USER } from "../../utils/queries";
-import { QUERY_CHECKOUT } from "../../utils/queries";
+import { QUERY_USER, QUERY_CHECKOUT, CALC_SHIP } from "../../utils/queries";
 import { ADD_SHIP_INFO } from "../../utils/mutations";
-import { CALC_SHIP } from "../../utils/queries";
 import "./style.css";
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
-  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const [displayForm, setDisplayForm] = useState(false);
 
   const [shippingAddress, setShippingAddress] = useState({
@@ -27,8 +24,9 @@ const Cart = () => {
     zip: "",
   });
 
+  const [addShipInfo] = useMutation(ADD_SHIP_INFO);
+  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const { loading, data: data2, refetch: refetchUser } = useQuery(QUERY_USER);
-
   const {
     loading: load,
     data: rate,
@@ -40,12 +38,9 @@ const Cart = () => {
   if (!loading) {
     user = data2?.user;
   }
-
   if (displayForm) {
     user = "";
   }
-
-  const [addShipInfo] = useMutation(ADD_SHIP_INFO);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -77,7 +72,6 @@ const Cart = () => {
 
   function calculateTotal() {
     let lowestRate = { rate: 0 };
-
     if (!load) {
       const rates = rate?.calcShip.rates;
 
@@ -96,7 +90,6 @@ const Cart = () => {
     }
 
     let shipTotal = parseFloat(lowestRate.rate);
-
     let sum = 0;
 
     state.cart.forEach((item) => {
@@ -106,7 +99,6 @@ const Cart = () => {
     let completeTotal = shipTotal + sum;
 
     const prices = [completeTotal, shipTotal, sum];
-
     return prices;
   }
 
@@ -143,7 +135,6 @@ const Cart = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (shippingAddress.street) {
       try {
         await addShipInfo({
