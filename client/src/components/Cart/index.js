@@ -76,19 +76,16 @@ const Cart = () => {
   }
 
   function calculateTotal() {
-    let lowestRate = { rate: 0 }; 
+    let lowestRate = { rate: 0 };
 
-    
-  
     if (!load) {
       const rates = rate?.calcShip.rates;
-  
+
       if (rates && rates.length > 0) {
-  
         lowestRate = rates.reduce((minRate, currentRate) => {
           const minRateValue = parseFloat(minRate.rate);
           const currentRateValue = parseFloat(currentRate.rate);
-  
+
           if (currentRateValue < minRateValue) {
             return currentRate;
           } else {
@@ -97,20 +94,24 @@ const Cart = () => {
         });
       }
     }
-  
+
     let shipTotal = parseFloat(lowestRate.rate);
-  
+
     let sum = 0;
-  
+
     state.cart.forEach((item) => {
       sum += item.price * item.purchaseQuantity;
     });
-  
+
     let completeTotal = shipTotal + sum;
-  
-    return completeTotal.toFixed(2);
+
+    const prices = [completeTotal, shipTotal, sum];
+
+    return prices;
   }
-  
+
+  const pricing = calculateTotal();
+
   function submitCheckout() {
     if (!Auth.isVerified()) {
       return alert("Your Account must be verified first.");
@@ -184,6 +185,7 @@ const Cart = () => {
         [close]
       </div>
       <h2>Shopping Cart</h2>
+      <br />
       {state.cart.length ? (
         <div>
           {state.cart.map((item) => (
@@ -191,10 +193,11 @@ const Cart = () => {
           ))}
 
           <br />
+          <hr />
 
           {Auth.loggedIn() ? (
             <div className="container">
-              <p>Shipping Address:</p>
+              Shipping Address:
               {user?.street ? (
                 <div>
                   <p style={{ color: "#6499A4" }}>
@@ -267,9 +270,17 @@ const Cart = () => {
             </div>
           ) : null}
 
-          <div className="flex-row space-between">
-            <strong>Total: ${calculateTotal()}</strong>
+          <hr />
 
+          <div className="flex-row space-between">
+            <div>
+              <strong> Subtotal: ${pricing[2].toFixed(2)}</strong>
+              <br />
+              <strong> Shipping: ${pricing[1].toFixed(2)}</strong>
+              <br />
+              <strong> Total: ${pricing[0].toFixed(2)}</strong>
+              <br />
+            </div>
             {Auth.loggedIn() ? (
               <button onClick={submitCheckout}>Checkout</button>
             ) : (

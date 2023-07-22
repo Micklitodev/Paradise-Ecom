@@ -3,7 +3,7 @@ const { User, Product, Category, Order } = require("../models");
 const { signToken } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const EasyPostClient = require("@easypost/api");
-require('dotenv').config();
+require("dotenv").config();
 
 const resolvers = {
   Query: {
@@ -81,24 +81,31 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     calcShip: async (parent, args, context) => {
+     const productList  = 2
+     const length = 2 * productList
+     const width = 2 * productList
+     const weight = .5 * productList
+     const height = 2 * productList
+
+     console.log(length, width, height, weight )
+  
+
       const api = process.env.EP_KEY;
-
       const client = new EasyPostClient(api);
-
       const user = await User.findById(context.user._id).select(
         "-_V -password"
       );
 
       const shipment = await client.Shipment.create({
         from_address: {
-          street1: "417 MONTGOMERY ST",
-          street2: "FLOOR 5",
-          city: "SAN FRANCISCO",
-          state: "CA",
-          zip: "94104",
+          street1: "14865 HWY 92",
+          street2: "SUITE 5",
+          city: "WOODSTOCK",
+          state: "GA",
+          zip: "30188",
           country: "US",
           company: "EasyPost",
-          phone: "415-123-4567",
+          phone: "(470) 228-5181",
         },
         to_address: {
           name: `${user.firstName} ${user.lastName}`,
@@ -110,10 +117,10 @@ const resolvers = {
           phone: "4155559999",
         },
         parcel: {
-          length: 8,
-          width: 5,
-          height: 5,
-          weight: 5,
+          length: length,
+          width: width,
+          height: height,
+          weight: weight,
         },
       });
 
