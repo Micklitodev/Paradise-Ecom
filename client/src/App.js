@@ -113,7 +113,7 @@ function App() {
                 element={<NoMatch />} 
               />
             </Routes>
-            {/* <Footer /> */}
+           <Footer /> 
           </StoreProvider>
         </div>
       </Router>
