@@ -16,6 +16,22 @@ function CategoryMenu() {
 
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
+  const containerStyles = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "100vh",
+    marginLeft: "2%",
+  };
+
+  const itemStyles = {
+    flex: "0 0 25%",
+    padding: "5px",
+    boxSizing: "border-box",
+    textAlign: "center",
+  };
+
   useEffect(() => {
     if (categoryData) {
       dispatch({
@@ -43,20 +59,12 @@ function CategoryMenu() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div>
-        <h2 style={{ textAlign: "center" }}>Categories</h2>
-        <hr style={{ borderTop: "1px solid #d3d3d3" }} />
-        {categories.map((item) => (
+    <div style={containerStyles}>
+      <h2 style={{ textAlign: "center", width: "100%" }}>Categories</h2>
+      <hr style={{ borderTop: "1px solid #d3d3d3", width: "100%" }} />
+      {categories.map((item) => (
+        <div key={item._id} style={itemStyles}>
           <Link
-            style={{ marginLeft: 10, display: "inline-block" }}
-            key={item._id}
             to={`/products/categories/${item._id}`}
             onClick={() => {
               handleClick(item._id);
@@ -65,13 +73,13 @@ function CategoryMenu() {
             <img
               src={`./images/${item.image}`}
               alt="categoryimg"
-              style={{ maxHeight: 270, width: 300 }}
+              style={{ maxHeight: 240, width: 300 }}
             />
             <br />
             <p style={{ textAlign: "center" }}> {item.name} </p>
           </Link>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

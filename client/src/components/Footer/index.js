@@ -21,7 +21,7 @@ const Footer = () => {
         </p>
         <br />
         <br />
-        <div style={{ float: "left", maxWidth: "28%" }}>
+        <div style={{ float: "left", maxWidth: "28%", marginLeft: '3%'}}>
           <h3 style={{ marginLeft: "3%" }}> Paradise Hemp Dispensary </h3>
           <br />
           <p style={{ fontSize: 15 }}>

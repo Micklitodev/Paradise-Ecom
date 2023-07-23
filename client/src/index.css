@@ -133,8 +133,7 @@ canvas {
 
 .landingBtn {
   height: 40px;
-  color: rgb(245, 245, 245);
-  box-shadow: 1px 1px var(--secondary);
+  box-shadow: 1px 1px 15px var(--secondary);
 }
 
 button {

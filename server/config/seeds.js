@@ -5,10 +5,14 @@ db.once("open", async () => {
   await Category.deleteMany();
 
   const categories = await Category.insertMany([
-    { name: "Edible", image: "delta8edi1.png" },
-    { name: "Flower", image: "delta85.png" },
-    { name: "Pens", image: "delta8pen2.png" },
-    { name: "Extras", image: "delta8extra1.png" },
+    { name: "Edible", image: "edible.png" },
+    { name: "Flower", image: "flower.png" },
+    { name: "Pens", image: "pen.png" },
+    { name: "Accessories", image: "accessories.png" },
+    { name: "Hookah", image: "hookah.png" },
+    { name: "Glass", image: "glass.png" },
+    { name: "CBD", image: "cbd.png" },
+    { name: "Nootropics", image: "nootropic.png" },
   ]);
 
   console.log("categories seeded");
