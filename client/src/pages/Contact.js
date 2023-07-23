@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BsGithub, BsTelephone, BsEnvelope } from "react-icons/bs";
 import Nav from "../components/Nav";
+import Footer from "../components/Footer";
 
 const Contact = () => {
   const [fromSubmitted, setFormSubmitted] = useState(false);
@@ -111,11 +112,15 @@ const Contact = () => {
                 <div>
                   <button type="submit">Submit</button>
                 </div>
+                <br /> 
               </form>
             </form>
           </div>
         </div>
       )}
+      <br /> 
+      <br /> 
+      <Footer />
     </>
   );
 };

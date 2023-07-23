@@ -2,6 +2,7 @@ import OrderHistory from "../components/OrderHistory";
 import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import VerifForm from "../components/VerifForm";
+import Footer from '../components/Footer'
 
 const Dashboard = () => {
   return (
@@ -34,6 +35,7 @@ const Dashboard = () => {
         )}
         <br/> 
       </div>
+      <Footer /> 
     </>
   );
 };

@@ -24,6 +24,10 @@ import Dashboard from './pages/Dashboard';
 import ProductCata from './components/ProductsCata'
 import Footer from './components/Footer';
 import Contact from './pages/Contact';
+import Terms from './pages/Terms'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import LithiumWarn from './pages/LithiumWarn'
+import LabResults from './pages/LabResults'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -83,10 +87,34 @@ function App() {
                 path="/products/categories/:id"
                 element={<ProductCata />}
               />
+
+
+
+
               <Route 
                 path='/contact' 
                 element={<Contact />}
               />
+              <Route 
+                path="Terms" 
+                element={<Terms />} 
+              />
+              <Route 
+                path="privacypolicy" 
+                element={<PrivacyPolicy />} 
+              />
+              <Route 
+                path="lithiumionbatwarn" 
+                element={<LithiumWarn />} 
+              />
+              <Route 
+                path="labres" 
+                element={<LabResults />} 
+              />
+
+
+
+
               {/* admin tools  */}
               <Route 
                path='/ManageProducts'
@@ -113,7 +141,6 @@ function App() {
                 element={<NoMatch />} 
               />
             </Routes>
-           <Footer /> 
           </StoreProvider>
         </div>
       </Router>

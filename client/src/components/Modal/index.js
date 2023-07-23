@@ -114,7 +114,7 @@ const Modal = (props) => {
                 <button
                   style={{
                     color: "white",
-                    backgroundColor: "rgb(77, 77, 77)",
+                    backgroundColor: "rgb(100, 100, 100)",
                     fontWeight: "bold",
                     textTransform: "uppercase",
                     padding: "0.75rem 1.5rem",

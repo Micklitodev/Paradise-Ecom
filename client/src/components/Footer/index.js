@@ -4,12 +4,12 @@ const Footer = () => {
     <>
       <div
         style={{
-          backgroundColor: "#2b2b2b",
-          position: "absolute",
-          bottom: -950,
+          backgroundColor: "#ffffff",
+          position: "relative",
+          bottom: 0,
           height: "80vh",
           width: "100vw",
-          color: "#d3d3d3",
+          color: "#7f7f7f;",
           padding: 10,
         }}
       >
@@ -44,56 +44,41 @@ const Footer = () => {
         <div style={{ float: "right", marginRight: "4%" }}>
           <h3 style={{ marginLeft: "24%" }}> We check ID </h3>
           <br />
-          <img src="./images/mclovinid.png" />
+          <img src="./images/mclovinid.png" alt='notably fake corny id' />
         </div>
 
         <div style={{ marginLeft: "41%" }}>
           <h3 style={{ marginLeft: "4.5%" }}> Footer Menu</h3>
           <br />
           <ul>
-            <li>
-              <Link style={{ color: "white" }} to="/search">
+            {/* <li>
+              <Link  to="/search">
                 {" "}
                 Search
               </Link>
-            </li>
+            </li> */}
             <li>
-              <Link style={{ color: "white" }} to="/terms">
-                Terms Of Use
-              </Link>
+              <Link to="/terms">Terms Of Use</Link>
             </li>
+            <br />
             <li>
-              <Link style={{ color: "white" }} to="/privacyPolicy">
-                {" "}
-                Privacy Policy
-              </Link>
+              <Link to="/privacyPolicy"> Privacy Policy</Link>
             </li>
+            <br />
             <li>
-              <Link style={{ color: "white" }} to="/returns">
-                {" "}
-                Shipping & Returns
-              </Link>
+              <Link to="/contact"> Contact Us </Link>
             </li>
+            <br />
             <li>
-              <Link style={{ color: "white" }} to="/contact">
-                {" "}
-                Contact Us{" "}
-              </Link>
+              <Link to="/lithiumIonBatWarn"> Lithium Ion Battery Warning</Link>
             </li>
+            <br />
             <li>
-              <Link style={{ color: "white" }} to="/lithiumIonBatWarn">
-                {" "}
-                Lithium Ion Battery Warning
-              </Link>
-            </li>
-            <li>
-              <Link style={{ color: "white" }} to="/labRes">
-                {" "}
-                Lab Results / COA
-              </Link>
+              <Link to="/labRes"> Lab Results / COA</Link>
             </li>
           </ul>
         </div>
+        <p style={{position: 'absolute', bottom: 0 }}> All Rights Reserved to @Paradise Hemp Dispensary. </p>
       </div>
     </>
   );

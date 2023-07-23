@@ -39,17 +39,17 @@ function ProductItem(item) {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this product?" )) {
-    try {
-      const { data } = await delProduct({
-        variables: { id },
-      });
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await delProduct({
+          variables: { id },
+        });
 
-      window.location.assign('/manageproducts')
-    } catch (err) {
-      console.log(err)
+        window.location.assign("/manageproducts");
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
   };
 
   if (Auth.isAdmin()) {

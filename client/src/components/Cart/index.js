@@ -174,7 +174,7 @@ const Cart = () => {
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
-        <CiShoppingCart style={{ color: "white", marginLeft: 4 }} />
+        <CiShoppingCart style={{ marginLeft: 4 }} />
       </div>
     );
   }
@@ -292,8 +292,10 @@ const Cart = () => {
             )}
           </div>
         </div>
-      ) : (
-        <h3>You have not added anything to your cart yet!</h3>
+      ) : (<>
+        <h3>You dont have anything in your cart yet!</h3>
+        <br /> 
+        </>
       )}
     </div>
   );

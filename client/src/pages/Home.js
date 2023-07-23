@@ -4,6 +4,7 @@ import Cart from "../components/Cart";
 import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import NotVerifiedBar from "../components/NotVerifiedBar";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const token = localStorage.getItem("id_token");
@@ -16,11 +17,12 @@ const Home = () => {
         <br />
         <br />
         <img
-          src="./images/delta8header.png"
+          src="./images/header.png"
           alt="header of delta 8."
-          style={{ width: "100vw", borderRadius: 0 }}
+          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh" }}
         />
         <div style={{ display: "grid", placeItems: "center", marginTop: 50 }}>
+          <br />
           <h1
             style={{
               textTransform: "uppercase",
@@ -32,9 +34,9 @@ const Home = () => {
             admin portal{" "}
           </h1>
         </div>
-        <br/> 
-        <br/> 
-        <br/> 
+        <br />
+        <br />
+        <br />
       </>
     );
   } else {
@@ -43,16 +45,18 @@ const Home = () => {
         <Nav />
         <br />
         <br />
-        {Auth.loggedIn() ?  Auth.isVerified() ? "" : <NotVerifiedBar /> : null}
+        {Auth.loggedIn() ? Auth.isVerified() ? "" : <NotVerifiedBar /> : null}
         <img
-          src="./images/delta8header.png"
+          src="./images/header.png"
           alt="header of delta 8."
-          style={{ width: "100vw", borderRadius: 0 }}
+          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh" }}
         />
         <div>
+          <br />
           <CategoryMenu />
           <Cart />
         </div>
+        <Footer /> 
       </>
     );
   }
