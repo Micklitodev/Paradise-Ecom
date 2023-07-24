@@ -7,9 +7,9 @@ const Footer = () => {
           backgroundColor: "#ffffff",
           position: "relative",
           bottom: 0,
-          height: "80vh",
+          height: "75vh",
           width: "100vw",
-          color: "#7f7f7f;",
+          color: "#7f7f7f",
           padding: 10,
         }}
       >
@@ -22,9 +22,9 @@ const Footer = () => {
         <br />
         <br />
         <div style={{ float: "left", maxWidth: "28%", marginLeft: '3%'}}>
-          <h3 style={{ marginLeft: "3%" }}> Paradise Hemp Dispensary </h3>
+          <h3 style={{ marginLeft: "1%", textTransform: 'uppercase'}}> Paradise Hemp Dispensary </h3>
           <br />
-          <p style={{ fontSize: 15 }}>
+          <p>
             {" "}
             Welcome to Paradise Hemp and Smoke! We are a one stop shop for all
             your Smoking, Vaping, CBD, Hookah, and Delta 8 needs. We carry a
@@ -42,13 +42,13 @@ const Footer = () => {
         </div>
 
         <div style={{ float: "right", marginRight: "4%" }}>
-          <h3 style={{ marginLeft: "24%" }}> We check ID </h3>
+          <h3 style={{ marginLeft: "25%", textTransform: 'uppercase' }}> We check ID </h3>
           <br />
           <img src="./images/mclovinid.png" alt='notably fake corny id' />
         </div>
 
         <div style={{ marginLeft: "41%" }}>
-          <h3 style={{ marginLeft: "4.5%" }}> Footer Menu</h3>
+          <h3 style={{ marginLeft: "4.5%", textTransform: 'uppercase'}}> Footer Menu</h3>
           <br />
           <ul>
             {/* <li>
@@ -78,7 +78,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <p style={{position: 'absolute', bottom: 0 }}> All Rights Reserved to @Paradise Hemp Dispensary. </p>
+        <p style={{position: 'absolute', bottom: 0, marginLeft: '3%'}}> All Rights Reserved to @Paradise Hemp Dispensary. </p>
       </div>
     </>
   );

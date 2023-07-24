@@ -126,9 +126,10 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       await args
-      if(args.shipPrice < 0) {
+      if(args.shipPrice = 0) {
         throw new AuthenticationError('shipping price was not set.')
       }
+
       const url = new URL(context.headers.referer).origin;
       const order = new Order({ products: args.products });
       const shippingPrice = args.shipPrice * 100;

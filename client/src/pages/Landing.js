@@ -114,7 +114,7 @@ const LandingPage = () => {
     setDisplayModal(true);
   };
 
-  return (
+  return ( 
     <>
       <div className="container2">
         <h1> paradise dispensary </h1>

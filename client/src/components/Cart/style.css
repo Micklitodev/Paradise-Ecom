@@ -33,7 +33,7 @@
 
 .cart-closed {
   position: fixed;
-  top: 0.5%;
+  top: 0%;
   right: 1%;
   font-size: 2rem;
   cursor: pointer;
@@ -45,7 +45,8 @@
 }
 
 .cart-closed:hover {
-  transform: rotate(8deg);
+  opacity: .9;
+  text-decoration: underline;
 }
 
 .cart img {

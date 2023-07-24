@@ -4,6 +4,7 @@ import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { useMutation } from "@apollo/client";
 import { ID_UPLOAD } from "../../utils/mutations";
+import Jumbotron from "../Jumbotron";
 
 const VerifForm = () => {
   const [formState, setFormState] = useState({ idFront: "", idBack: "" });
@@ -43,7 +44,7 @@ const VerifForm = () => {
       console.log(e);
     } finally {
       setFormState({ idFront: "", idBack: "" });
-      setSubmitted(true)
+      setSubmitted(true);
     }
   };
 
@@ -55,7 +56,6 @@ const VerifForm = () => {
   const fileUploadHandler = async () => {
     const idFrontRef = ref(storage, `idphotos/${formState.idFront.name}`);
     const idBackRef = ref(storage, `idphotos/${formState.idBack.name}`);
-
     const idFrontUpload = uploadBytes(idFrontRef, formState.idFront);
     const idBackUpload = uploadBytes(idBackRef, formState.idBack);
 
@@ -67,7 +67,7 @@ const VerifForm = () => {
   if (!Auth.isVerified() && !submitted) {
     return (
       <>
-        <div className="container my-1">
+        <div className="container borderwrap" style={{ minHeight: "35vh" }}>
           <h2>Verify ID</h2>
           <form onSubmit={handleFormSubmit}>
             <div className="flex-row space-between my-2">
@@ -99,10 +99,18 @@ const VerifForm = () => {
           </form>
           <br />
         </div>
+        <div />
       </>
     );
-  } else if(submitted) {
-    return <div> Submitted, Please Wait for Review! </div>;
+  } else if (submitted) {
+    return (
+      <div style={{maxHeight: '20vh'}}>
+          <Jumbotron>
+          <h2> Submitted! </h2> 
+          <h4>Please wait for review! </h4>
+          </Jumbotron>
+      </div>
+    );
   } else {
     return <div>Your account has already been verified!</div>;
   }

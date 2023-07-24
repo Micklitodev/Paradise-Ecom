@@ -2,11 +2,11 @@ import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT } from "../../utils/mutations";
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
-import React, { useState } from "react";
-
+import React, { useState, useRef } from "react";
 
 const AdminProdAdd = () => {
   const [previewImage, setPreviewImage] = useState(null);
+  const fileInputRef = useRef(null);
 
   const [addProduct] = useMutation(ADD_PRODUCT);
 
@@ -22,7 +22,7 @@ const AdminProdAdd = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-  }; 
+  };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -35,6 +35,10 @@ const AdminProdAdd = () => {
     await uploadBytes(imageRef, formData.image).then((res) => {
       console.log(res);
     });
+  };
+
+  const handleImageUploadClick = () => {
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (event) => {
@@ -90,82 +94,117 @@ const AdminProdAdd = () => {
   return (
     <>
       <div className="borderwrap container">
-        <h1> Add Product </h1>
+        <h3> Add Product </h3>
+        <br />
+
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center space-y-4"
         >
-          <input
-            label="name"
-            name="name"
-            placeholder="product name"
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-          <br />
-          <br />
-          <select
-            name="category"
-            onChange={handleInputChange}
-            value={formData.category}
-          >
-            <option value="">Select a category</option>
-            <option value="Edible">Edible</option>
-            <option value="Flower">Flower</option>
-            <option value="Pens">Pens</option>
-            <option value="Extras">Extras</option>
-          </select>
-          <br />
-          <br />
-          <input
-            label="description"
-            name="description"
-            placeholder="description"
-            value={formData.description}
-            onChange={handleInputChange}
-          />
-          <br />
-          <br />
-          <input
-            type="file"
-            accept="image/*"
-            name="image"
-            onChange={handleImageChange}
-          />
-          {previewImage && (
-            <img
-              src={previewImage}
-              alt="Preview"
-              style={{ width: "200px", height: "auto" }}
+          <div className="flex-row space-between my-2">
+            <label htmlFor="name">Product Name:</label>
+            <input
+              label="name"
+              name="name"
+              placeholder="product name"
+              value={formData.name}
+              onChange={handleInputChange}
             />
-          )}
+          </div>
+
+          <div className="flex-row space-between my-2">
+            <label htmlFor="category">Category:</label>
+            <select
+              name="category"
+              onChange={handleInputChange}
+              value={formData.category}
+            >
+              <option value="">Select a category</option>
+              <option value="Edible">Edible</option>
+              <option value="Flower">Flower</option>
+              <option value="Pens">Pens</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Hookah">Hookah</option>
+              <option value="Glass">Glass</option>
+              <option value="CBD">CBD</option>
+              <option value="Nootropics">Nootropics</option>
+            </select>
+          </div>
+          <div className="flex-row space-between my-2">
+            <label htmlFor="price">Price:</label>
+            <input
+              label="price"
+              name="price"
+              placeholder="price"
+              value={formData.price}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="flex-row space-between my-2">
+            <label htmlFor="quanitity">Quantity:</label>
+            <input
+              label="quantity"
+              name="quantity"
+              placeholder="quantity"
+              value={formData.quantity}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="flex-row space-between my-2">
+            <label htmlFor="image">Image File:</label>
+            <button
+              style={{ width: 177 }}
+              type="button"
+              onClick={handleImageUploadClick}
+            >
+              Upload Image
+            </button>
+            <input
+              type="file"
+              accept="image/*"
+              name="image"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+
+            {previewImage && (
+              <img
+                src={previewImage}
+                alt="Preview"
+                style={{ width: "400px", height: "auto" }}
+              />
+            )}
+          </div>
+          <div className="flex-row space-between my-2">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              label="description"
+              name="description"
+              cols="60"
+              rows="10"
+              value={formData.description}
+              onChange={handleInputChange}
+            />
+          </div>
           <br />
-          <br />
-          <input
-            label="price"
-            name="price"
-            placeholder="price"
-            value={formData.price}
-            onChange={handleInputChange}
-          />
-          <br />
-          <br />
-          <input
-            label="quantity"
-            name="quantity"
-            placeholder="quantity"
-            value={formData.quantity}
-            onChange={handleInputChange}
-          />
-          <br /> <br /> <br />
-          <button
-            disabled={!formData.name}
-            type="submit"
-            variant="success"
-            width="w-fit"
-          >
-            Create Product
-          </button>
+          <div className="flex-row flex-end">
+            <button
+              disabled={
+                !formData.name ||
+                !formData.category ||
+                !formData.price ||
+                !formData.quantity ||
+                !formData.image ||
+                !formData.description
+              }
+              type="submit"
+              variant="success"
+              width="w-fit"
+            >
+              Create Product
+            </button>
+          </div>
         </form>
         <br />
       </div>

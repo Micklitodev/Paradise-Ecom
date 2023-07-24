@@ -53,6 +53,10 @@ const userSchema = new Schema({
   idBack: {
     type: String
   },
+  points: {
+    type: Number, 
+    default: 0
+  },
   orders: [Order.schema]
 });
 

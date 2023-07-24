@@ -3,7 +3,6 @@ import CategoryMenu from "../components/CategoryMenu";
 import Cart from "../components/Cart";
 import Nav from "../components/Nav";
 import Auth from "../utils/auth";
-import NotVerifiedBar from "../components/NotVerifiedBar";
 import Footer from "../components/Footer";
 
 const Home = () => {
@@ -17,9 +16,9 @@ const Home = () => {
         <br />
         <br />
         <img
-          src="./images/header.png"
+          src="./images/headerimg.png"
           alt="header of delta 8."
-          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh" }}
+          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh", opacity: 0.9 }}
         />
         <div style={{ display: "grid", placeItems: "center", marginTop: 50 }}>
           <br />
@@ -43,19 +42,26 @@ const Home = () => {
     return (
       <>
         <Nav />
-        <br />
-        <br />
-        {Auth.loggedIn() ? Auth.isVerified() ? "" : <NotVerifiedBar /> : null}
         <img
-          src="./images/header.png"
+          src="./images/headerimg.png"
           alt="header of delta 8."
-          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh" }}
+          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh", opacity: 0.9 }}
         />
+        <h1
+        style={{
+          textTransform: 'uppercase', 
+          textAlign: 'center',
+          position: 'relative',
+          top: '-77vh',
+          fontWeight: 900,
+          fontSize: 40
+        }}
+        > GEORGIA PRIMERE HEMP DISPENSARY </h1>
         <div>
-          <br />
           <CategoryMenu />
           <Cart />
         </div>
+        <br /> 
         <Footer /> 
       </>
     );

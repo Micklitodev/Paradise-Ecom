@@ -43,10 +43,12 @@ function Signup(props) {
           ← Go to login{" "}
         </Link>
 
+        <br />
+        <br />
         <div className="container borderwrap" style={{ minHeight: "60vh" }}>
+        <br /> 
           <h2>Signup</h2>
-          <br />
-          <form onSubmit={handleFormSubmit}>
+          <form style={{maxWidth: 300}} onSubmit={handleFormSubmit}>
             <div className="flex-row space-between my-2">
               <label htmlFor="firstName">First Name:</label>
               <input
@@ -94,6 +96,7 @@ function Signup(props) {
           <br />
         </div>
       </div>
+      <br />
       <br />
       <br />
       <br />

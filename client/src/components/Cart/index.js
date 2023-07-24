@@ -175,6 +175,7 @@ const Cart = () => {
     return (
       <div className="cart-closed" onClick={toggleCart}>
         <CiShoppingCart style={{ marginLeft: 4 }} />
+        <p style={{textAlign: 'center', position: 'relative', top: -16}}> cart </p>
       </div>
     );
   }
@@ -192,7 +193,7 @@ const Cart = () => {
             <CartItem key={item._id} item={item} />
           ))}
           <br />
-          {Auth.loggedIn() ? (
+          {Auth.loggedIn() && Auth.isVerified() ? (
             <>
               <hr />
               <div className="container">

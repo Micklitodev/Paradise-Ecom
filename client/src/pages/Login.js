@@ -39,10 +39,11 @@ function Login(props) {
     <div>
     <br/>
       <Link style={{marginLeft: 10}} to="/signup">← Go to Signup</Link>
-
+      <br/>
+      <br/>
       <div className='container borderwrap' style={{minHeight: '60vh'}}> 
       <h2>Login</h2>
-      <form onSubmit={handleFormSubmit}>
+      <form style={{maxWidth: 300}} onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
           <label htmlFor="email">Email address:</label>
           <input

@@ -1,6 +1,7 @@
 import React from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import NotVerifiedBar from '../NotVerifiedBar'
 
 function Nav() {
   function showNavigation() {
@@ -25,6 +26,7 @@ function Nav() {
       );
     } else if (Auth.loggedIn() && !Auth.isAdmin()) {
       return (
+        <>
         <ul className="flex-row center">
           <li className="mx-1">
             <Link to="/dashboard">Dashboard</Link>
@@ -35,6 +37,7 @@ function Nav() {
             </Link>
           </li>
         </ul>
+        </>
       );
     } else if (!Auth.loggedIn()) {
       return (
@@ -53,6 +56,7 @@ function Nav() {
   }
 
   return (
+    <>
     <header className="flex-row px-1">
       <h1>
         <Link to="/home">Paradise</Link>
@@ -76,6 +80,8 @@ function Nav() {
                              DEV: ML.                       
                                                              `)}
     </header>
+    {Auth.loggedIn() ? Auth.isVerified() ? "" : <NotVerifiedBar /> : null}
+    </>
   );
 }
 

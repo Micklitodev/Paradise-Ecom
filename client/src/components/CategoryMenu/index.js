@@ -22,7 +22,7 @@ function CategoryMenu() {
     justifyContent: "center",
     alignItems: "center",
     minHeight: "100vh",
-    marginLeft: "2%",
+    marginLeft: ".5%",
   };
 
   const itemStyles = {
@@ -60,7 +60,7 @@ function CategoryMenu() {
 
   return (
     <div style={containerStyles}>
-      <h2 style={{ textAlign: "center", width: "100%" }}>Categories</h2>
+      <h3 style={{ textAlign: "center", width: "100%", textTransform: 'uppercase'}}>Categories</h3>
       <hr style={{ borderTop: "1px solid #d3d3d3", width: "100%" }} />
       {categories.map((item) => (
         <div key={item._id} style={itemStyles}>

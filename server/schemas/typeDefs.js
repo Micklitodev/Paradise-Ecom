@@ -39,6 +39,7 @@ scalar JSON
     isVerified: Boolean
     idFront: String
     idBack: String
+    points: Int
     orders: [Order]
   }
 
