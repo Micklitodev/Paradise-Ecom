@@ -3,10 +3,13 @@ import { ADD_PRODUCT } from "../../utils/mutations";
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useState, useRef } from "react";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const AdminProdAdd = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
+  const uniqueId = uuidv4()
 
   const [addProduct] = useMutation(ADD_PRODUCT);
 
@@ -31,7 +34,7 @@ const AdminProdAdd = () => {
   };
 
   const fileUploadHandler = async () => {
-    const imageRef = ref(storage, `images/${formData.image.name}`);
+    const imageRef = ref(storage, `images/${uniqueId}-${formData.image.name}`);
     await uploadBytes(imageRef, formData.image).then((res) => {
       console.log(res);
     });
@@ -47,7 +50,7 @@ const AdminProdAdd = () => {
     if (formData.name) {
       try {
         if (formData.image) {
-          fileUploadHandler();
+         await fileUploadHandler();
         }
         const protocol = "https";
         const host = "firebasestorage.googleapis.com/";
@@ -60,7 +63,7 @@ const AdminProdAdd = () => {
           name,
           category,
           description,
-          image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${image.name}?alt=media`,
+          image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${uniqueId}-${image.name}?alt=media`,
           price: parseFloat(price),
           quantity: parseInt(quantity),
         };

@@ -5,12 +5,16 @@ import { ref, uploadBytes } from "firebase/storage";
 import { useMutation } from "@apollo/client";
 import { ID_UPLOAD } from "../../utils/mutations";
 import Jumbotron from "../Jumbotron";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const VerifForm = () => {
   const [formState, setFormState] = useState({ idFront: "", idBack: "" });
   const [submitted, setSubmitted] = useState(false);
 
   const [idUpload] = useMutation(ID_UPLOAD);
+  const uniqueId = uuidv4(); 
+
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -25,8 +29,8 @@ const VerifForm = () => {
       const { idFront, idBack } = formState;
 
       const variables = {
-        idFront: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${idFront.name}?alt=media`,
-        idBack: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${idBack.name}?alt=media`,
+        idFront: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${uniqueId}-${idFront.name}?alt=media`,
+        idBack: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${uniqueId}-${idBack.name}?alt=media`,
       };
 
       console.log(variables);
@@ -54,8 +58,8 @@ const VerifForm = () => {
   };
 
   const fileUploadHandler = async () => {
-    const idFrontRef = ref(storage, `idphotos/${formState.idFront.name}`);
-    const idBackRef = ref(storage, `idphotos/${formState.idBack.name}`);
+    const idFrontRef = ref(storage, `idphotos/${uniqueId}-${formState.idFront.name}`);
+    const idBackRef = ref(storage, `idphotos/${uniqueId}-${formState.idBack.name}`);
     const idFrontUpload = uploadBytes(idFrontRef, formState.idFront);
     const idBackUpload = uploadBytes(idBackRef, formState.idBack);
 
@@ -104,11 +108,11 @@ const VerifForm = () => {
     );
   } else if (submitted) {
     return (
-      <div style={{maxHeight: '20vh'}}>
-          <Jumbotron>
-          <h2> Submitted! </h2> 
+      <div style={{ maxHeight: "20vh" }}>
+        <Jumbotron>
+          <h2> Submitted! </h2>
           <h4>Please wait for review! </h4>
-          </Jumbotron>
+        </Jumbotron>
       </div>
     );
   } else {

@@ -20,7 +20,8 @@
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",
-    "three": "^0.153.0"
+    "three": "^0.153.0",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

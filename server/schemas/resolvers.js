@@ -120,14 +120,13 @@ const resolvers = {
       });
 
       return shipment;
-
       // const boughtShipment = await client.Shipment.buy(shipment.id, shipment.lowestRate(['USPS']));
       // return boughtShipment;
     },
     checkout: async (parent, args, context) => {
-      await args
-      if(args.shipPrice = 0) {
-        throw new AuthenticationError('shipping price was not set.')
+      await args;
+      if (args.shipPrice <= 0) {
+        throw new AuthenticationError("shipping price was not set.");
       }
 
       const url = new URL(context.headers.referer).origin;
