@@ -172,11 +172,10 @@ const resolvers = {
         line_items,
         mode: "payment",
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`,
+        cancel_url: `${url}/home`,
       });
 
-      await order.save();
-
+      console.log(session.id);
       return { session: session.id };
     },
   },
@@ -187,13 +186,25 @@ const resolvers = {
 
       return { token, user };
     },
-    addOrder: async (parent, { products }, context) => {
+    addOrder: async (parent, { products, url }, context) => {
       if (context.user) {
         const order = new Order({ products });
+
+        try {
+         const valsess = await stripe.checkout.sessions.retrieve(url, {
+            expand: ["line_items"],
+          });
+
+          console.log(valsess)
+        } catch (err) {
+          return { message: "invalid-sess" };
+        }
 
         await User.findByIdAndUpdate(context.user._id, {
           $push: { orders: order },
         });
+
+        await order.save();
 
         return order;
       }

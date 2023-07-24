@@ -66,7 +66,7 @@ scalar JSON
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
+    addOrder(products: [ID]!, url: String!): Order
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     addShipInfo(street: String, city: String, state: String, zip: Int): User
     userVerifAdmin(_id: ID!, action: String!): User

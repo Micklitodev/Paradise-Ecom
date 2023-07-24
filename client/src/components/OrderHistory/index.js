@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
-
 import { useQuery } from "@apollo/client";
 import { QUERY_USER } from "../../utils/queries";
 
@@ -28,12 +27,11 @@ function OrderHistory() {
               Order History for {user.firstName} {user.lastName}
               <hr />
             </h3>
-            {user.orders < 0 ? (
+            {user.orders.length > 0 ? (
               <>
                 {" "}
                 {user.orders.map((order) => (
                   <div key={order._id} className="my-2">
-                    <hr />
                     <h3>
                       {new Date(
                         parseInt(order.purchaseDate)
