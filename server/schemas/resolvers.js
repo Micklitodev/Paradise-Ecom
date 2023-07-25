@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Product, Category, Order } = require("../models");
-const { signToken } = require("../utils/auth");
+const { User, Product, Category, Order, TempKey } = require("../models");
+const { signToken, signTempToken, verify } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const EasyPostClient = require("@easypost/api");
 require("dotenv").config();
@@ -123,10 +123,10 @@ const resolvers = {
       // const boughtShipment = await client.Shipment.buy(shipment.id, shipment.lowestRate(['USPS']));
       // return boughtShipment;
     },
+
     checkout: async (parent, args, context) => {
-      await args;
       if (args.shipPrice <= 0) {
-        throw new AuthenticationError("shipping price was not set.");
+        throw new AuthenticationError("Shipping price was not set.");
       }
 
       const url = new URL(context.headers.referer).origin;
@@ -175,8 +175,16 @@ const resolvers = {
         cancel_url: `${url}/home`,
       });
 
-      console.log(session.id);
-      return { session: session.id };
+      try {
+        const token = signTempToken({ id: session.id });
+
+        const tempToken = new TempKey({ token, stripeSessionId: session.id });
+        await tempToken.save();
+
+        return { session: session.id };
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
   Mutation: {
@@ -188,17 +196,25 @@ const resolvers = {
     },
     addOrder: async (parent, { products, url }, context) => {
       if (context.user) {
-        const order = new Order({ products });
+        const session_id = url.split("=").pop();
 
-        try {
-         const valsess = await stripe.checkout.sessions.retrieve(url, {
-            expand: ["line_items"],
-          });
+        const tempToken = await TempKey.findOne({
+          stripeSessionId: session_id,
+        });
 
-          console.log(valsess)
-        } catch (err) {
-          return { message: "invalid-sess" };
+        if (!tempToken) {
+          return { message: "expired or invalid token " };
         }
+
+        const { token } = tempToken;
+
+        const decodedToken = verify(token);
+
+        if (decodedToken.exp && Date.now() >= decodedToken.exp * 1000) {
+          return { message: "expired or invalid token " };
+        }
+
+        const order = new Order({ products });
 
         await User.findByIdAndUpdate(context.user._id, {
           $push: { orders: order },
@@ -206,11 +222,14 @@ const resolvers = {
 
         await order.save();
 
+        await TempKey.deleteOne({ _id: tempToken._id });
+
         return order;
       }
 
       throw new AuthenticationError("Not logged in");
     },
+
     updateUser: async (parent, args, context) => {
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, {

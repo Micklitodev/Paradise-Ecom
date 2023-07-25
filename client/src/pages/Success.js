@@ -10,9 +10,7 @@ function Success() {
 
   useEffect(() => {
     async function saveOrder() {
-      const loc = window.location.href;
-      const url = loc.split("=").pop();
-      console.log(url);
+      const url = window.location.href;
 
       const cart = await idbPromise("cart", "get");
       const products = cart.map((item) => item._id);
@@ -31,9 +29,9 @@ function Success() {
         }
       }
 
-      setTimeout(() => {
-        window.location.assign('/home');
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.assign('/home');
+      // }, 3000);
     }
 
     saveOrder();
