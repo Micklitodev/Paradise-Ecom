@@ -75,6 +75,7 @@ scalar JSON
     delProduct(_id: ID!): Product
     idUpload(idFront: String!, idBack: String!): User
     login(email: String!, password: String!): Auth
+    sendMail(name: String!, email: String!, message: String!): JSON
   }
 `;
 

@@ -3,6 +3,7 @@ const { User, Product, Category, Order, TempKey } = require("../models");
 const { signToken, signTempToken, verify } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const EasyPostClient = require("@easypost/api");
+const nodemailer = require('nodemailer');
 require("dotenv").config();
 
 const resolvers = {
@@ -332,6 +333,34 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    sendMail: async (parent, args, context) => {
+      const { email, name, message } = args;
+      
+      const transporter = nodemailer.createTransport({
+        // service: "Gmail",
+        // auth: {
+        //   user: "",
+        //   pass: "",
+        // },
+        streamTransport: true, 
+        newline: 'unix', 
+      });
+
+      try {
+        const package = await transporter.sendMail({
+          from: email,
+          to: "sample@gmail.com",
+          subject: name,
+          text: message,
+        });
+
+        console.log("Email sent:", package.response);
+        return true; 
+      } catch (error) {
+        console.error("Error sending email:", error);
+        return false; 
+      }
     },
   },
 };

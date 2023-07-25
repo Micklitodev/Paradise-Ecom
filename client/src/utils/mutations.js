@@ -12,21 +12,21 @@ export const LOGIN = gql`
 `;
 
 export const ADD_ORDER = gql`
-mutation addOrder($products: [ID]!, $url: String!) {
-  addOrder(products: $products, url: $url) {
-    purchaseDate
-    products {
-      _id
-      name
-      description
-      price
-      quantity
-      category {
+  mutation addOrder($products: [ID]!, $url: String!) {
+    addOrder(products: $products, url: $url) {
+      purchaseDate
+      products {
+        _id
         name
+        description
+        price
+        quantity
+        category {
+          name
+        }
       }
     }
   }
-}
 `;
 
 export const ADD_USER = gql`
@@ -123,5 +123,11 @@ export const ADD_SHIP_INFO = gql`
       state
       zip
     }
+  }
+`;
+
+export const SEND_MAIL = gql`
+  mutation sendMail($name: String!, $message: String!, $email: String!) {
+    sendMail(name: $name, message: $message, email: $email)
   }
 `;

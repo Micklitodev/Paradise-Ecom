@@ -1,9 +1,13 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import { useMutation } from '@apollo/client'
+import {SEND_MAIL} from '../utils/mutations'
+
 
 const Contact = () => {
   const [fromSubmitted, setFormSubmitted] = useState(false);
+  const [sendMail] = useMutation(SEND_MAIL)
 
   const [formData, setFormData] = useState({
     email: "",
@@ -20,7 +24,11 @@ const Contact = () => {
     event.preventDefault();
     try {
       setFormSubmitted(true);
-      console.log(formData);
+      
+      const {data} = sendMail({
+        variables: { ...formData }
+      })
+      
     } catch (err) {
       console.error(err);
     } finally {
