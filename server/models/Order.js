@@ -7,6 +7,22 @@ const orderSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  firstName: {
+    type: String, 
+  },
+  lastName: { 
+    type: String, 
+  }, 
+  address: {
+    type: String, 
+  }, 
+  total: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
   products: [
     {
       type: Schema.Types.ObjectId,

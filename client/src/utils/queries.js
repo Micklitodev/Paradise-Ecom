@@ -17,8 +17,8 @@ export const QUERY_PRODUCTS = gql`
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($products: [ID]!, $shipPrice: Float!) {
-    checkout(products: $products, shipPrice: $shipPrice) {
+  query getCheckout($products: [ID]!, $shipPrice: Float!, $points: Int) {
+    checkout(products: $products, shipPrice: $shipPrice, points: $points) {
       session
     }
   }
@@ -58,6 +58,7 @@ export const QUERY_USER = gql`
       city
       state
       zip
+      points
       orders {
         _id
         purchaseDate
@@ -79,9 +80,15 @@ export const ADMIN_ORDER_VIEW = gql`
     adminOrderView {
       _id
       purchaseDate
+      firstName
+      lastName
+      total
+      address
       products {
         price
         name
+        image
+        _id
       }
     }
   }

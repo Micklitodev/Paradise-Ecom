@@ -16,6 +16,7 @@ const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
   const [displayForm, setDisplayForm] = useState(false);
+  const [pointValue, setPointValue] = useState(0)
 
   const [shippingAddress, setShippingAddress] = useState({
     street: "",
@@ -121,7 +122,6 @@ const Cart = () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
 
-
     const productIds = [];
 
     state.cart.forEach((item) => {
@@ -131,7 +131,7 @@ const Cart = () => {
     });
 
     getCheckout({
-      variables: { products: productIds, shipPrice: pricing[1] },
+      variables: { products: productIds, shipPrice: pricing[1], points: pointValue },
     });
   }
 
@@ -171,11 +171,28 @@ const Cart = () => {
     }
   };
 
+  const handlePointInput = (event) => {
+    const inputValue = parseInt(event.target.value);
+    const maxAllowed = parseInt(user.points);
+    const newValue = Math.min(inputValue, maxAllowed);
+    event.target.value = newValue;
+
+    if(inputValue > maxAllowed) {
+    return alert(`You cannot use more than the ${maxAllowed} points that you have.`)
+    }
+
+    setPointValue(inputValue)
+  };
+  
+
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
         <CiShoppingCart style={{ marginLeft: 4 }} />
-        <p style={{textAlign: 'center', position: 'relative', top: -16}}> cart </p>
+        <p style={{ textAlign: "center", position: "relative", top: -16 }}>
+          {" "}
+          cart{" "}
+        </p>
       </div>
     );
   }
@@ -209,6 +226,30 @@ const Cart = () => {
 
                     <br />
                     <br />
+                 
+                    {user?.points ? (
+                      <>
+                      {/* <hr style={{width: '118%', marginLeft: '-9%' }} />  */}
+                      <hr /> 
+                        Point Balance:
+                        <p style={{ color: "#6499A4" }}> {user.points} points </p>
+                        Use{" "}
+                        <input
+                        style={{ textAlign: 'center', maxWidth: 'fit-content'}}
+                          type="number"
+                          pattern="^[0-9]+$"
+                          label="points"
+                          name="points"
+                          defaultValue={0}
+                          max={parseInt(user.points)}
+                          min={0}
+                          onInput={handlePointInput}
+                        />
+                        Points.
+                      </>
+                    ) : (
+                      null
+                    )}
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="container">
@@ -293,9 +334,10 @@ const Cart = () => {
             )}
           </div>
         </div>
-      ) : (<>
-        <h3>You dont have anything in your cart yet!</h3>
-        <br /> 
+      ) : (
+        <>
+          <h3>You dont have anything in your cart yet!</h3>
+          <br />
         </>
       )}
     </div>

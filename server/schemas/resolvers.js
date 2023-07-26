@@ -3,7 +3,7 @@ const { User, Product, Category, Order, TempKey } = require("../models");
 const { signToken, signTempToken, verify } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const EasyPostClient = require("@easypost/api");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const resolvers = {
@@ -49,7 +49,12 @@ const resolvers = {
       }
 
       try {
-        const orders = await Order.find();
+        const orders = await Order.find()
+          .populate({
+            path: "products",
+            populate: "category",
+          })
+          .sort({ createdAt: -1 });
         return orders;
       } catch (err) {
         console.log(err);
@@ -126,14 +131,21 @@ const resolvers = {
     },
 
     checkout: async (parent, args, context) => {
+      // ensure shipping
       if (args.shipPrice <= 0) {
         throw new AuthenticationError("Shipping price was not set.");
+      }
+
+      if (args.points > 0) {
+        console.log(args.points);
       }
 
       const url = new URL(context.headers.referer).origin;
       const order = new Order({ products: args.products });
       const shippingPrice = args.shipPrice * 100;
       const line_items = [];
+
+      // push each product as line item
 
       const { products } = await order.populate("products");
 
@@ -156,6 +168,8 @@ const resolvers = {
         });
       }
 
+      // add shipping price line item
+
       line_items.push({
         price_data: {
           currency: "usd",
@@ -168,6 +182,8 @@ const resolvers = {
         quantity: 1,
       });
 
+      // create stripe sesssion
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items,
@@ -176,8 +192,13 @@ const resolvers = {
         cancel_url: `${url}/home`,
       });
 
+      // create temporary acess token
+
       try {
-        const token = signTempToken({ id: session.id });
+        const token = signTempToken({
+          id: session.id,
+          total: session.amount_total,
+        });
 
         const tempToken = new TempKey({ token, stripeSessionId: session.id });
         await tempToken.save();
@@ -199,6 +220,8 @@ const resolvers = {
       if (context.user) {
         const session_id = url.split("=").pop();
 
+        //token data
+
         const tempToken = await TempKey.findOne({
           stripeSessionId: session_id,
         });
@@ -208,20 +231,41 @@ const resolvers = {
         }
 
         const { token } = tempToken;
-
         const decodedToken = verify(token);
 
         if (decodedToken.exp && Date.now() >= decodedToken.exp * 1000) {
           return { message: "expired or invalid token " };
         }
 
-        const order = new Order({ products });
+        const total = decodedToken.data.total;
+
+        // user data
+
+        const user = await User.findOne({ _id: context.user._id });
+        if (!user) {
+          return { message: "not logged in" };
+        }
+
+        const { firstName, lastName, street, city, state, zip } = user;
+        const address = `${street} ${city}, ${state} ${zip}`;
+
+        // saving orders with token + user data
+
+        const order = new Order({
+          products,
+          firstName,
+          lastName,
+          address,
+          total,
+        });
 
         await User.findByIdAndUpdate(context.user._id, {
           $push: { orders: order },
         });
 
         await order.save();
+
+        // delete tempkey token so endpoint cannot be hit again
 
         await TempKey.deleteOne({ _id: tempToken._id });
 
@@ -336,15 +380,15 @@ const resolvers = {
     },
     sendMail: async (parent, args, context) => {
       const { email, name, message } = args;
-      
+
       const transporter = nodemailer.createTransport({
         // service: "Gmail",
         // auth: {
         //   user: "",
         //   pass: "",
         // },
-        streamTransport: true, 
-        newline: 'unix', 
+        streamTransport: true,
+        newline: "unix",
       });
 
       try {
@@ -356,10 +400,10 @@ const resolvers = {
         });
 
         console.log("Email sent:", package.response);
-        return true; 
+        return true;
       } catch (error) {
         console.error("Error sending email:", error);
-        return false; 
+        return false;
       }
     },
   },

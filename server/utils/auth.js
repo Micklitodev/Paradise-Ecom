@@ -31,8 +31,8 @@ module.exports = {
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
-  signTempToken: function ({ id }) {
-    const payload = { id };
+  signTempToken: function ({ id, total }) {
+    const payload = { id, total };
     return jwt.sign({ data: payload }, secret, { expiresIn: '1d' });
   },
   verify: function (token) {

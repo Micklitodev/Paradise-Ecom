@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-scalar JSON
+  scalar JSON
 
   type Category {
     _id: ID
@@ -22,6 +22,11 @@ scalar JSON
   type Order {
     _id: ID
     purchaseDate: String
+    firstName: String
+    lastName: String
+    address: String
+    total: String
+    paymentStatus: String
     products: [Product]
   }
 
@@ -58,19 +63,36 @@ scalar JSON
     product(_id: ID!): Product
     user: User
     order(_id: ID!): Order
-    checkout(products: [ID]!, shipPrice: Float!): Checkout
+    checkout(products: [ID]!, shipPrice: Float!, points: Int): Checkout
     calcShip(productInt: Int!): JSON
     adminOrderView: [Order]
     queryUserAdmin: [User]
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addUser(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+    ): Auth
     addOrder(products: [ID]!, url: String!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
+    updateUser(
+      firstName: String
+      lastName: String
+      email: String
+      password: String
+    ): User
     addShipInfo(street: String, city: String, state: String, zip: Int): User
     userVerifAdmin(_id: ID!, action: String!): User
-    addProduct(name: String, category: String, description: String, image: String, quantity: Int, price: Float): Product
+    addProduct(
+      name: String
+      category: String
+      description: String
+      image: String
+      quantity: Int
+      price: Float
+    ): Product
     updateProduct(_id: ID!, quantity: Int!): Product
     delProduct(_id: ID!): Product
     idUpload(idFront: String!, idBack: String!): User
@@ -79,4 +101,4 @@ scalar JSON
   }
 `;
 
-module.exports = typeDefs; 
+module.exports = typeDefs;
