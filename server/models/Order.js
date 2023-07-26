@@ -19,6 +19,12 @@ const orderSchema = new Schema({
   total: {
     type: String,
   },
+  shipmentId: {
+    type: String, 
+  }, 
+  tracking: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now

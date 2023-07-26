@@ -84,6 +84,8 @@ export const ADMIN_ORDER_VIEW = gql`
       lastName
       total
       address
+      tracking
+      shipmentId
       products {
         price
         name

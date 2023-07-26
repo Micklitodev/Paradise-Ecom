@@ -5,6 +5,9 @@ const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const EasyPostClient = require("@easypost/api");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const api = process.env.EP_KEY;
+const client = new EasyPostClient(api);
+let shipObj;
 
 const resolvers = {
   Query: {
@@ -91,8 +94,6 @@ const resolvers = {
       const weight = 1 * args.productInt;
       const height = 3.5 * args.productInt;
 
-      const api = process.env.EP_KEY;
-      const client = new EasyPostClient(api);
       const user = await User.findById(context.user._id).select(
         "-_V -password"
       );
@@ -125,9 +126,9 @@ const resolvers = {
         },
       });
 
+      shipObj = shipment; 
+
       return shipment;
-      // const boughtShipment = await client.Shipment.buy(shipment.id, shipment.lowestRate(['USPS']));
-      // return boughtShipment;
     },
 
     checkout: async (parent, args, context) => {
@@ -249,6 +250,15 @@ const resolvers = {
         const { firstName, lastName, street, city, state, zip } = user;
         const address = `${street} ${city}, ${state} ${zip}`;
 
+        // purchase ship label
+
+        const boughtShipment = await client.Shipment.buy(
+          shipObj.id,
+          shipObj.lowestRate(["USPS"])
+        );
+        const tracking = boughtShipment.tracker.public_url
+        const shipmentId = boughtShipment.tracker.shipment_id
+
         // saving orders with token + user data
 
         const order = new Order({
@@ -257,6 +267,8 @@ const resolvers = {
           lastName,
           address,
           total,
+          tracking, 
+          shipmentId, 
         });
 
         await User.findByIdAndUpdate(context.user._id, {

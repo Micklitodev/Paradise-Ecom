@@ -46,6 +46,7 @@ const AdminOrderView = () => {
                     ).toLocaleDateString()}
                   </p>
                   <p> Address: {order.address}</p>
+                  <a href={order.tracking} target="_blank" rel='noreferrer'>  Track Shipment </a>
                   <p> Total: ${parseFloat(order.total / 100)} </p>
                       { console.log(order.products)}
                   {order.products.map(({ _id, image, name }, index) => (

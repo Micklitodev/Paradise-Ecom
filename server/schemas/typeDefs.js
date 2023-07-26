@@ -26,6 +26,8 @@ const typeDefs = gql`
     lastName: String
     address: String
     total: String
+    tracking: String
+    shipmentId: String
     paymentStatus: String
     products: [Product]
   }
