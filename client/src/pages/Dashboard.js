@@ -3,8 +3,10 @@ import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import VerifForm from "../components/VerifForm";
 import Footer from '../components/Footer'
+import Redirector from '../utils/redirector'
 
 const Dashboard = () => {
+  Redirector.checkTokens();
   return (
     <>
       <Nav />

@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const secret = 'mysecretsshhhhh';
-const expiration = '2h';
+const secret = "mysecretsshhhhh";
+const expiration = "2h";
 
 module.exports = {
   authMiddleware: function ({ req }) {
@@ -10,7 +10,7 @@ module.exports = {
 
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
-      token = token.split(' ').pop().trim();
+      token = token.split(" ").pop().trim();
     }
 
     if (!token) {
@@ -21,7 +21,7 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
-      console.log('Invalid token');
+      console.log("Invalid token");
     }
 
     return req;
@@ -33,10 +33,14 @@ module.exports = {
   },
   signTempToken: function ({ id, total }) {
     const payload = { id, total };
-    return jwt.sign({ data: payload }, secret, { expiresIn: '1d' });
+    return jwt.sign({ data: payload }, secret, { expiresIn: "1d" });
+  },
+  signAgreement: function ({ userChoice }) {
+    const payload = { userChoice };
+    return jwt.sign({ data: payload }, secret, { expiresIn: "15d" });
   },
   verify: function (token) {
-    const decodedTempToken = jwt.verify(token, secret)
-    return decodedTempToken
-  }
+    const decodedTempToken = jwt.verify(token, secret);
+    return decodedTempToken;
+  },
 };

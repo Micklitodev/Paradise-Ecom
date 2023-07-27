@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Product, Category, Order, TempKey } = require("../models");
-const { signToken, signTempToken, verify } = require("../utils/auth");
+const { signToken, signTempToken, verify, signAgreement } = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const EasyPostClient = require("@easypost/api");
 const nodemailer = require("nodemailer");
@@ -126,7 +126,7 @@ const resolvers = {
         },
       });
 
-      shipObj = shipment; 
+      shipObj = shipment;
 
       return shipment;
     },
@@ -182,6 +182,20 @@ const resolvers = {
         },
         quantity: 1,
       });
+
+      // handle tax
+
+      const taxRate = await stripe.taxRates.create({
+        display_name: "Tax",
+        description: "Sales Tax",
+        jurisdiction: "GA", 
+        percentage: 8.75, 
+        inclusive: false,
+      });
+
+      for (let i = 0; i < line_items.length; i++) {
+        line_items[i].tax_rates = [taxRate.id];
+      }
 
       // create stripe sesssion
 
@@ -256,8 +270,8 @@ const resolvers = {
           shipObj.id,
           shipObj.lowestRate(["USPS"])
         );
-        const tracking = boughtShipment.tracker.public_url
-        const shipmentId = boughtShipment.tracker.shipment_id
+        const tracking = boughtShipment.tracker.public_url;
+        const shipmentId = boughtShipment.tracker.shipment_id;
 
         // saving orders with token + user data
 
@@ -267,8 +281,8 @@ const resolvers = {
           lastName,
           address,
           total,
-          tracking, 
-          shipmentId, 
+          tracking,
+          shipmentId,
         });
 
         await User.findByIdAndUpdate(context.user._id, {
@@ -389,6 +403,10 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    agreement: async (parent, args,context) => {
+      const token = signAgreement(args.userChoice)
+      return token 
     },
     sendMail: async (parent, args, context) => {
       const { email, name, message } = args;

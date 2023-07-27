@@ -62,6 +62,10 @@ export const QUERY_USER = gql`
       orders {
         _id
         purchaseDate
+        address
+        total
+        shipmentId
+        tracking
         products {
           _id
           name

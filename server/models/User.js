@@ -41,9 +41,18 @@ const userSchema = new Schema({
     type: Number,
   }, 
   isAdmin: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   isVerified: {
+    type: Boolean,
+    default: false
+  },
+  isIdSubmitted: {
+    type: Boolean,
+    default: false
+  },
+  isIdRejected: {
     type: Boolean,
     default: false
   },

@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import Footer from '../components/Footer'
-import Nav from '../components/Nav'
+import Nav from '../components/Nav'  
+import Redirector from '../utils/redirector'
 
 function Login(props) {
+  Redirector.checkTokens(); 
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
 

@@ -126,6 +126,12 @@ export const ADD_SHIP_INFO = gql`
   }
 `;
 
+export const ARGREEMENT_TOKEN = gql`
+  mutation agreement($userChoice: String!) {
+    agreement(userChoice: $userChoice)
+  }
+`;
+
 export const SEND_MAIL = gql`
   mutation sendMail($name: String!, $message: String!, $email: String!) {
     sendMail(name: $name, message: $message, email: $email)

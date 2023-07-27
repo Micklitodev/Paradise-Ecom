@@ -4,11 +4,11 @@ import Cart from "../components/Cart";
 import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
+import Redirector from '../utils/redirector'
 
 const Home = () => {
-  const token = localStorage.getItem("id_token");
-  Auth.isTokenExpired(token);
-
+  Redirector.checkTokens()
+  
   if (Auth.isAdmin()) {
     return (
       <>
@@ -18,7 +18,12 @@ const Home = () => {
         <img
           src="./images/headerimg.png"
           alt="header of delta 8."
-          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh", opacity: 0.9 }}
+          style={{
+            width: "100vw",
+            borderRadius: 0,
+            maxHeight: "100vh",
+            opacity: 0.9,
+          }}
         />
         <div style={{ display: "grid", placeItems: "center", marginTop: 50 }}>
           <br />
@@ -45,24 +50,32 @@ const Home = () => {
         <img
           src="./images/headerimg.png"
           alt="header of delta 8."
-          style={{ width: "100vw", borderRadius: 0, maxHeight: "100vh", opacity: 0.9 }}
+          style={{
+            width: "100vw",
+            borderRadius: 0,
+            maxHeight: "100vh",
+            opacity: 0.9,
+          }}
         />
         <h1
-        style={{
-          textTransform: 'uppercase', 
-          textAlign: 'center',
-          position: 'relative',
-          top: '-77vh',
-          fontWeight: 900,
-          fontSize: 40
-        }}
-        > GEORGIA PRIMERE HEMP DISPENSARY </h1>
+          style={{
+            textTransform: "uppercase",
+            textAlign: "center",
+            position: "relative",
+            top: "-77vh",
+            fontWeight: 900,
+            fontSize: 40,
+          }}
+        >
+          {" "}
+          GEORGIA PRIMERE HEMP DISPENSARY{" "}
+        </h1>
         <div>
           <CategoryMenu />
           <Cart />
         </div>
-        <br /> 
-        <Footer /> 
+        <br />
+        <Footer />
       </>
     );
   }

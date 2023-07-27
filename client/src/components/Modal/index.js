@@ -1,8 +1,18 @@
+import { useMutation } from "@apollo/client";
+import { ARGREEMENT_TOKEN } from "../../utils/mutations";
+import Auth from "../../utils/auth";
+
 const Modal = (props) => {
-    const handleAgree = () => {
-        window.location.assign("/home");
-      };
-    
+  const [agreeToken] = useMutation(ARGREEMENT_TOKEN);
+  const handleAgree = async (e) => {
+    const userChoice = "agree";
+    const { data } = await agreeToken({
+      variables: { userChoice },
+    });
+    Auth.agreement(data.agreement);
+    // window.location.assign("/home");
+  };
+
   return (
     <>
       <div style={{ display: "block" }}>
@@ -80,7 +90,7 @@ const Modal = (props) => {
                 </button>
               </div>
               {/*body*/}
-              <div style={{ padding: "20px" }}>
+              <div id="agreement" style={{ padding: "20px" }}>
                 The statements made regarding these products have not been
                 evaluated by the Food and Drug Administration. The efficacy of
                 these products has not been confirmed by FDA-approved research.
@@ -110,7 +120,9 @@ const Modal = (props) => {
                   borderRadius: "b-lg",
                 }}
               >
-               <h4 style={{ marginRight: '60px'}} >By clicking agree, you confirm you are 21+</h4>
+                <h4 style={{ marginRight: "60px" }}>
+                  By clicking agree, you confirm you are 21+
+                </h4>
                 <button
                   style={{
                     color: "white",

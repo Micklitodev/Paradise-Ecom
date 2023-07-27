@@ -22,7 +22,6 @@ import AdminOrderView from './pages/AdminViewOrders';
 import AdminDetail from './pages/AdminDetail';
 import Dashboard from './pages/Dashboard';
 import ProductCata from './components/ProductsCata'
-import Footer from './components/Footer';
 import Contact from './pages/Contact';
 import Terms from './pages/Terms'
 import PrivacyPolicy from './pages/PrivacyPolicy'

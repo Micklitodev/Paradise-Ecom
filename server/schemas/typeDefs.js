@@ -44,6 +44,8 @@ const typeDefs = gql`
     zip: Int
     isAdmin: Boolean
     isVerified: Boolean
+    isIdSubmitted: Boolean
+    isIdRejected: Boolean
     idFront: String
     idBack: String
     points: Int
@@ -99,6 +101,7 @@ const typeDefs = gql`
     delProduct(_id: ID!): Product
     idUpload(idFront: String!, idBack: String!): User
     login(email: String!, password: String!): Auth
+    agreement(userChoice: String!): JSON
     sendMail(name: String!, email: String!, message: String!): JSON
   }
 `;
