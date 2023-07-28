@@ -18,7 +18,7 @@ function Nav() {
             <Link to="/verifusers">Verify Users</Link>
           </li>
           <li className="mx-1">
-            <Link to="/" onClick={() => Auth.logout()}>
+            <Link to="/home" onClick={() => Auth.logout()}>
               Logout
             </Link>
           </li>
@@ -32,7 +32,7 @@ function Nav() {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li className="mx-1">
-            <Link href="/" onClick={() => Auth.logout()}>
+            <Link href="/home" onClick={() => Auth.logout()}>
               Logout
             </Link>
           </li>

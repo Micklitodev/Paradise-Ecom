@@ -10,28 +10,36 @@ function Success() {
 
   useEffect(() => {
     async function saveOrder() {
-      const url = window.location.href;
+      try {
+        const url = window.location.href;
 
-      const cart = await idbPromise("cart", "get");
-      const products = cart.map((item) => item._id);
+        const cart = await idbPromise("cart", "get");
+        const products = cart.map((item) => item._id);
 
-      if (products.length) {
+        if (!products.length) {
+          setError(true);
+          return;
+        }
+
         const { data } = await addOrder({ variables: { products, url } });
 
-        if (data.addOrder.products !== null) {
-          setError(false);
-          const productData = data.addOrder.products;
-          productData?.forEach((item) => {
-            idbPromise("cart", "delete", item);
-          }) 
-        } else {
-          return
+        if (!data.addOrder.products) {
+          setError(true);
+          return;
         }
-      }
 
-      // setTimeout(() => {
-      //   window.location.assign('/home');
-      // }, 3000);
+        setError(false);
+        const productData = data.addOrder.products;
+        productData?.forEach((item) => {
+          idbPromise("cart", "delete", item);
+        });
+
+        // setTimeout(() => {
+        //   window.location.assign('/home');
+        // }, 3000);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     saveOrder();

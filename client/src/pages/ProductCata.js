@@ -1,11 +1,13 @@
-import ProductList from "../ProductList";
-import Nav from "../Nav";
-import Cart from "../Cart";
-import Footer from '../Footer'
-import Redirector from "../../utils/redirector"
+import ProductList from "../components/ProductList";
+import Nav from "../components/Nav";
+import Cart from "../components/Cart";
+import Footer from '../components/Footer'
+import Redirector from "../utils/redirector"
+import useScrollHelper from "../utils/scrollhelper";
 
 const ProductCata = () => {
   Redirector.checkTokens();
+  useScrollHelper()
   const url = window.location.href 
   const action = url.split('/').pop()
     return (

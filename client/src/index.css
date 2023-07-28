@@ -25,7 +25,7 @@ body {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   font-weight: 400;
   line-height: 1.5;
   font-size: 16px;
@@ -38,7 +38,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 900;
   margin: 5px 0;
   line-height: 1.25;
@@ -61,11 +61,11 @@ h4 {
 }
 
 h5 {
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 h6 {
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
 
 p {
@@ -192,6 +192,17 @@ form {
   position: fixed;
 }
 
+.pendingreviewbar {
+  z-index: 1;
+  margin-top: 60px;
+  background-color: rgba(255, 231, 114, 0.689);
+  opacity: 0.8;
+  text-align: center;
+  color: rgb(15, 15, 15);
+  width: 100vw;
+  position: fixed;
+}
+
 input {
   font-size: 1rem;
   padding: 0.25rem;
@@ -217,7 +228,7 @@ select {
 }
 
 textarea {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .container {

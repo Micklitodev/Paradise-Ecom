@@ -59,6 +59,8 @@ export const QUERY_USER = gql`
       state
       zip
       points
+      isIdRejected
+      isIdSubmitted
       orders {
         _id
         purchaseDate

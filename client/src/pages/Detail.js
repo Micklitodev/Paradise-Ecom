@@ -15,9 +15,11 @@ import { idbPromise } from "../utils/helpers";
 import spinner from "../assets/spinner.gif";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
+import useScrollHelper from "../utils/scrollhelper";
 
 function Detail() {
   Redirector.checkTokens();
+  useScrollHelper(); 
 
   const [state, dispatch] = useStoreContext();
   const { id } = useParams();
@@ -29,11 +31,9 @@ function Detail() {
   const { products, cart } = state;
 
   useEffect(() => {
-    // already in global store
     if (products.length) {
       setCurrentProduct(products.find((product) => product._id === id));
     }
-    // retrieved from server
     else if (data) {
       dispatch({
         type: UPDATE_PRODUCTS,
@@ -44,7 +44,6 @@ function Detail() {
         idbPromise("products", "put", product);
       });
     }
-    // get cache from idb
     else if (!loading) {
       idbPromise("products", "get").then((indexedProducts) => {
         dispatch({

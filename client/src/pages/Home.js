@@ -5,9 +5,11 @@ import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
 import Redirector from '../utils/redirector'
+import useScrollHelper from "../utils/scrollhelper";
 
 const Home = () => {
   Redirector.checkTokens()
+  useScrollHelper()
   
   if (Auth.isAdmin()) {
     return (

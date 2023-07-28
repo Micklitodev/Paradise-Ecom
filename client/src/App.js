@@ -19,9 +19,8 @@ import VerifUsers from './pages/VerifUsers';
 import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import AdminOrderView from './pages/AdminViewOrders';
-import AdminDetail from './pages/AdminDetail';
 import Dashboard from './pages/Dashboard';
-import ProductCata from './components/ProductsCata'
+import ProductCata from './pages/ProductCata'
 import Contact from './pages/Contact';
 import Terms from './pages/Terms'
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -127,11 +126,6 @@ function App() {
               path='/AdminOrderView'
               element={<AdminOrderView />}
               /> 
-              <Route 
-                path="/order/:id" 
-                element={<AdminDetail/>} 
-              />
-
 
   
 

@@ -4,10 +4,12 @@ import Footer from "../components/Footer";
 import { useMutation } from '@apollo/client'
 import {SEND_MAIL} from '../utils/mutations'
 import Redirector from '../utils/redirector'
+import useScrollHelper from "../utils/scrollhelper";
 
 
 const Contact = () => {
   Redirector.checkTokens()
+  useScrollHelper()
   const [fromSubmitted, setFormSubmitted] = useState(false);
   const [sendMail] = useMutation(SEND_MAIL);
 

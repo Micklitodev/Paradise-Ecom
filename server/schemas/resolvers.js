@@ -1,6 +1,11 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Product, Category, Order, TempKey } = require("../models");
-const { signToken, signTempToken, verify, signAgreement } = require("../utils/auth");
+const {
+  signToken,
+  signTempToken,
+  verify,
+  signAgreement,
+} = require("../utils/auth");
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const EasyPostClient = require("@easypost/api");
 const nodemailer = require("nodemailer");
@@ -132,95 +137,99 @@ const resolvers = {
     },
 
     checkout: async (parent, args, context) => {
-      // ensure shipping
-      if (args.shipPrice <= 0) {
-        throw new AuthenticationError("Shipping price was not set.");
-      }
+      if (context.user.isVerified) {
+        // ensure shipping
+        if (args.shipPrice <= 0) {
+          throw new AuthenticationError("Shipping price was not set.");
+        }
 
-      if (args.points > 0) {
-        console.log(args.points);
-      }
+        if (args.points > 0) {
+          console.log(args.points);
+        }
 
-      const url = new URL(context.headers.referer).origin;
-      const order = new Order({ products: args.products });
-      const shippingPrice = args.shipPrice * 100;
-      const line_items = [];
+        const url = new URL(context.headers.referer).origin;
+        const order = new Order({ products: args.products });
+        const shippingPrice = args.shipPrice * 100;
+        const line_items = [];
 
-      // push each product as line item
+        // push each product as line item
 
-      const { products } = await order.populate("products");
+        const { products } = await order.populate("products");
 
-      for (let i = 0; i < products.length; i++) {
-        const product = await stripe.products.create({
-          name: products[i].name,
-          description: products[i].description,
-          images: [`${products[i].image}`],
-        });
+        for (let i = 0; i < products.length; i++) {
+          const product = await stripe.products.create({
+            name: products[i].name,
+            description: products[i].description,
+            images: [`${products[i].image}`],
+          });
 
-        const price = await stripe.prices.create({
-          product: product.id,
-          unit_amount: products[i].price * 100,
-          currency: "usd",
-        });
+          const price = await stripe.prices.create({
+            product: product.id,
+            unit_amount: products[i].price * 100,
+            currency: "usd",
+          });
+
+          line_items.push({
+            price: price.id,
+            quantity: 1,
+          });
+        }
+
+        // add shipping price line item
 
         line_items.push({
-          price: price.id,
+          price_data: {
+            currency: "usd",
+            unit_amount: shippingPrice,
+            product_data: {
+              name: "Shipping",
+              description: "Shipping fee",
+            },
+          },
           quantity: 1,
         });
-      }
 
-      // add shipping price line item
+        // handle tax
 
-      line_items.push({
-        price_data: {
-          currency: "usd",
-          unit_amount: shippingPrice,
-          product_data: {
-            name: "Shipping",
-            description: "Shipping fee",
-          },
-        },
-        quantity: 1,
-      });
-
-      // handle tax
-
-      const taxRate = await stripe.taxRates.create({
-        display_name: "Tax",
-        description: "Sales Tax",
-        jurisdiction: "GA", 
-        percentage: 8.75, 
-        inclusive: false,
-      });
-
-      for (let i = 0; i < line_items.length; i++) {
-        line_items[i].tax_rates = [taxRate.id];
-      }
-
-      // create stripe sesssion
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items,
-        mode: "payment",
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/home`,
-      });
-
-      // create temporary acess token
-
-      try {
-        const token = signTempToken({
-          id: session.id,
-          total: session.amount_total,
+        const taxRate = await stripe.taxRates.create({
+          display_name: "Tax",
+          description: "Sales Tax",
+          jurisdiction: "GA",
+          percentage: 8.75,
+          inclusive: false,
         });
 
-        const tempToken = new TempKey({ token, stripeSessionId: session.id });
-        await tempToken.save();
+        for (let i = 0; i < line_items.length; i++) {
+          line_items[i].tax_rates = [taxRate.id];
+        }
 
-        return { session: session.id };
-      } catch (err) {
-        console.log(err);
+        // create stripe sesssion
+
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ["card"],
+          line_items,
+          mode: "payment",
+          success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${url}/home`,
+        });
+
+        // create temporary acess token
+
+        try {
+          const token = signTempToken({
+            id: session.id,
+            total: session.amount_total,
+          });
+
+          const tempToken = new TempKey({ token, stripeSessionId: session.id });
+          await tempToken.save();
+
+          return { session: session.id };
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        throw new AuthenticationError("No auth to make action.");
       }
     },
   },
@@ -326,14 +335,18 @@ const resolvers = {
     },
     idUpload: async (parent, args, context) => {
       if (context.user) {
-        try {
-          const user = await User.findById(context.user._id);
-          user.idFront = args.idFront;
-          user.idBack = args.idBack;
-          const updatedUser = await user.save();
-          return updatedUser;
-        } catch (err) {
-          console.log(err);
+        if (args.idFront && args.idBack) {
+          try {
+            const user = await User.findById(context.user._id);
+            user.idFront = args.idFront;
+            user.idBack = args.idBack;
+            user.isIdSubmitted = true;
+            user.isIdRejected = false;
+            const updatedUser = await user.save();
+            return updatedUser;
+          } catch (err) {
+            console.log(err);
+          }
         }
       }
     },
@@ -345,6 +358,10 @@ const resolvers = {
         const user = await User.findById(args._id).select("-_v -password");
         if (args.action === "accept") {
           user.isVerified = true;
+        }
+        if (args.action === "reject") {
+          user.isIdRejected = true;
+          user.isIdSubmitted = false; 
         }
         user.idFront = "";
         user.idBack = "";
@@ -404,9 +421,9 @@ const resolvers = {
 
       return { token, user };
     },
-    agreement: async (parent, args,context) => {
-      const token = signAgreement(args.userChoice)
-      return token 
+    agreement: async (parent, args, context) => {
+      const token = signAgreement(args.userChoice);
+      return token;
     },
     sendMail: async (parent, args, context) => {
       const { email, name, message } = args;

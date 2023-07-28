@@ -6,9 +6,12 @@ import { ADD_USER } from "../utils/mutations";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Redirector from '../utils/redirector'
+import useScrollHelper from "../utils/scrollhelper";
 
 function Signup(props) {
   Redirector.checkTokens()
+  useScrollHelper()
+  
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [addUser] = useMutation(ADD_USER);
 

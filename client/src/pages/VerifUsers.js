@@ -5,10 +5,12 @@ import { useQuery, useMutation } from "@apollo/client";
 import { USER_VERIF_ADMIN } from "../utils/mutations";
 import { QUERY_USER_ADMIN } from "../utils/queries";
 import Jumbotron from "../components/Jumbotron";
+import useScrollHelper from '../utils/scrollhelper'
 
 const VerifUsers = () => {
   const token = localStorage.getItem("id_token");
   Auth.isTokenExpired(token);
+  useScrollHelper()
 
   const [userVerifAdmin] = useMutation(USER_VERIF_ADMIN);
 

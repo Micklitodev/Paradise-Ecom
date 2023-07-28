@@ -4,10 +4,13 @@ import Nav from "../components/Nav";
 import AdminProdAdd from "../components/AdminProdAdd";
 import AdminProdDel from "../components/AdminProdDel";
 import Jumbotron from "../components/Jumbotron";
+import useScrollHelper from "../utils/scrollhelper";
 
 const ManageProducts = () => {
   const token = localStorage.getItem("id_token");
   Auth.isTokenExpired(token);
+  useScrollHelper()
+  
 
   if (Auth.isAdmin() === true) {
     return (

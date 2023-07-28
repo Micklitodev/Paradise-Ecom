@@ -5,16 +5,13 @@ import { ref, uploadBytes } from "firebase/storage";
 import { useMutation } from "@apollo/client";
 import { ID_UPLOAD } from "../../utils/mutations";
 import Jumbotron from "../Jumbotron";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
-
-const VerifForm = () => {
+const VerifForm = (props) => {
   const [formState, setFormState] = useState({ idFront: "", idBack: "" });
-  const [submitted, setSubmitted] = useState(false);
 
   const [idUpload] = useMutation(ID_UPLOAD);
-  const uniqueId = uuidv4(); 
-
+  const uniqueId = uuidv4();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -33,8 +30,6 @@ const VerifForm = () => {
         idBack: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${uniqueId}-${idBack.name}?alt=media`,
       };
 
-      console.log(variables);
-
       const { data } = await idUpload({
         variables,
       });
@@ -48,7 +43,6 @@ const VerifForm = () => {
       console.log(e);
     } finally {
       setFormState({ idFront: "", idBack: "" });
-      setSubmitted(true);
     }
   };
 
@@ -58,17 +52,23 @@ const VerifForm = () => {
   };
 
   const fileUploadHandler = async () => {
-    const idFrontRef = ref(storage, `idphotos/${uniqueId}-${formState.idFront.name}`);
-    const idBackRef = ref(storage, `idphotos/${uniqueId}-${formState.idBack.name}`);
+    const idFrontRef = ref(
+      storage,
+      `idphotos/${uniqueId}-${formState.idFront.name}`
+    );
+    const idBackRef = ref(
+      storage,
+      `idphotos/${uniqueId}-${formState.idBack.name}`
+    );
     const idFrontUpload = uploadBytes(idFrontRef, formState.idFront);
     const idBackUpload = uploadBytes(idBackRef, formState.idBack);
 
     await Promise.all([idFrontUpload, idBackUpload]).then((res) => {
-      console.log(res);
+      window.location.assign("/dashboard");
     });
   };
 
-  if (!Auth.isVerified() && !submitted) {
+  if (!Auth.isVerified() && props.data?.user.isIdSubmitted === false) {
     return (
       <>
         <div className="container borderwrap" style={{ minHeight: "35vh" }}>
@@ -106,7 +106,7 @@ const VerifForm = () => {
         <div />
       </>
     );
-  } else if (submitted) {
+  } else if (props.data?.user.isIdSubmitted) {
     return (
       <div style={{ maxHeight: "20vh" }}>
         <Jumbotron>

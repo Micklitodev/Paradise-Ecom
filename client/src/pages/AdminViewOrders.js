@@ -5,10 +5,12 @@ import { useQuery } from "@apollo/client";
 import { ADMIN_ORDER_VIEW } from "../utils/queries";
 import Jumbotron from "../components/Jumbotron";
 import OrderMap from "../components/OrderMap";
+import useScrollHelper from '../utils/scrollhelper'
 
 const AdminOrderView = () => {
   const token = localStorage.getItem("id_token");
   Auth.isTokenExpired(token);
+  useScrollHelper()
 
   const { loading, data } = useQuery(ADMIN_ORDER_VIEW);
 

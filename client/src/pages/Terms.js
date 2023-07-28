@@ -1,7 +1,9 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import  useScrollHelper  from '../utils/scrollhelper'
 
 const Terms = () => {
+  useScrollHelper()
   return (
     <>
     <Nav /> 
