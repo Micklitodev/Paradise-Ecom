@@ -1,145 +1,204 @@
-import React from "react";
+import React, { useState } from "react";
 import Auth from "../../utils/auth";
 import NotVerifiedBar from "../NotVerifiedBar";
 import SearchBar from "../Search";
 import { Link } from "react-router-dom";
-import { CiLogin, CiLogout, CiGrid42 } from "react-icons/ci";
+import {
+  CiLogin,
+  CiLogout,
+  CiGrid42,
+  CiMaximize1,
+  CiMinimize1,
+} from "react-icons/ci";
 import { GoHome } from "react-icons/go";
 
-function Nav() {
-  function showNavigation() {
-    if (Auth.isAdmin()) {
-      return (
-        <ul className="flex-row center">
-          <li className="mx-1">
-            <Link to="/adminorderview">View Orders</Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/manageproducts">Manage Products</Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/verifusers">Verify Users</Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/home" onClick={() => Auth.logout()}>
-              Logout
-            </Link>
-          </li>
-        </ul>
-      );
-    } else if (Auth.loggedIn() && !Auth.isAdmin()) {
-      return (
-        <>
-          <ul className="flex-row center" style={{ marginLeft: "20%" }}>
-            <li
-              className="mx-2 "
-              style={{ marginTop: 30, position: "relative", left: "-50%" }}
-            >
-              <SearchBar />
-            </li>
-            <li className="mx-2">
-              <Link to="/dashboard">
-                <div>
-                  <CiGrid42 size={28} style={{ marginLeft: 6 }} />
-                  <p
-                    style={{
-                      textAlign: "center",
-                      position: "relative",
-                      top: -5,
-                    }}
-                  >
-                    dash
-                  </p>
-                </div>
-              </Link>
-            </li>
-            <li className="mx-2">
-              <Link href="/home" onClick={() => Auth.logout()}>
-                <div>
-                  <CiLogout size={27} style={{ marginLeft: 4 }} />
-                  <p
-                    style={{
-                      textAlign: "center",
-                      position: "relative",
-                      top: -5,
-                    }}
-                  >
-                    logout
-                  </p>
-                </div>
-              </Link>
-            </li>
-          </ul>
-        </>
-      );
-    } else if (!Auth.loggedIn()) {
-      return (
-        <ul className="flex-row center">
-          <li className="mx-2" style={{ marginTop: 30 }}>
-            <SearchBar />
-          </li>
-          <li className="mx-2">
-            <Link to="/login">
-              <div>
-                <CiLogin size={29} />
-                <p
-                  style={{
-                    textAlign: "center",
-                    position: "relative",
-                    top: -9,
-                  }}
-                >
-                  login
-                </p>
-              </div>
-            </Link>
-          </li>
-        </ul>
-      );
-    }
-  }
+const Nav = () => {
+  const [nav, setNav] = useState(false);
+  const handleClick = () => setNav((prevNav) => !prevNav);
+
+  // styles
+  const navLink = "text-xl hover:underline";
+  const navButton =
+    "px-4 py-2 text-lg font-medium text-indigo-500 rounded-md bg-white hover:bg-indigo-200";
 
   return (
     <>
-      <header className="flex-row px-1">
-        <h1 style={{ marginTop: 2 }}>
-          <Link to="/home">
-            <GoHome size={29} />
-            <p
-              style={{
-                textAlign: "center",
-                position: "relative",
-                top: -9,
-                marginLeft: 10,
-              }}
+      <div className="sticky top-0 z-10 w-full ">
+        <header className="w-full h-18 bg-white-200 drop-shadow-md">
+          <div className="flex items-center justify-between w-full h-full px-2">
+            {/* site name container */}
+            <Link
+              to="/home"
+              className="px-4 text-slate-100 hover:text-indigo-200"
             >
-              login
-            </p>
-          </Link>
-        </h1>
+              <GoHome size={20} />
+              <p style={{ marginLeft: -8 }}>Home</p>
+            </Link>
 
-        <nav>{showNavigation()}</nav>
-        {console.log(`
-            "We only have room
-            for one specimen,       "Let us take the small,
-            Dtlxvr. Which shall      low-decible one, Ftxbp.
-                we take?"               I like peace."
-                           _.-'~~~~'-._   /
-                .       .-~            ~-.         .
-                     .-~   (oo)  (oo)    ~-.
-                    (______//~~//~~ ||_______)
-                _.-~"                         "~-._
-               |O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O|    *
-              |_____________________________________|
-                          x x x x x x x
-                .  *       x_x_x_x_x_x.                  
-                              
-                             DEV: ML.                       
-                                                             `)}
-      </header>
+            {/* desktop navigation */}
+            <nav>
+              <ul className="hidden space-x-9 md:flex md:items-center mr-16">
+                {Auth.isAdmin() ? (
+                  <>
+                    <li className="mx-1">
+                      <Link to="/adminorderview">View Orders</Link>
+                    </li>
+                    <li className="mx-1">
+                      <Link to="/manageproducts">Manage Products</Link>
+                    </li>
+                    <li className="mx-1">
+                      <Link to="/verifusers">Verify Users</Link>
+                    </li>
+                    <li className="mx-1">
+                      <Link to="/home" onClick={() => Auth.logout()}>
+                        Logout
+                      </Link>
+                    </li>
+                  </>
+                ) : null}
+                {Auth.loggedIn() && !Auth.isAdmin() ? (
+                  <>
+                    <li className="absolute mt-4 center mx-2">
+                      <SearchBar />
+                    </li>
+
+                    <li style={{ position: "relative", top: -10 }}>
+                      <Link to="/dashboard">
+                        <div>
+                          <CiGrid42 size={20} style={{ marginLeft: 5 }} />
+                          <p>Dash</p>
+                        </div>
+                      </Link>
+                    </li>
+                    <li style={{ position: "relative", top: -10 }}>
+                      <Link href="/home" onClick={() => Auth.logout()}>
+                        <div>
+                          <CiLogout size={20} style={{ marginLeft: 8 }} />
+                          <p>Logout</p>
+                        </div>
+                      </Link>
+                    </li>
+                  </>
+                ) : null}
+                {!Auth.loggedIn() ? (
+                  <>
+                    <li className="absolute mt-4 center mx-2">
+                      <SearchBar />
+                    </li>
+                    <li style={{ position: "relative", top: 1 }}>
+                      <Link
+                        className="px-4 text-slate-100 hover:text-indigo-200"
+                        to="/login"
+                      >
+                        <CiLogin size={22} />
+                        <p>Login</p>
+                      </Link>
+                    </li>
+                  </>
+                ) : null}
+              </ul>
+            </nav>
+
+            {/* mobile menu button */}
+            <div className="md:hidden" onClick={handleClick}>
+              {!nav ? (
+                <CiMaximize1 size={21} className="w-8 text-white" />
+              ) : (
+                <CiMinimize1 size={22} className="w-8 text-white" />
+              )}
+            </div>
+          </div>
+
+          {/* mobile navigation */}
+          <ul
+            className={
+              !nav
+                ? "hidden"
+                : "absolute bg-gray-200 w-full px-8 pb-4 md:hidden space-y-2 text-right"
+            }
+          >
+            <li>
+              <Link
+                to="/home"
+                className="px-4 text-slate-100 hover:text-indigo-200"
+              >
+                <p style={{ marginLeft: -8 }}>Home</p>
+              </Link>
+            </li>
+            <hr />
+            {Auth.isAdmin() ? (
+              <>
+                <li className="mx-1">
+                  <Link to="/adminorderview">View Orders</Link>
+                </li>
+                <li className="mx-1">
+                  <Link to="/manageproducts">Manage Products</Link>
+                </li>
+                <li className="mx-1">
+                  <Link to="/verifusers">Verify Users</Link>
+                </li>
+                <li className="mx-1">
+                  <Link to="/home" onClick={() => Auth.logout()}>
+                    Logout
+                  </Link>
+                </li>
+              </>
+            ) : null}
+            {Auth.loggedIn() && !Auth.isAdmin() ? (
+              <>
+                <li style={{ position: "relative", top: -10 }}>
+                  <Link to="/dashboard">
+                    <div>
+                      <p>Dashboard</p>
+                    </div>
+                  </Link>
+                </li>
+                <li style={{ position: "relative", top: -10 }}>
+                  <Link href="/home" onClick={() => Auth.logout()}>
+                    <div>
+                      <p>Logout</p>
+                    </div>
+                  </Link>
+                </li>
+              </>
+            ) : null}
+            {!Auth.loggedIn() ? (
+              <>
+                <li style={{ position: "relative", top: -10 }}>
+                  <Link
+                    className="px-4 text-slate-100 hover:text-indigo-200"
+                    to="/login"
+                  >
+                    <p>Login</p>
+                  </Link>
+                </li>
+              </>
+            ) : null}
+          </ul>
+        </header>
+      </div>
       {Auth.loggedIn() ? Auth.isVerified() ? "" : <NotVerifiedBar /> : null}
+      {console.log(`
+    "We only have room
+    for one specimen,       "Let us take the small,
+    Dtlxvr. Which shall      low-decible one, Ftxbp.
+        we take?"               I like peace."
+                   _.-'~~~~'-._   /
+        .       .-~            ~-.         .
+             .-~   (oo)  (oo)    ~-.
+            (______//~~//~~ ||_______)
+        _.-~"                         "~-._
+       |O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O=O|    *
+      |_____________________________________|
+                  x x x x x x x
+        .  *       x_x_x_x_x_x.
+
+                     DEV: ML.
+                                                     `)}
     </>
   );
-}
+};
+
+
 
 export default Nav;

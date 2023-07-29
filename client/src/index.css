@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Maven+Pro&family=Montserrat:wght@100;200;300&family=Nunito+Sans:wght@200;300&family=Roboto+Flex:opsz@8..144&display=swap");
-
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 :root {
   --primary: #ffffff;
   --secondary: rgb(100, 100, 100);

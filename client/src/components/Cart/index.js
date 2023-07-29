@@ -193,10 +193,9 @@ const Cart = () => {
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
-        <CiShoppingCart style={{ marginLeft: 4 }} />
-        <p style={{ textAlign: "center", position: "relative", top: -16 }}>
-          {" "}
-          cart{" "}
+        <CiShoppingCart size={25} style={{ marginLeft: 7, marginTop: 4 }} />
+        <p style={{ textAlign: "center", position: "relative", top: -1.5 }}>
+          Cart
         </p>
       </div>
     );

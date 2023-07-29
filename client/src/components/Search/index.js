@@ -10,10 +10,10 @@ const SearchBar = () => {
         gap: "5px",
       }}
     >
-      <input style={{ minHeight: 37, width: 220 }} type="text" />
-      <button style={{ padding: 5, minHeight: 40 }}>
-        <CiSearch />
-        <p style={{ maxHeight: "2px", fontSize: 10, margin: 0 }}>search</p>
+      <input style={{ minHeight: 30, width: 300 }} type="text" />
+      <button className="mb-2.5" style={{ padding: 5, minHeight: 40 }}>
+        <CiSearch size={20} />
+        <p style={{ maxHeight: "2px", fontSize: 10 }}>search</p>
       </button>
     </div>
   );
