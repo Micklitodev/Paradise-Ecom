@@ -175,20 +175,6 @@ const resolvers = {
           });
         }
 
-        // add shipping price line item
-
-        line_items.push({
-          price_data: {
-            currency: "usd",
-            unit_amount: shippingPrice,
-            product_data: {
-              name: "Shipping",
-              description: "Shipping fee",
-            },
-          },
-          quantity: 1,
-        });
-
         // handle tax
 
         const taxRate = await stripe.taxRates.create({
@@ -202,6 +188,20 @@ const resolvers = {
         for (let i = 0; i < line_items.length; i++) {
           line_items[i].tax_rates = [taxRate.id];
         }
+
+        // add shipping price line item
+
+        line_items.push({
+          price_data: {
+            currency: "usd",
+            unit_amount: shippingPrice,
+            product_data: {
+              name: "Shipping",
+              description: "Shipping fee",
+            },
+          },
+          quantity: 1,
+        });
 
         // create stripe sesssion
 
@@ -219,6 +219,7 @@ const resolvers = {
           const token = signTempToken({
             id: session.id,
             total: session.amount_total,
+            subTotal: session.amount_subtotal,
           });
 
           const tempToken = new TempKey({ token, stripeSessionId: session.id });
@@ -273,6 +274,14 @@ const resolvers = {
         const { firstName, lastName, street, city, state, zip } = user;
         const address = `${street} ${city}, ${state} ${zip}`;
 
+        // update user points
+
+        // const pointsUsed = decodedToken.data.pointsUsed
+        const subTotal = decodedToken.data.subTotal;
+
+        const pointprep = parseInt(subTotal);
+        user.points += Math.floor(pointprep / 100);
+
         // purchase ship label
 
         const boughtShipment = await client.Shipment.buy(
@@ -299,6 +308,7 @@ const resolvers = {
         });
 
         await order.save();
+        await user.save();
 
         // delete tempkey token so endpoint cannot be hit again
 
@@ -361,7 +371,7 @@ const resolvers = {
         }
         if (args.action === "reject") {
           user.isIdRejected = true;
-          user.isIdSubmitted = false; 
+          user.isIdSubmitted = false;
         }
         user.idFront = "";
         user.idBack = "";

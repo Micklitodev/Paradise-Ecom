@@ -7,7 +7,7 @@ const Footer = () => {
           backgroundColor: "#ffffff",
           position: "relative",
           bottom: 0,
-          height: "75vh",
+          minHeight: "75vh",
           width: "100vw",
           color: "#7f7f7f",
           padding: 10,
@@ -44,7 +44,7 @@ const Footer = () => {
         <div style={{ float: "right", marginRight: "4%" }}>
           <h3 style={{ marginLeft: "25%", textTransform: 'uppercase' }}> We check ID </h3>
           <br />
-          <img src="./images/mclovinid.png" alt='notably fake corny id' />
+          <img style={{width: '80%'}} src="./images/mclovinid.png" alt='notably fake corny id' />
         </div>
 
         <div style={{ marginLeft: "41%" }}>

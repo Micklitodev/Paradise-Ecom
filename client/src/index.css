@@ -101,9 +101,6 @@ header a {
   margin-left: 15px;
 }
 
-header h1 {
-  font-family: "Dancing Script", cursive;
-}
 
 canvas {
   position: fixed;
@@ -206,7 +203,7 @@ form {
 input {
   font-size: 1rem;
   padding: 0.25rem;
-  border: 1px solid var(--dark);
+  border: 1px solid var(--light);
   outline: none;
   border-radius: 3px;
   transition: box-shadow 0.2s;
