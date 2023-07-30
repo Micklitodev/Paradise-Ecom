@@ -15,12 +15,7 @@ import { GoHome } from "react-icons/go";
 const Nav = () => {
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav((prevNav) => !prevNav);
-
-  // styles
-  const navLink = "text-xl hover:underline";
-  const navButton =
-    "px-4 py-2 text-lg font-medium text-indigo-500 rounded-md bg-white hover:bg-indigo-200";
-
+  
   return (
     <>
       <div className="sticky top-0 z-10 w-full ">
@@ -58,7 +53,7 @@ const Nav = () => {
                 ) : null}
                 {Auth.loggedIn() && !Auth.isAdmin() ? (
                   <>
-                    <li className="absolute mt-4 center mx-2">
+                    <li className="absolute mt-4 center ml-10">
                       <SearchBar />
                     </li>
 
@@ -82,7 +77,7 @@ const Nav = () => {
                 ) : null}
                 {!Auth.loggedIn() ? (
                   <>
-                    <li className="absolute mt-4 center mx-2">
+                  <li className="absolute mt-4 center ml-10">
                       <SearchBar />
                     </li>
                     <li style={{ position: "relative", top: 1 }}>

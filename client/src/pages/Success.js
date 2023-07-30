@@ -5,7 +5,7 @@ import { ADD_ORDER } from "../utils/mutations";
 import { idbPromise } from "../utils/helpers";
 
 function Success() {
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
   const [addOrder] = useMutation(ADD_ORDER);
 
   useEffect(() => {
@@ -34,9 +34,9 @@ function Success() {
           idbPromise("cart", "delete", item);
         });
 
-        // setTimeout(() => {
-        //   window.location.assign('/home');
-        // }, 3000);
+        setTimeout(() => {
+          window.location.assign('/dashboard');
+        }, 2000);
       } catch (err) {
         console.log(err);
       }
@@ -57,7 +57,7 @@ function Success() {
             <Jumbotron>
               <h1>Success!</h1>
               <br />
-              <img src="./images/thankyou.gif" alt="thank you gif" />
+              {/* <img className='center' src="./images/thankyou.gif" alt="thank you gif" /> */}
               <br />
               <br />
               <h2>You will now be redirected to the home page...</h2>

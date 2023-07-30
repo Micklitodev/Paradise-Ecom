@@ -3,13 +3,12 @@ import { ADD_PRODUCT } from "../../utils/mutations";
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useState, useRef } from "react";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 const AdminProdAdd = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
-  const uniqueId = uuidv4()
+  const uniqueId = uuidv4();
 
   const [addProduct] = useMutation(ADD_PRODUCT);
 
@@ -50,7 +49,7 @@ const AdminProdAdd = () => {
     if (formData.name) {
       try {
         if (formData.image) {
-         await fileUploadHandler();
+          await fileUploadHandler();
         }
         const protocol = "https";
         const host = "firebasestorage.googleapis.com/";
@@ -104,8 +103,8 @@ const AdminProdAdd = () => {
           onSubmit={handleSubmit}
           className="flex flex-col items-center space-y-4"
         >
-          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
-            <label htmlFor="name" className="w-full md:w-1/4">
+          <div className="flex flex-col space-y-4 w-full">
+            <label htmlFor="name" className="w-full">
               Product Name:
             </label>
             <input
@@ -114,19 +113,19 @@ const AdminProdAdd = () => {
               placeholder="Product Name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full md:w-3/4 py-2 px-4 border rounded"
+              className="w-full py-2 px-4 border rounded"
             />
           </div>
 
-          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
-            <label htmlFor="category" className="w-full md:w-1/4">
+          <div className="flex flex-col space-y-4 w-full">
+            <label htmlFor="category" className="w-full">
               Category:
             </label>
             <select
               name="category"
               onChange={handleInputChange}
               value={formData.category}
-              className="w-full md:w-3/4 py-2 px-4 border rounded"
+              className="w-full py-2 px-4 border rounded"
             >
               <option value="">Select a category</option>
               <option value="Edible">Edible</option>
@@ -140,8 +139,8 @@ const AdminProdAdd = () => {
             </select>
           </div>
 
-          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
-            <label htmlFor="price" className="w-full md:w-1/4">
+          <div className="flex flex-col space-y-4 w-full">
+            <label htmlFor="price" className="w-full">
               Price:
             </label>
             <input
@@ -150,12 +149,12 @@ const AdminProdAdd = () => {
               placeholder="Price"
               value={formData.price}
               onChange={handleInputChange}
-              className="w-full md:w-3/4 py-2 px-4 border rounded"
+              className="w-full py-2 px-4 border rounded"
             />
           </div>
 
-          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
-            <label htmlFor="quantity" className="w-full md:w-1/4">
+          <div className="flex flex-col space-y-4 w-full">
+            <label htmlFor="quantity" className="w-full">
               Quantity:
             </label>
             <input
@@ -164,12 +163,12 @@ const AdminProdAdd = () => {
               placeholder="Quantity"
               value={formData.quantity}
               onChange={handleInputChange}
-              className="w-full md:w-3/4 py-2 px-4 border rounded"
+              className="w-full py-2 px-4 border rounded"
             />
           </div>
 
-          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
-            <label htmlFor="description" className="w-full md:w-1/4">
+          <div className="flex flex-col space-y-4 w-full">
+            <label htmlFor="description" className="w-full">
               Description:
             </label>
             <textarea
@@ -180,38 +179,37 @@ const AdminProdAdd = () => {
               rows="10"
               value={formData.description}
               onChange={handleInputChange}
-              className="w-full md:w-3/4 py-2 px-4 border rounded"
+              className="w-full py-2 px-4 border rounded"
             />
           </div>
 
-          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
-            <label htmlFor="image" className="w-full md:w-1/4">
-              Image File:
-            </label>
-            <button
-              type="button"
-              onClick={handleImageUploadClick}
-              className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Upload Image
-            </button>
-            <input
-              type="file"
-              accept="image/*"
-              name="image"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              style={{ display: 'none' }}
-            />
-
-            {previewImage && (
-              <img
-                src={previewImage}
-                alt="Preview"
-                className="w-64 mt-4"
+          <div className="flex flex-col space-y-4 w-full">
+            <label htmlFor="image">Image File:</label>
+            <div className="flex flex-col space-y-4">
+              <button
+                type="button"
+                onClick={handleImageUploadClick}
+                className="py-1 bg-blue-400 text-white rounded hover:bg-blue-500"
+              >
+                Upload Image
+              </button>
+              <input
+                type="file"
+                accept="image/*"
+                name="image"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                style={{ display: "none" }}
               />
-            )}
+            </div>
           </div>
+          {previewImage && (
+            <img
+              src={previewImage}
+              alt="Preview"
+              className="w-full py-2 px-4 border rounded"
+            />
+          )}
 
           <br />
 
@@ -226,15 +224,15 @@ const AdminProdAdd = () => {
                 !formData.description
               }
               type="submit"
-              className={`py-2 px-4 bg-green-500 text-white rounded ${
+              className={`py-2 bg-green-500 text-white rounded ${
                 !formData.name ||
                 !formData.category ||
                 !formData.price ||
                 !formData.quantity ||
                 !formData.image ||
                 !formData.description
-                  ? 'opacity-50 cursor-not-allowed'
-                  : 'hover:bg-green-600'
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-green-600"
               }`}
             >
               Create Product

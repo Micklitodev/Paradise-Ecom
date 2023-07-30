@@ -40,13 +40,13 @@ function Login(props) {
       <Nav />
       <br />
       <br />
+      <br />
       <div>
         <br />
         <Link style={{ marginLeft: 10 }} to="/signup">
           ← Go to Signup
         </Link>
-        <br />
-        <br />
+
         <div className="container borderwrap" style={{ minHeight: "60vh" }}>
           <h2 className="text-2xl font-semibold">Login</h2>
           <form
@@ -90,6 +90,7 @@ function Login(props) {
             <div className="flex justify-end">
               <button
                 type="submit"
+                className="bg-blue-400 text-white"
               >
                 Submit
               </button>

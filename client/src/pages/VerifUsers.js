@@ -5,12 +5,12 @@ import { useQuery, useMutation } from "@apollo/client";
 import { USER_VERIF_ADMIN } from "../utils/mutations";
 import { QUERY_USER_ADMIN } from "../utils/queries";
 import Jumbotron from "../components/Jumbotron";
-import useScrollHelper from '../utils/scrollhelper'
+import useScrollHelper from "../utils/scrollhelper";
 
 const VerifUsers = () => {
   const token = localStorage.getItem("id_token");
   Auth.isTokenExpired(token);
-  useScrollHelper()
+  useScrollHelper();
 
   const [userVerifAdmin] = useMutation(USER_VERIF_ADMIN);
 
@@ -74,39 +74,61 @@ const VerifUsers = () => {
         <br />
         <br />
         <br />
-        <h2 style={{ textAlign: "center" }}> Verify Users</h2>
+        <h2 className="text-center">Verify Users</h2>
 
         {filteredUser?.length ? (
-          <div style={{ textAlign: "center" }}>
+          <div className="text-center">
             {filteredUser.length} user(s) to verify.
           </div>
         ) : null}
 
-        <div className="borderwrap container">
+        <div className="borderwrap container mx-auto">
           {!filteredUser?.length ? (
             <>
               <br />
               <br />
               <br />
-              <div style={{ height: "20vh" }}> 
-              <h3> All done! </h3> 
+              <div style={{ height: "20vh" }}>
+                <h3>All done!</h3>
               </div>
             </>
           ) : (
             filteredUser?.map((user, index) => (
-              <div style={{ textAlign: "center" }} key={index} value={user._id}>
+              <div className="text-center" key={index} value={user._id}>
                 <br />
                 <h3>
-                  {" "}
-                  {user.firstName} {user.lastName}{" "}
+                  {user.firstName} {user.lastName}
                 </h3>
-                <p> {user._id} </p>
-                <img src={user.idFront} alt="" style={{ maxHeight: 200 }} />
-                <img src={user.idBack} alt="" style={{ maxHeight: 200 }} />
+                <p>{user._id}</p>
+
+                <img
+                  className="inline-block mx-1"
+                  src={user.idFront}
+                  alt=""
+                  style={{ maxHeight: 200 }}
+                />
+                <img
+                  className="inline-block mx-1"
+                  src={user.idBack}
+                  alt=""
+                  style={{ maxHeight: 200 }}
+                />
+
+                <br />
                 <br />
 
-                <button onClick={handleReject}> Reject </button>
-                <button onClick={handleAccept}> Accept </button>
+                <button
+                  className="bg-red-400 text-white py-1 px-20 mx-14"
+                  onClick={handleReject}
+                >
+                  Reject
+                </button>
+                <button
+                  className="bg-blue-400 text-white py-1 px-20 mx-14"
+                  onClick={handleAccept}
+                >
+                  Accept
+                </button>
                 <br />
                 <br />
                 <hr />

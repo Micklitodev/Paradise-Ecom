@@ -211,6 +211,7 @@ input {
   padding: 0.25rem;
   border: 1px solid var(--light);
   outline: none;
+  height: 40px;
   border-radius: 3px;
   transition: box-shadow 0.2s;
 }
@@ -224,6 +225,7 @@ select {
   font-size: 1rem;
   padding: 0.25rem;
   width: 176px;
+  height: 40px;
   border: 1px solid var(--dark);
   outline: none;
   border-radius: 3px;

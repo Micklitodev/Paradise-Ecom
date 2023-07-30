@@ -37,24 +37,28 @@ const SearchRes = () => {
       <br />
       <div>
         <h2 className="text-center">Search</h2>
-        <hr /> 
+        <hr />
         {data?.querySearch.length > 0 ? (
           <>
-            <div class="flex flex-wrap justify-center">
+            <div style={{ 
+              display: "flex", 
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}>
               {data.querySearch?.map((product) => (
-                <div class="w-full p-4 inline-block">
-                  <ProductItem
-                    key={product._id}
-                    _id={product._id}
-                    image={product.image}
-                    name={product.name}
-                    price={product.price}
-                    quantity={product.quantity}
-                  />
-                  <br />
-                </div>
+                
+                <ProductItem
+                  key={product._id}
+                  _id={product._id}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                  quantity={product.quantity}
+                />
+                
               ))}
             </div>
+            <br /> 
           </>
         ) : (
           <>

@@ -144,7 +144,7 @@ const Modal = (props) => {
                 </button>
                 <button
                   style={{
-                    color: "rgb(77, 77, 77)",
+      
                     fontWeight: "bold",
                     textTransform: "uppercase",
                     padding: "0.75rem 1.5rem",
@@ -157,6 +157,7 @@ const Modal = (props) => {
                   }}
                   type="button"
                   onClick={handleAgree}
+                  className="bg-blue-400 text-white h-15"
                 >
                   Agree
                 </button>

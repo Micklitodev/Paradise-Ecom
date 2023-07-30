@@ -68,6 +68,7 @@ function ProductItem(item) {
         </div>
 
         <button
+          className="bg-red-400 text-white rounded hover:bg-blue-500"
           onClick={() => {
             handleDelete(_id);
           }}
@@ -94,7 +95,12 @@ function ProductItem(item) {
           </div>
           <span>${price}</span>
         </div>
-        <button onClick={addToCart}>Add to cart</button>
+        <button
+          className="bg-blue-400 text-white h-15 mt-2"
+          onClick={addToCart}
+        >
+          Add to cart
+        </button>
       </div>
     );
   }

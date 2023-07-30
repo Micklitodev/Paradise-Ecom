@@ -13,7 +13,7 @@ function Signup(props) {
   useScrollHelper()
   
   const [formState, setFormState] = useState({ email: "", password: "" });
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, {error}] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -47,7 +47,6 @@ function Signup(props) {
       <Link style={{ marginLeft: 10 }} to="/login">
         ← Go to login{" "}
       </Link>
-      <br />
       <br />
       <div className="container borderwrap" style={{ minHeight: "60vh" }}>
         <br />
@@ -109,14 +108,30 @@ function Signup(props) {
               className="border border-gray-300 px-3 py-2 rounded-md w-full"
             />
           </div>
+          {error ? (
+              <div>
+                <p className="error-text">
+                  Account with this email already exists
+                </p>
+              </div>
+            ) : null}
           <div className="flex justify-end">
             <button
               type="submit"
+              className="bg-blue-400 text-white"
              
             >
               Submit
             </button>
           </div>
+          <div>
+              <br />
+              <em style={{ fontSize: 13 }}>
+                <Link to="/login" className="text-gray-400">
+                  Already have an account? 
+                </Link>
+              </em>
+              </div>
         </form>
         <br />
       </div>

@@ -396,7 +396,12 @@ const Cart = () => {
               ) : null}
             </div>
             {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
+              <button
+                className="bg-blue-400 text-white h-15 mt-2"
+                onClick={submitCheckout}
+              >
+                Checkout
+              </button>
             ) : (
               <a href="/login"> (log in to check out) </a>
             )}

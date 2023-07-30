@@ -74,6 +74,10 @@ const ResetLink = () => {
     <Nav />
     <br />
     <br />
+    <br />
+    <Link style={{ marginLeft: 10 }} to="/login">
+        ← Go to login{" "}
+      </Link>
     {ChangeReject ? (
       <>
         <Jumbotron className="text-center">
@@ -131,6 +135,7 @@ const ResetLink = () => {
                     <button
                       type="submit"
                       disabled={!formState.email}
+                      className="bg-blue-400 text-white"
                     >
                       Submit
                     </button>
@@ -186,6 +191,7 @@ const ResetLink = () => {
                     <button
                       type="submit"
                       disabled={!codeInput.securityCode}
+                      className="bg-blue-400 text-white"
                     >
                       Submit
                     </button>

@@ -43,7 +43,7 @@ const CartItem = ({ item }) => {
           {item.name}, ${item.price}
         </div>
         <div style={{ display: "inline" }}>
-          <span>Qty:</span>
+          <span>Qty:{" "}</span>
           <input
             type="number"
             placeholder="1"
@@ -52,7 +52,7 @@ const CartItem = ({ item }) => {
           />
         </div>
         <BiTrashAlt
-          style={{ position: "relative", top: 3.5 }}
+          style={{ position: "relative", top: -2, display: 'inline' }}
           size={22}
           onClick={() => removeFromCart(item)}
         />

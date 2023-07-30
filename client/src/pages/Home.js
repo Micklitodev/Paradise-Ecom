@@ -4,13 +4,13 @@ import Cart from "../components/Cart";
 import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
-import Redirector from '../utils/redirector'
+import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
 
 const Home = () => {
-  Redirector.checkTokens()
-  useScrollHelper()
-  
+  Redirector.checkTokens();
+  useScrollHelper();
+
   if (Auth.isAdmin()) {
     return (
       <>
@@ -18,12 +18,12 @@ const Home = () => {
         <br />
         <br />
         <img
-          src="./images/headerimg.png"
+          src="./images/headerimg.jpeg"
           alt="header of delta 8."
           style={{
             width: "100vw",
             borderRadius: 0,
-            maxHeight: "100vh",
+            maxHeight: "60vh",
             opacity: 0.9,
           }}
         />
@@ -50,29 +50,34 @@ const Home = () => {
       <>
         <Nav />
         <img
-          src="./images/headerimg.png"
+          src="./images/headerimg.jpeg"
           alt="header of delta 8."
           style={{
             width: "100vw",
             borderRadius: 0,
-            maxHeight: "100vh",
+            maxHeight: "60vh",
             opacity: 0.9,
           }}
         />
         <h1
+        className="center ml-5"
           style={{
             textTransform: "uppercase",
-            textAlign: "center",
-            position: "relative",
-            top: "-77vh",
+            position: "absolute",
+            top: "20vh",
             fontWeight: 900,
-            fontSize: 40,
+            fontSize: 30,
+            textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)", 
+            backgroundColor: "white",
+            borderRadius: 5
+        
           }}
         >
           {" "}
           GEORGIA PRIMERE HEMP DISPENSARY{" "}
         </h1>
         <div>
+        <br /> 
           <CategoryMenu />
           <Cart />
         </div>

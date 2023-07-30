@@ -103,6 +103,7 @@ function Detail() {
       <p className="text-lg font-bold mt-4">
         <strong>Price:</strong> ${currentProduct.price}{" "}
         <button
+        className="bg-blue-400 text-white h-15 mt-2"
           onClick={addToCart}
          
         >
@@ -111,6 +112,7 @@ function Detail() {
         <button
           disabled={!cart.find((p) => p._id === currentProduct._id)}
           onClick={removeFromCart}
+          className="bg-red-400 text-white h-15 mt-2"
   
         >
           Remove from Cart
