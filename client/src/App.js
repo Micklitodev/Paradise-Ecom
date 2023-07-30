@@ -26,6 +26,8 @@ import Terms from './pages/Terms'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import LithiumWarn from './pages/LithiumWarn'
 import LabResults from './pages/LabResults'
+import SearchRes from './pages/SearchRes';
+import ResetLink from './pages/ResetLink';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -85,6 +87,14 @@ function App() {
                 path="/products/categories/:id"
                 element={<ProductCata />}
               />
+              <Route 
+                path='/search/:id' 
+                element={<SearchRes />}
+              /> 
+              <Route 
+                path='/resetLink' 
+                element={<ResetLink /> }
+              /> 
 
 
 

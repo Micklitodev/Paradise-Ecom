@@ -71,6 +71,7 @@ const typeDefs = gql`
     calcShip(productInt: Int!): JSON
     adminOrderView: [Order]
     queryUserAdmin: [User]
+    querySearch(search: String!): [Product]
   }
 
   type Mutation {
@@ -103,6 +104,12 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     agreement(userChoice: String!): JSON
     sendMail(name: String!, email: String!, message: String!): JSON
+    authResetProvider(email: String!): User
+    authResetValidator(
+      securityCode: String!
+      email: String!
+      newPass: String!
+    ): JSON
   }
 `;
 

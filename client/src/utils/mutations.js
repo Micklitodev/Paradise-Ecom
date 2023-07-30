@@ -137,3 +137,17 @@ export const SEND_MAIL = gql`
     sendMail(name: $name, message: $message, email: $email)
   }
 `;
+
+export const AUTH_RESET_PROVIDER = gql`
+  mutation authResetProvider($email: String!) {
+    authResetProvider(email: $email) {
+      email
+    }
+  }
+`;
+
+export const AUTH_RESET_VALIDATOR = gql`
+  mutation authResetValidator($securityCode: String!, $email: String!, $newPass: String!) {
+    authResetValidator(securityCode: $securityCode, email: $email, newPass: $newPass)
+  }
+`;

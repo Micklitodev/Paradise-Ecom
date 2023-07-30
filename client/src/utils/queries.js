@@ -120,3 +120,21 @@ export const CALC_SHIP = gql`
     calcShip(productInt: $productInt)
   }
 `;
+
+export const SEARCH_QUERY = gql`
+  query querySearch($search: String!) {
+    querySearch(search: $search) {
+      _id
+      description
+      image
+      name
+      price
+      quantity
+      category {
+        _id
+        image
+        name
+      }
+    }
+  }
+`;

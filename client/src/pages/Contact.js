@@ -1,15 +1,15 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import { useMutation } from '@apollo/client'
-import {SEND_MAIL} from '../utils/mutations'
-import Redirector from '../utils/redirector'
+import { useMutation } from "@apollo/client";
+import { SEND_MAIL } from "../utils/mutations";
+import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
-
+import Jumbotron from "../components/Jumbotron";
 
 const Contact = () => {
-  Redirector.checkTokens()
-  useScrollHelper()
+  Redirector.checkTokens();
+  useScrollHelper();
   const [fromSubmitted, setFormSubmitted] = useState(false);
   const [sendMail] = useMutation(SEND_MAIL);
 
@@ -28,11 +28,10 @@ const Contact = () => {
     event.preventDefault();
     try {
       setFormSubmitted(true);
-      
-      const {data} = sendMail({
-        variables: { ...formData }
-      })
-      
+
+      const { data } = sendMail({
+        variables: { ...formData },
+      });
     } catch (err) {
       console.error(err);
     } finally {
@@ -52,12 +51,12 @@ const Contact = () => {
       <br />
       {fromSubmitted ? (
         <div>
-          <h2 style={{ textAlign: "center" }}>
-            <br />
-            <br />
-            Message Sent! Thank you for reaching out. We will be in contact
-            shortly!
-          </h2>
+          <Jumbotron>
+          <br />
+          <br />
+            <h2> Message Sent! </h2>
+            <p> We will be in contact shortly!</p>
+          </Jumbotron>
         </div>
       ) : (
         <>

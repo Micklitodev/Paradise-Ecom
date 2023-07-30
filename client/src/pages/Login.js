@@ -10,7 +10,7 @@ import useScrollHelper from "../utils/scrollhelper";
 
 function Login(props) {
   Redirector.checkTokens();
-  useScrollHelper()
+  useScrollHelper();
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN);
 
@@ -79,6 +79,12 @@ function Login(props) {
             ) : null}
             <div className="flex-row flex-end">
               <button type="submit">Submit</button>
+            </div>
+            <div>
+            <br /> 
+              <em style={{ fontSize: 13 }}>
+                <Link to='/resetlink' className="text-gray-400"> Forgot username or password?</Link>
+              </em>
             </div>
           </form>
           <br />

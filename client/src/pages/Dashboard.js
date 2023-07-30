@@ -22,18 +22,14 @@ const Dashboard = () => {
       <br />
       <br />
       <br />
-      <h1
-        style={{
-          display: "grid",
-          placeItems: "center",
-          fontSize: 30,
-          textTransform: "uppercase",
-          fontWeight: 900,
-        }}
-      >
-        {" "}
-        dashboard{" "}
-      </h1>
+      <h2
+          style={{
+            display: "grid",
+            placeItems: "center",
+          }}
+        >
+          Dashboard 
+        </h2>
       {data ? (
         <>
           {" "}

@@ -31,13 +31,23 @@ module.exports = {
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
-  signTempToken: function ({ id, total, subTotal}) {
-    const payload = { id, total, subTotal};
+  signTempToken: function ({ id, total, subTotal, pointsUsed }) {
+    let spentPoints = 0;
+
+    if (pointsUsed) {
+      spentPoints = pointsUsed / 10;
+    }
+
+    const payload = { id, total, subTotal, spentPoints };
     return jwt.sign({ data: payload }, secret, { expiresIn: "1d" });
   },
   signAgreement: function ({ userChoice }) {
     const payload = { userChoice };
     return jwt.sign({ data: payload }, secret, { expiresIn: "15d" });
+  },
+  resetToken: function ({ email, uuv4id }) {
+    const payload = { email, uuv4id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: "10m" });
   },
   verify: function (token) {
     const decodedTempToken = jwt.verify(token, secret);

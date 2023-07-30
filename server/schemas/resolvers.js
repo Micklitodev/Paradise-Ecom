@@ -1,18 +1,40 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Product, Category, Order, TempKey } = require("../models");
+const {
+  User,
+  Product,
+  Category,
+  Order,
+  TempKey,
+  ResetKey,
+} = require("../models");
 const {
   signToken,
   signTempToken,
   verify,
   signAgreement,
+  resetToken,
 } = require("../utils/auth");
-const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
-const EasyPostClient = require("@easypost/api");
-const nodemailer = require("nodemailer");
+
 require("dotenv").config();
 const api = process.env.EP_KEY;
+const stripeapi = process.env.STRIPE_KEY;
+const mguser = process.env.MG_USER;
+const mgpass = process.env.MG_PASS;
+const mghost = process.env.MG_HOST;
+const mgport = process.env.MG_PORT;
+
+const EasyPostClient = require("@easypost/api");
+const nodemailer = require("nodemailer");
+const stripe = require("stripe")(stripeapi);
 const client = new EasyPostClient(api);
+
 let shipObj;
+
+function randIntGen() {
+  const min = 100000;
+  const max = 999999;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const resolvers = {
   Query: {
@@ -36,6 +58,37 @@ const resolvers = {
     },
     product: async (parent, { _id }) => {
       return await Product.findById(_id).populate("category");
+    },
+    querySearch: async (parent, args, context) => {
+      try {
+        const regex = new RegExp(args.search, "i");
+
+        const products = await Product.aggregate([
+          {
+            $lookup: {
+              from: "categories",
+              localField: "category",
+              foreignField: "_id",
+              as: "category",
+            },
+          },
+          {
+            $match: {
+              $or: [
+                { name: { $regex: regex } },
+                { "category.name": { $regex: regex } },
+              ],
+            },
+          },
+          {
+            $unwind: "$category",
+          },
+        ]);
+
+        return products;
+      } catch (err) {
+        console.log(err);
+      }
     },
     user: async (parent, args, context) => {
       if (context.user) {
@@ -111,7 +164,7 @@ const resolvers = {
           state: "GA",
           zip: "30188",
           country: "US",
-          company: "EasyPost",
+          company: "Paradise Hemp",
           phone: "(470) 228-5181",
         },
         to_address: {
@@ -143,10 +196,6 @@ const resolvers = {
           throw new AuthenticationError("Shipping price was not set.");
         }
 
-        if (args.points > 0) {
-          console.log(args.points);
-        }
-
         const url = new URL(context.headers.referer).origin;
         const order = new Order({ products: args.products });
         const shippingPrice = args.shipPrice * 100;
@@ -173,6 +222,20 @@ const resolvers = {
             price: price.id,
             quantity: 1,
           });
+        }
+
+        // handle points
+
+        let couponId = null;
+
+        if (args.points > 0) {
+          const coupon = await stripe.coupons.create({
+            amount_off: args.points * 10,
+            currency: "usd",
+            duration: "once",
+          });
+
+          couponId = coupon.id;
         }
 
         // handle tax
@@ -211,6 +274,7 @@ const resolvers = {
           mode: "payment",
           success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
           cancel_url: `${url}/home`,
+          discounts: couponId ? [{ coupon: couponId }] : [],
         });
 
         // create temporary acess token
@@ -220,6 +284,7 @@ const resolvers = {
             id: session.id,
             total: session.amount_total,
             subTotal: session.amount_subtotal,
+            pointsUsed: session.total_details.amount_discount,
           });
 
           const tempToken = new TempKey({ token, stripeSessionId: session.id });
@@ -276,11 +341,15 @@ const resolvers = {
 
         // update user points
 
-        // const pointsUsed = decodedToken.data.pointsUsed
-        const subTotal = decodedToken.data.subTotal;
+        if (parseInt(decodedToken.data.spentPoints) > 0) {
+          const spentPoints = parseInt(decodedToken.data.spentPoints);
+          user.points -= spentPoints;
+        } else {
+          const subTotal = decodedToken.data.subTotal;
 
-        const pointprep = parseInt(subTotal);
-        user.points += Math.floor(pointprep / 100);
+          const pointprep = parseInt(subTotal);
+          user.points += Math.floor(pointprep / 100);
+        }
 
         // purchase ship label
 
@@ -438,30 +507,139 @@ const resolvers = {
     sendMail: async (parent, args, context) => {
       const { email, name, message } = args;
 
-      const transporter = nodemailer.createTransport({
-        // service: "Gmail",
-        // auth: {
-        //   user: "",
-        //   pass: "",
-        // },
-        streamTransport: true,
-        newline: "unix",
-      });
-
       try {
-        const package = await transporter.sendMail({
-          from: email,
-          to: "sample@gmail.com",
-          subject: name,
-          text: message,
+        let transporter = nodemailer.createTransport({
+          host: mghost,
+          port: mgport,
+          auth: {
+            user: mguser,
+            pass: mgpass,
+          },
         });
 
-        console.log("Email sent:", package.response);
-        return true;
-      } catch (error) {
-        console.error("Error sending email:", error);
-        return false;
+        await transporter.sendMail({
+          from: email,
+          to: "michaelvrms@gmail.com",
+          subject: "Customer Contact",
+          html: `
+          <>
+            <p style="text-align: center; font-size: 24px;">
+              Message From: ${name}
+            </p>
+            <br>
+            <br>
+            <div> 
+            ${message}
+            </div> 
+          </>
+        `,
+        });
+
+        console.log(" Contact Message sent");
+      } catch (err) {
+        console.log(err);
+        console.log("Contact Message failed");
       }
+    },
+    authResetProvider: async (parent, args, context) => {
+      const { email } = args;
+      const randInt = randIntGen();
+
+      const user = await User.findOne({ email: email });
+
+      if (!user) {
+        throw new AuthenticationError("No user found.");
+      }
+
+      try {
+        const token = resetToken({
+          email: email,
+          uuv4id: randInt,
+        });
+
+        const resetKey = new ResetKey({ token, email: email });
+        await resetKey.save();
+      } catch (err) {
+        console.log(err);
+      }
+
+      try {
+        let transporter = nodemailer.createTransport({
+          host: mghost,
+          port: mgport,
+          auth: {
+            user: mguser,
+            pass: mgpass,
+          },
+        });
+
+        await transporter.sendMail({
+          from: mguser,
+          to: email,
+          subject: "Paradise Hemp Reset Code",
+          html: `
+          <>
+            <p style="text-align: center; font-size: 24px;">
+              Please use this code to reset your password.
+            </p>
+            <br>
+            <br>
+            <div style="text-align: center; font-size: 48px; border: 1px solid #ccc; padding: 10px;">
+              ${randInt}
+            </div>
+          </>
+        `,
+        });
+
+        console.log("Reset Message sent");
+      } catch (err) {
+        console.log(err);
+        console.log("Reset Message failed");
+      }
+    },
+    authResetValidator: async (parent, args, context) => {
+      const { securityCode, email, newPass } = args;
+
+      if (!securityCode || !email || !newPass) {
+        throw new AuthenticationError("something went wrong");
+      }
+
+      try {
+        const resetKey = await ResetKey.findOne({
+          email: email,
+        });
+
+        if (!resetKey) {
+          throw new AuthenticationError("something went wrong");
+        }
+
+        const { token } = resetKey;
+        const decodedToken = verify(token);
+
+        if (decodedToken.exp && Date.now() >= decodedToken.exp * 1000) {
+          return { message: "expired or invalid token " };
+        }
+
+        if (decodedToken.data.email !== email) {
+          return { message: "something went wrong" };
+        }
+
+        if (decodedToken.data.uuv4id !== parseInt(securityCode)) {
+          await ResetKey.deleteOne({ _id: resetKey._id });
+          return { message: "reset failed" };
+        }
+
+        if (decodedToken.data.uuv4id === parseInt(securityCode)) {
+          const user = await User.findOne({ email: email });
+          user.password = newPass;
+          user.save();
+        }
+
+        await ResetKey.deleteOne({ _id: resetKey._id });
+      } catch (err) {
+        console.log(err);
+      }
+      return { message: "success" };
     },
   },
 };

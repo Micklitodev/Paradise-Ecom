@@ -11,7 +11,8 @@ import { QUERY_USER, QUERY_CHECKOUT, CALC_SHIP } from "../../utils/queries";
 import { ADD_SHIP_INFO } from "../../utils/mutations";
 import "./style.css";
 
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripeapi = process.env.REACT_APP_STRIPE_CLIENT_API;
+const stripePromise = loadStripe(stripeapi);
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
@@ -180,6 +181,12 @@ const Cart = () => {
     const maxAllowed = parseInt(user.points);
     const newValue = Math.min(inputValue, maxAllowed);
     event.target.value = newValue;
+
+    if (inputValue / 10 > pricing[2].toFixed(2)) {
+      return alert(`
+      You cannot use more points than the subtotals worth. Points are valued at $0.10 per point.  
+      `);
+    }
 
     if (inputValue > maxAllowed) {
       return alert(

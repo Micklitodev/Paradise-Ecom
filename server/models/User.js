@@ -69,7 +69,7 @@ const userSchema = new Schema({
   orders: [Order.schema]
 });
 
-// set up pre-save middleware to create password
+// set up pre-save middleware to hash password
 userSchema.pre('save', async function(next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
