@@ -137,6 +137,10 @@ canvas {
   box-shadow: 1px 1px 15px var(--secondary);
 }
 
+.box-shadow-custom {
+  box-shadow: 1px 1px 15px rgb(100, 100, 100);
+}
+
 button {
   font-size: 1rem;
   text-decoration: none;

@@ -48,26 +48,36 @@ function Login(props) {
         <br />
         <br />
         <div className="container borderwrap" style={{ minHeight: "60vh" }}>
-          <h2>Login</h2>
-          <form style={{ maxWidth: 300 }} onSubmit={handleFormSubmit}>
-            <div className="flex-row space-between my-2">
-              <label htmlFor="email">Email address:</label>
+          <h2 className="text-2xl font-semibold">Login</h2>
+          <form
+            style={{ maxWidth: 300 }}
+            onSubmit={handleFormSubmit}
+            className="flex flex-col items-center space-y-4"
+          >
+            <div className="flex flex-col my-2">
+              <label htmlFor="email" className="mb-1">
+                Email address:
+              </label>
               <input
                 placeholder="youremail@test.com"
                 name="email"
                 type="email"
                 id="email"
                 onChange={handleChange}
+                className="border border-gray-300 px-3 py-2 rounded-md w-full"
               />
             </div>
-            <div className="flex-row space-between  my-2">
-              <label htmlFor="pwd">Password:</label>
+            <div className="flex flex-col my-2">
+              <label htmlFor="pwd" className="mb-1">
+                Password:
+              </label>
               <input
                 placeholder="******"
                 name="password"
                 type="password"
                 id="pwd"
                 onChange={handleChange}
+                className="border border-gray-300 px-3 py-2 rounded-md w-full"
               />
             </div>
             {error ? (
@@ -77,13 +87,19 @@ function Login(props) {
                 </p>
               </div>
             ) : null}
-            <div className="flex-row flex-end">
-              <button type="submit">Submit</button>
+            <div className="flex justify-end">
+              <button
+                type="submit"
+              >
+                Submit
+              </button>
             </div>
             <div>
-            <br /> 
+              <br />
               <em style={{ fontSize: 13 }}>
-                <Link to='/resetlink' className="text-gray-400"> Forgot username or password?</Link>
+                <Link to="/resetlink" className="text-gray-400">
+                  Forgot username or password?
+                </Link>
               </em>
             </div>
           </form>

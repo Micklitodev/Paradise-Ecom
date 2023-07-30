@@ -39,75 +39,95 @@ function Signup(props) {
 
   return (
     <>
-      <Nav />
+    <Nav />
+    <br />
+    <br />
+    <div>
+      <br />
+      <Link style={{ marginLeft: 10 }} to="/login">
+        ← Go to login{" "}
+      </Link>
       <br />
       <br />
-      <div>
+      <div className="container borderwrap" style={{ minHeight: "60vh" }}>
         <br />
-        <Link style={{ marginLeft: 10 }} to="/login">
-          ← Go to login{" "}
-        </Link>
-
+        <h2 className="text-2xl font-semibold">Signup</h2>
+        <form
+          style={{ maxWidth: 300 }}
+          onSubmit={handleFormSubmit}
+          className="flex flex-col items-center space-y-4"
+        >
+          <div className="flex flex-col my-2">
+            <label htmlFor="firstName" className="mb-1">
+              First Name:
+            </label>
+            <input
+              placeholder="First"
+              name="firstName"
+              type="firstName"
+              id="firstName"
+              onChange={handleChange}
+              className="border border-gray-300 px-3 py-2 rounded-md w-full"
+            />
+          </div>
+          <div className="flex flex-col my-2">
+            <label htmlFor="lastName" className="mb-1">
+              Last Name:
+            </label>
+            <input
+              placeholder="Last"
+              name="lastName"
+              type="lastName"
+              id="lastName"
+              onChange={handleChange}
+              className="border border-gray-300 px-3 py-2 rounded-md w-full"
+            />
+          </div>
+          <div className="flex flex-col my-2">
+            <label htmlFor="email" className="mb-1">
+              Email:
+            </label>
+            <input
+              placeholder="youremail@test.com"
+              name="email"
+              type="email"
+              id="email"
+              onChange={handleChange}
+              className="border border-gray-300 px-3 py-2 rounded-md w-full"
+            />
+          </div>
+          <div className="flex flex-col my-2">
+            <label htmlFor="pwd" className="mb-1">
+              Password:
+            </label>
+            <input
+              placeholder="******"
+              name="password"
+              type="password"
+              id="pwd"
+              onChange={handleChange}
+              className="border border-gray-300 px-3 py-2 rounded-md w-full"
+            />
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+             
+            >
+              Submit
+            </button>
+          </div>
+        </form>
         <br />
-        <br />
-        <div className="container borderwrap" style={{ minHeight: "60vh" }}>
-        <br /> 
-          <h2>Signup</h2>
-          <form style={{maxWidth: 300}} onSubmit={handleFormSubmit}>
-            <div className="flex-row space-between my-2">
-              <label htmlFor="firstName">First Name:</label>
-              <input
-                placeholder="First"
-                name="firstName"
-                type="firstName"
-                id="firstName"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex-row space-between my-2">
-              <label htmlFor="lastName">Last Name:</label>
-              <input
-                placeholder="Last"
-                name="lastName"
-                type="lastName"
-                id="lastName"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex-row space-between my-2">
-              <label htmlFor="email">Email:</label>
-              <input
-                placeholder="youremail@test.com"
-                name="email"
-                type="email"
-                id="email"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex-row space-between my-2">
-              <label htmlFor="pwd">Password:</label>
-              <input
-                placeholder="******"
-                name="password"
-                type="password"
-                id="pwd"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex-row flex-end">
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-          <br />
-        </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Footer />
-    </>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <Footer />
+  </>
   );
 }
 

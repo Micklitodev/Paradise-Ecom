@@ -59,27 +59,30 @@ function CategoryMenu() {
   };
 
   return (
-    <div style={containerStyles}>
-      <h3 style={{ textAlign: "center", width: "100%", textTransform: 'uppercase'}}>Categories</h3>
-      <hr style={{ borderTop: "1px solid #d3d3d3", width: "100%" }} />
-      {categories.map((item) => (
-        <div key={item._id} style={itemStyles}>
-          <Link
-            to={`/products/categories/${item._id}`}
-            onClick={() => {
-              handleClick(item._id);
-            }}
-          >
-            <img
-              src={`./images/${item.image}`}
-              alt="categoryimg"
-              style={{ maxHeight: 240, width: 300 }}
-            />
-            <br />
-            <p style={{ textAlign: "center" }}> {item.name} </p>
-          </Link>
-        </div>
-      ))}
+    <div className="container mx-auto">
+      <h3 className="text-center text-uppercase">Categories</h3>
+      <hr className="border-t border-gray-300 my-4" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {categories.map((item) => (
+          <div key={item._id} className="flex flex-col items-center">
+            <Link
+              to={`/products/categories/${item._id}`}
+              onClick={() => {
+                handleClick(item._id);
+              }}
+              className="block w-56"
+            >
+              <img
+                src={`./images/${item.image}`}
+                alt="categoryimg"
+                className="max-h-48 w-full object-cover"
+              />
+              <br />
+              <p className="text-center">{item.name}</p>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

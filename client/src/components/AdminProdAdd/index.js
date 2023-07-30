@@ -96,31 +96,37 @@ const AdminProdAdd = () => {
 
   return (
     <>
-      <div className="borderwrap container">
-        <h3> Add Product </h3>
+      <div className="borderwrap container p-4">
+        <h3 className="text-2xl font-bold">Add Product</h3>
         <br />
 
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center space-y-4"
         >
-          <div className="flex-row space-between my-2">
-            <label htmlFor="name">Product Name:</label>
+          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
+            <label htmlFor="name" className="w-full md:w-1/4">
+              Product Name:
+            </label>
             <input
               label="name"
               name="name"
-              placeholder="product name"
+              placeholder="Product Name"
               value={formData.name}
               onChange={handleInputChange}
+              className="w-full md:w-3/4 py-2 px-4 border rounded"
             />
           </div>
 
-          <div className="flex-row space-between my-2">
-            <label htmlFor="category">Category:</label>
+          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
+            <label htmlFor="category" className="w-full md:w-1/4">
+              Category:
+            </label>
             <select
               name="category"
               onChange={handleInputChange}
               value={formData.category}
+              className="w-full md:w-3/4 py-2 px-4 border rounded"
             >
               <option value="">Select a category</option>
               <option value="Edible">Edible</option>
@@ -133,32 +139,59 @@ const AdminProdAdd = () => {
               <option value="Nootropics">Nootropics</option>
             </select>
           </div>
-          <div className="flex-row space-between my-2">
-            <label htmlFor="price">Price:</label>
+
+          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
+            <label htmlFor="price" className="w-full md:w-1/4">
+              Price:
+            </label>
             <input
               label="price"
               name="price"
-              placeholder="price"
+              placeholder="Price"
               value={formData.price}
               onChange={handleInputChange}
+              className="w-full md:w-3/4 py-2 px-4 border rounded"
             />
           </div>
-          <div className="flex-row space-between my-2">
-            <label htmlFor="quanitity">Quantity:</label>
+
+          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
+            <label htmlFor="quantity" className="w-full md:w-1/4">
+              Quantity:
+            </label>
             <input
               label="quantity"
               name="quantity"
-              placeholder="quantity"
+              placeholder="Quantity"
               value={formData.quantity}
               onChange={handleInputChange}
+              className="w-full md:w-3/4 py-2 px-4 border rounded"
             />
           </div>
-          <div className="flex-row space-between my-2">
-            <label htmlFor="image">Image File:</label>
+
+          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
+            <label htmlFor="description" className="w-full md:w-1/4">
+              Description:
+            </label>
+            <textarea
+              label="description"
+              name="description"
+              placeholder="Product Description"
+              cols="60"
+              rows="10"
+              value={formData.description}
+              onChange={handleInputChange}
+              className="w-full md:w-3/4 py-2 px-4 border rounded"
+            />
+          </div>
+
+          <div className="flex flex-col md:flex-row md:space-x-4 w-full">
+            <label htmlFor="image" className="w-full md:w-1/4">
+              Image File:
+            </label>
             <button
-              style={{ width: 177 }}
               type="button"
               onClick={handleImageUploadClick}
+              className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Upload Image
             </button>
@@ -168,29 +201,20 @@ const AdminProdAdd = () => {
               name="image"
               ref={fileInputRef}
               onChange={handleImageChange}
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
             />
 
             {previewImage && (
               <img
                 src={previewImage}
                 alt="Preview"
-                style={{ width: "400px", height: "auto" }}
+                className="w-64 mt-4"
               />
             )}
           </div>
-          <div className="flex-row space-between my-2">
-            <label htmlFor="description">Description:</label>
-            <textarea
-              label="description"
-              name="description"
-              cols="60"
-              rows="10"
-              value={formData.description}
-              onChange={handleInputChange}
-            />
-          </div>
+
           <br />
+
           <div className="flex-row flex-end">
             <button
               disabled={
@@ -202,14 +226,21 @@ const AdminProdAdd = () => {
                 !formData.description
               }
               type="submit"
-              variant="success"
-              width="w-fit"
+              className={`py-2 px-4 bg-green-500 text-white rounded ${
+                !formData.name ||
+                !formData.category ||
+                !formData.price ||
+                !formData.quantity ||
+                !formData.image ||
+                !formData.description
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:bg-green-600'
+              }`}
             >
               Create Product
             </button>
           </div>
         </form>
-        <br />
       </div>
     </>
   );

@@ -36,19 +36,13 @@ const SearchRes = () => {
       <br />
       <br />
       <div>
-        <h2
-          style={{
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          View Orders
-        </h2>
+        <h2 className="text-center">Search</h2>
+        <hr /> 
         {data?.querySearch.length > 0 ? (
           <>
-            <div>
+            <div class="flex flex-wrap justify-center">
               {data.querySearch?.map((product) => (
-                <div>
+                <div class="w-full p-4 inline-block">
                   <ProductItem
                     key={product._id}
                     _id={product._id}

@@ -70,41 +70,50 @@ const VerifForm = (props) => {
 
   if (!Auth.isVerified() && props.data?.user.isIdSubmitted === false) {
     return (
-      <>
-        <div className="container borderwrap" style={{ minHeight: "35vh" }}>
-          <h2>Verify ID</h2>
-          <form onSubmit={handleFormSubmit}>
-            <div className="flex-row space-between my-2">
-              <label htmlFor="idFront">ID Front:</label>
-              <input
-                type="file"
-                accept="image/*"
-                name="idFront"
-                onChange={handleImageChange}
-              />
-            </div>
-            <div className="flex-row space-between my-2">
-              <label htmlFor="idBack">ID Back:</label>
-              <input
-                type="file"
-                accept="image/*"
-                name="idBack"
-                onChange={handleImageChange}
-              />
-            </div>
-            <div className="flex-row flex-end">
-              <button
-                type="submit"
-                disabled={!formState.idFront || !formState.idBack}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-          <br />
-        </div>
-        <div />
-      </>
+<>
+  <div className="container borderwrap" style={{ minHeight: "35vh" }}>
+    <h2 className="text-2xl font-semibold">Verify ID</h2>
+    <form
+      onSubmit={handleFormSubmit}
+      className="flex flex-col items-center space-y-4"
+    >
+      <div className="flex flex-col my-2">
+        <label htmlFor="idFront" className="mb-1">
+          ID Front:
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          name="idFront"
+          onChange={handleImageChange}
+          className="border border-gray-300 px-3 py-2 rounded-md w-full"
+        />
+      </div>
+      <div className="flex flex-col my-2">
+        <label htmlFor="idBack" className="mb-1">
+          ID Back:
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          name="idBack"
+          onChange={handleImageChange}
+          className="border border-gray-300 px-3 py-2 rounded-md w-full"
+        />
+      </div>
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          disabled={!formState.idFront || !formState.idBack} 
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+  <div />
+</>
     );
   } else if (props.data?.user.isIdSubmitted) {
     return (

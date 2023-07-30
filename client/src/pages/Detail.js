@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import Nav from '../components/Nav'
 
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
@@ -85,35 +86,53 @@ function Detail() {
   };
 
   return (
-    <>
-      {currentProduct && cart ? (
-        <div className="container my-1">
-          <Link to="/home">← Back to Products</Link>
+<>
+<Nav /> 
+<br /> 
+<br /> 
+  {currentProduct && cart ? (
+    <div className="container mx-auto my-8 px-4 max-w-md">
+      <Link to="/home" className=" hover:underline">
+        ← Back to Products
+      </Link>
 
-          <h2>{currentProduct.name}</h2>
+      <h2 className="text-2xl font-bold my-4">{currentProduct.name}</h2>
 
-          <p>{currentProduct.description}</p>
+      <p className="text-gray-600">{currentProduct.description}</p>
 
-          <p>
-            <strong>Price:</strong>${currentProduct.price}{" "}
-            <button onClick={addToCart}>Add to Cart</button>
-            <button
-              disabled={!cart.find((p) => p._id === currentProduct._id)}
-              onClick={removeFromCart}
-            >
-              Remove from Cart
-            </button>
-          </p>
+      <p className="text-lg font-bold mt-4">
+        <strong>Price:</strong> ${currentProduct.price}{" "}
+        <button
+          onClick={addToCart}
+         
+        >
+          Add to Cart
+        </button>
+        <button
+          disabled={!cart.find((p) => p._id === currentProduct._id)}
+          onClick={removeFromCart}
+  
+        >
+          Remove from Cart
+        </button>
+      </p>
 
-          <img src={`${currentProduct.image}`} alt={currentProduct.name} />
-        </div>
-      ) : null}
-      {loading ? <img src={spinner} alt="loading" /> : null}
-      <Cart />
-      <br />
-      <br />
-      <Footer />
-    </>
+      <img
+        src={`${currentProduct.image}`}
+        alt={currentProduct.name}
+        className="my-4 rounded-lg shadow-md"
+      />
+    </div>
+  ) : null}
+  {loading ? (
+    <img src={spinner} alt="loading" className="mx-auto my-8" />
+  ) : null}
+  <Cart />
+  <br />
+  <br />
+  <Footer />
+</>
+
   );
 }
 

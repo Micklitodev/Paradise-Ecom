@@ -44,87 +44,93 @@ const Contact = () => {
   };
 
   return (
+<>
+  <Nav />
+  <br />
+  <br />
+  <br />
+  {fromSubmitted ? (
+    <div>
+      <Jumbotron>
+        <br />
+        <br />
+        <h2>Message Sent!</h2>
+        <p>We will be in contact shortly!</p>
+      </Jumbotron>
+    </div>
+  ) : (
     <>
-      <Nav />
-      <br />
-      <br />
-      <br />
-      {fromSubmitted ? (
-        <div>
-          <Jumbotron>
-          <br />
-          <br />
-            <h2> Message Sent! </h2>
-            <p> We will be in contact shortly!</p>
-          </Jumbotron>
-        </div>
-      ) : (
-        <>
-          <div className="borderwrap container">
-            <h3> Contact Us </h3>
-            <br />
+      <div className="borderwrap container">
+        <h3 className="text-2xl font-semibold">Contact Us</h3>
+        <br />
 
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col items-center space-y-4"
-            >
-              <div className="flex-row space-between my-2">
-                <label htmlFor="name">Name:</label>
-                <input
-                  style={{ width: 300 }}
-                  label="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="flex-row space-between my-2">
-                <label htmlFor="email">Email:</label>
-                <input
-                  style={{ width: 300 }}
-                  label="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="flex-row space-between my-2">
-                <label htmlFor="message">Message:</label>
-                <textarea
-                  label="message"
-                  name="message"
-                  cols="100"
-                  rows="10"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <br />
-              <div className="flex-row flex-end">
-                <button
-                  disabled={
-                    !formData.name || !formData.email || !formData.message
-                  }
-                  type="submit"
-                  variant="success"
-                  width="w-fit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-            <br />
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center space-y-4"
+        >
+          <div className="flex flex-col my-2">
+            <label htmlFor="name" className="mb-1">
+              Name:
+            </label>
+            <input
+              style={{ width: 300 }}
+              className="border border-gray-300 px-3 py-2 rounded-md w-full"
+              label="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
           </div>
-        </>
-      )}
-      <br />
-      <br />
-      <Footer />
+
+          <div className="flex flex-col my-2">
+            <label htmlFor="email" className="mb-1">
+              Email:
+            </label>
+            <input
+              style={{ width: 300 }}
+              className="border border-gray-300 px-3 py-2 rounded-md w-full"
+              label="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="flex flex-col my-2">
+            <label htmlFor="message" className="mb-1">
+              Message:
+            </label>
+            <textarea
+              className="border border-gray-300 px-3 py-2 rounded-md w-full"
+              label="message"
+              name="message"
+              cols="100"
+              rows="10"
+              value={formData.message}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <br />
+          <div className="flex justify-end">
+            <button
+              disabled={!formData.name || !formData.email || !formData.message}
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+        <br />
+      </div>
     </>
+  )}
+  <br />
+  <br />
+  <Footer />
+</>
+
   );
 };
 
