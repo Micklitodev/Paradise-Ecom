@@ -125,7 +125,7 @@ const AdminProdAdd = () => {
               name="category"
               onChange={handleInputChange}
               value={formData.category}
-              className="w-full py-2 px-4 border rounded"
+              className="w-full py-1 px-4 border rounded"
             >
               <option value="">Select a category</option>
               <option value="Edible">Edible</option>

@@ -29,7 +29,12 @@ const Cart = () => {
   const [addShipInfo] = useMutation(ADD_SHIP_INFO);
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const { loading, data: data2, refetch: refetchUser } = useQuery(QUERY_USER);
-  const productInt = state.cart.length;
+
+  const currentCartState = () => {
+    return state.cart.length;
+  };
+
+  let productInt = currentCartState();
 
   const {
     loading: load,
@@ -78,8 +83,8 @@ const Cart = () => {
 
   function calculateTotal() {
     let lowestRate = { rate: 0 };
-    if (!load) {
-      const rates = rate?.calcShip.rates;
+    if (!load && rate) {
+      const rates = rate.calcShip?.rates;
 
       if (rates && rates.length > 0) {
         lowestRate = rates.reduce((minRate, currentRate) => {

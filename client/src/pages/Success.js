@@ -5,8 +5,8 @@ import { ADD_ORDER } from "../utils/mutations";
 import { idbPromise } from "../utils/helpers";
 
 function Success() {
-  const [error, setError] = useState(false);
-  const [addOrder] = useMutation(ADD_ORDER);
+  const [anError, setAnError] = useState(false);
+  const [addOrder, { error }] = useMutation(ADD_ORDER);
 
   useEffect(() => {
     async function saveOrder() {
@@ -17,25 +17,30 @@ function Success() {
         const products = cart.map((item) => item._id);
 
         if (!products.length) {
-          setError(true);
+          setAnError(true);
           return;
         }
 
         const { data } = await addOrder({ variables: { products, url } });
 
         if (!data.addOrder.products) {
-          setError(true);
+          setAnError(true);
           return;
         }
 
-        setError(false);
+        if (error) {
+          setAnError(true);
+          return;
+        }
+
+        setAnError(false);
         const productData = data.addOrder.products;
         productData?.forEach((item) => {
           idbPromise("cart", "delete", item);
         });
 
         setTimeout(() => {
-          window.location.assign('/dashboard');
+          window.location.assign("/dashboard");
         }, 2000);
       } catch (err) {
         console.log(err);

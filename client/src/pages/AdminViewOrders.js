@@ -35,6 +35,7 @@ const AdminOrderView = () => {
           View Orders
         </h2>
         <OrderMap data={data.adminOrderView} />
+        <br /> 
       </>
     );
   } else {
