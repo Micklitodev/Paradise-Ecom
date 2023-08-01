@@ -17,6 +17,7 @@
     "bcrypt": "^4.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.17.2",
+    "express-rate-limit": "^6.8.1",
     "graphql": "^16.3.0",
     "he": "^1.2.0",
     "jsonwebtoken": "^8.5.1",

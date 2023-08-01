@@ -6,6 +6,7 @@ import Auth from "../utils/auth";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
+import Info from '../components/Info'
 
 const Home = () => {
   Redirector.checkTokens();
@@ -76,11 +77,16 @@ const Home = () => {
           {" "}
           GEORGIA PRIMERE HEMP DISPENSARY{" "}
         </h1>
+        <br /> 
         <div>
+        <br /> 
+          <Info /> 
+        <br /> 
         <br /> 
           <CategoryMenu />
           <Cart />
         </div>
+        <br />
         <br />
         <Footer />
       </>

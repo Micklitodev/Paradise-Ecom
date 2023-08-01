@@ -3,6 +3,15 @@ const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 15 minutes window
+  max: 100, // maximum 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.',
+});
+
+
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
@@ -14,8 +23,13 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
+app.set('trust proxy', 1);
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+
+app.use(limiter)
 
 // Serve up static assets
 app.use('/images', express.static(path.join(__dirname, '../client/images')));

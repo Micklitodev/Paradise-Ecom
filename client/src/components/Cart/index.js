@@ -185,6 +185,7 @@ const Cart = () => {
     const inputValue = parseInt(event.target.value);
     const maxAllowed = parseInt(user.points);
     const newValue = Math.min(inputValue, maxAllowed);
+    const minVal = 50; 
     event.target.value = newValue;
 
     if (inputValue / 10 > pricing[2].toFixed(2)) {
@@ -196,6 +197,12 @@ const Cart = () => {
     if (inputValue > maxAllowed) {
       return alert(
         `You cannot use more than the ${maxAllowed} points that you have.`
+      );
+    }
+
+    if (inputValue < minVal) {
+      return alert(
+        `Minimum points able to use is 50.`
       );
     }
 
@@ -264,7 +271,7 @@ const Cart = () => {
                           name="points"
                           defaultValue={0}
                           max={parseInt(user.points)}
-                          min={0}
+                          min={50}
                           onInput={handlePointInput}
                         />
                         Points.

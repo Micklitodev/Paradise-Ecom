@@ -39,6 +39,27 @@ function randIntGen() {
   return min + (randomNumber % (max - min + 1));
 }
 
+function UpdateCloverStock(merchantId, itemId, cloverId, name, priceInt) {
+  const options = {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      itemStock: { item: { id: itemId } },
+      price: priceInt,
+      name: name,
+    }),
+  };
+
+  fetch(
+    `https://sandbox.dev.clover.com/v3/merchants/${merchantId}/items/${cloverId}`,
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
+}
+
+
 const resolvers = {
   Query: {
     categories: async () => {
@@ -272,6 +293,10 @@ const resolvers = {
               throw new AuthenticationError(
                 "points used greater than user point balance."
               );
+            }
+
+            if (args.points < 50) {
+              throw new AuthenticationError("must use more than 50 points");
             }
 
             const coupon = await stripe.coupons.create({

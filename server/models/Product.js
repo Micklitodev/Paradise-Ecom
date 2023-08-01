@@ -8,6 +8,9 @@ const productSchema = new Schema({
     required: true,
     trim: true
   },
+  cloverId: {
+    type: String, 
+  }, 
   description: {
     type: String
   },
