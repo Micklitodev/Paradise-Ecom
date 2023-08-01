@@ -14,6 +14,7 @@ const AdminProdAdd = () => {
 
   const [formData, setFormData] = useState({
     name: "",
+    cloverId: "", 
     category: "",
     description: "",
     image: "",
@@ -55,11 +56,12 @@ const AdminProdAdd = () => {
         const host = "firebasestorage.googleapis.com/";
         const bucket = "paradise-hemp-imgbucket";
 
-        const { name, category, description, image, price, quantity } =
+        const { name, cloverId, category, description, image, price, quantity } =
           formData;
 
         const variables = {
           name,
+          cloverId,
           category,
           description,
           image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${uniqueId}-${image.name}?alt=media`,
@@ -81,6 +83,7 @@ const AdminProdAdd = () => {
       } finally {
         setFormData({
           name: "",
+          cloverId: "",
           category: "",
           description: "",
           image: "",
@@ -112,6 +115,20 @@ const AdminProdAdd = () => {
               name="name"
               placeholder="Product Name"
               value={formData.name}
+              onChange={handleInputChange}
+              className="w-full py-2 px-4 border rounded"
+            />
+          </div>
+
+          <div className="flex flex-col space-y-4 w-full">
+            <label htmlFor="cloverId" className="w-full">
+              CloverId:
+            </label>
+            <input
+              label="cloverId"
+              name="cloverId"
+              placeholder="cloverId"
+              value={formData.cloverId}
               onChange={handleInputChange}
               className="w-full py-2 px-4 border rounded"
             />

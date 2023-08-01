@@ -14,9 +14,15 @@ function Success() {
         const url = window.location.href;
 
         const cart = await idbPromise("cart", "get");
-        const products = cart.map((item) => item._id);
+        const products = cart.map((item) => ({
+          _id: item._id,
+          purchaseQuantity: item.purchaseQuantity,
+          cloverId: item.cloverId,
+        }));
 
-        if (!products.length) {
+        console.log(products)
+
+        if (products.length <= 0) {
           setAnError(true);
           return;
         }
@@ -52,7 +58,7 @@ function Success() {
 
   return (
     <>
-      {error ? (
+      {anError ? (
         <Jumbotron>
           <h2>Session Expired</h2>
         </Jumbotron>

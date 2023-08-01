@@ -12,7 +12,7 @@ export const LOGIN = gql`
 `;
 
 export const ADD_ORDER = gql`
-  mutation addOrder($products: [ID]!, $url: String!) {
+  mutation addOrder($products: [inputOrder]!, $url: String!) {
     addOrder(products: $products, url: $url) {
       purchaseDate
       products {
@@ -53,6 +53,7 @@ export const ADD_USER = gql`
 export const ADD_PRODUCT = gql`
   mutation addProduct(
     $name: String
+    $cloverId: String
     $category: String
     $description: String
     $image: String
@@ -61,6 +62,7 @@ export const ADD_PRODUCT = gql`
   ) {
     addProduct(
       name: $name
+      cloverId: $cloverId
       category: $category
       description: $description
       image: $image
@@ -71,6 +73,7 @@ export const ADD_PRODUCT = gql`
       image
       name
       price
+      cloverId
       quantity
     }
   }

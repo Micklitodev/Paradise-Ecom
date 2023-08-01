@@ -12,6 +12,7 @@ const typeDefs = gql`
   type Product {
     _id: ID
     name: String
+    cloverId: String
     description: String
     image: String
     quantity: Int
@@ -61,6 +62,12 @@ const typeDefs = gql`
     user: User
   }
 
+  input inputOrder {
+    _id: ID!
+    purchaseQuantity: Int
+    cloverId: String
+  }
+
   type Query {
     categories: [Category]
     products(category: ID, name: String): [Product]
@@ -81,7 +88,7 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): Auth
-    addOrder(products: [ID]!, url: String!): Order
+    addOrder(products: [inputOrder]!, url: String!): Order
     updateUser(
       firstName: String
       lastName: String
@@ -92,6 +99,7 @@ const typeDefs = gql`
     userVerifAdmin(_id: ID!, action: String!): User
     addProduct(
       name: String
+      cloverId: String
       category: String
       description: String
       image: String

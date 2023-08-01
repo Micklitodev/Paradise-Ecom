@@ -39,26 +39,21 @@ function randIntGen() {
   return min + (randomNumber % (max - min + 1));
 }
 
-function UpdateCloverStock(merchantId, itemId, cloverId, name, priceInt) {
+function UpdateCloverStock(merchantId, itemId, stockInt) {
   const options = {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      itemStock: { item: { id: itemId } },
-      price: priceInt,
-      name: name,
-    }),
+    body: JSON.stringify({ quantity: stockInt }),
   };
 
   fetch(
-    `https://sandbox.dev.clover.com/v3/merchants/${merchantId}/items/${cloverId}`,
+    `https://sandbox.dev.clover.com/v3/merchants/${merchantId}/item_stocks/${itemId}`,
     options
   )
     .then((response) => response.json())
     .then((response) => console.log(response))
     .catch((err) => console.error(err));
 }
-
 
 const resolvers = {
   Query: {
@@ -441,6 +436,21 @@ const resolvers = {
         );
         const tracking = boughtShipment.tracker.public_url;
         const shipmentId = boughtShipment.tracker.shipment_id;
+
+        // update clover inventory
+
+        // products.forEach(async (product) => {
+        //   const merchantId = process.env.MERCHANT_ID;
+
+        //   let queriedProd = await Product.findById(product._id);
+        //   let itemId = queriedProd.cloverId;
+
+        //   let purchasedQuantity = parseInt(product.purchaseQuantity);
+        //   let reducedStock = purchasedQuantity * -1;
+        //   let stockInt = reducedStock;
+
+        //   UpdateCloverStock(merchantId, itemId, stockInt);
+        // });
 
         // saving orders with token + user data
 

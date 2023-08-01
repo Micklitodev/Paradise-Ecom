@@ -29,6 +29,7 @@ db.once("open", async () => {
       category: categories[1]._id,
       price: 2.99,
       quantity: 500,
+      cloverId: "ZZRXHM84G16RA",
     },
     // {
     //   name: "Eleaf Ijust S Kit Rainbow",
