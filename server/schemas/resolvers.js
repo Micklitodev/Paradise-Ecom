@@ -78,14 +78,20 @@ const resolvers = {
           };
         }
 
-        return await Product.find(params).populate("category");
+        const Products = await Product.find(params).populate("category");
+        const FilteredProducts = Products.filter((p) => p.quantity > 0);
+
+        return FilteredProducts;
       } catch (err) {
         return console.log("failed to update ps067");
       }
     },
     product: async (parent, { _id }) => {
       try {
-        return await Product.findById(_id).populate("category");
+        const prod = await Product.findById(_id).populate("category");
+        if (prod.quantity <= 0) {
+          return null;
+        } else return prod;
       } catch (err) {
         return console.log("failed to update p074");
       }
@@ -116,7 +122,13 @@ const resolvers = {
           },
         ]);
 
-        return products;
+        const filteredProducts = products.filter((p) => p.quantity > 0);
+
+        if (context.user.isAdmin) {
+          return products;
+        } else {
+          return filteredProducts;
+        }
       } catch (err) {
         return console.log("search failed qs105");
       }
@@ -593,10 +605,7 @@ const resolvers = {
       }
 
       try {
-
-        console.log(args)
-
-
+        console.log(args);
       } catch (err) {
         console.log(error);
       }
