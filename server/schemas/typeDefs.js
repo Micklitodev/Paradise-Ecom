@@ -107,6 +107,15 @@ const typeDefs = gql`
       price: Float
     ): Product
     updateProduct(_id: ID!, quantity: Int!): Product
+    adminUpdateProduct(
+      name: String
+      cloverId: String
+      category: String
+      description: String
+      image: String
+      quantity: Int
+      price: Float
+    ): Product
     delProduct(_id: ID!): Product
     idUpload(idFront: String!, idBack: String!): User
     login(email: String!, password: String!): Auth

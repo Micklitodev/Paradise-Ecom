@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
 import { useStoreContext } from "../../utils/GlobalState";
@@ -9,6 +9,8 @@ import { useMutation } from "@apollo/client";
 import { DEL_PRODUCT } from "../../utils/mutations";
 
 function ProductItem(item) {
+  const [displayModal, setDisplayModal] = useState();
+
   const [delProduct] = useMutation(DEL_PRODUCT);
 
   const [state, dispatch] = useStoreContext();
@@ -39,7 +41,11 @@ function ProductItem(item) {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+    if (
+      window.confirm(
+        "Deleting this product deletes it everywhere. Are you sure you want to delete this product?"
+      )
+    ) {
       try {
         await delProduct({
           variables: { id },
@@ -73,35 +79,45 @@ function ProductItem(item) {
             handleDelete(_id);
           }}
         >
-          {" "}
-          Delete{" "}
+          Delete
+        </button>
+
+        <button
+          className="bg-blue-400 text-white rounded hover:bg-blue-500"
+          onClick={() => {
+            setDisplayModal(true);
+          }}
+        >
+          Update
         </button>
       </div>
     );
   } else {
     return (
-      <div className="card px-1 mx-1 py-1 borderwrap">
-        <Link to={`/products/${_id}`}>
-          <img
-            style={{ height: 220, width: 260 }}
-            alt={name}
-            src={`${image}`}
-          />
-          <p>{name}</p>
-        </Link>
-        <div>
+      <>
+        <div className="card px-1 mx-1 py-1 borderwrap">
+          <Link to={`/products/${_id}`}>
+            <img
+              style={{ height: 220, width: 260 }}
+              alt={name}
+              src={`${image}`}
+            />
+            <p>{name}</p>
+          </Link>
           <div>
-            {quantity} {pluralize("item", quantity)} in stock
+            <div>
+              {quantity} {pluralize("item", quantity)} in stock
+            </div>
+            <span>${price}</span>
           </div>
-          <span>${price}</span>
+          <button
+            className="bg-blue-400 text-white h-15 mt-2"
+            onClick={addToCart}
+          >
+            Add to cart
+          </button>
         </div>
-        <button
-          className="bg-blue-400 text-white h-15 mt-2"
-          onClick={addToCart}
-        >
-          Add to cart
-        </button>
-      </div>
+      </>
     );
   }
 }

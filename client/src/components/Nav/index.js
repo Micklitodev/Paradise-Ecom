@@ -15,7 +15,7 @@ import { GoHome } from "react-icons/go";
 const Nav = () => {
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav((prevNav) => !prevNav);
-  
+
   return (
     <>
       <div className="sticky top-0 z-10 w-full ">
@@ -77,7 +77,7 @@ const Nav = () => {
                 ) : null}
                 {!Auth.loggedIn() ? (
                   <>
-                  <li className="absolute mt-4 center ml-10">
+                    <li className="absolute mt-4 center ml-10">
                       <SearchBar />
                     </li>
                     <li style={{ position: "relative", top: 1 }}>
@@ -193,7 +193,5 @@ const Nav = () => {
     </>
   );
 };
-
-
 
 export default Nav;

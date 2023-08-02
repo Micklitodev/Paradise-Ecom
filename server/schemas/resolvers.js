@@ -437,7 +437,16 @@ const resolvers = {
         const tracking = boughtShipment.tracker.public_url;
         const shipmentId = boughtShipment.tracker.shipment_id;
 
-        // update clover inventory
+        // update db inventory and clover inventory
+
+        products.forEach(async (item) => {
+          console.log("updated db prodqty");
+          await resolvers.Mutation.updateProduct(
+            parent,
+            { _id: item._id, quantity: parseInt(item.purchaseQuantity) * -1 },
+            context
+          );
+        });
 
         // products.forEach(async (product) => {
         //   const merchantId = process.env.MERCHANT_ID;
@@ -483,6 +492,7 @@ const resolvers = {
 
     updateUser: async (parent, args, context) => {
       if (context.user) {
+        console.log("updated User resolver ");
         try {
           return await User.findByIdAndUpdate(context.user._id, args, {
             new: true,
@@ -575,6 +585,20 @@ const resolvers = {
         );
       } catch (err) {
         return console.log("something went wrong up541");
+      }
+    },
+    adminUpdateProduct: async (parent, args, context) => {
+      if (context.user.isAdmin !== true) {
+        throw new AuthenticationError("Not authorized to view this page.");
+      }
+
+      try {
+
+        console.log(args)
+
+
+      } catch (err) {
+        console.log(error);
       }
     },
     delProduct: async (parent, args, context) => {

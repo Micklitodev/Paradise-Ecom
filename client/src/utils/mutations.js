@@ -111,6 +111,38 @@ export const USER_VERIF_ADMIN = gql`
   }
 `;
 
+export const ADMIN_UPDATE_PRODUCT = gql`
+  mutation adminUpdateProduct(
+    $name: String
+    $cloverId: String
+    $category: String
+    $description: String
+    $image: String
+    $quantity: Int
+    $price: Float
+  ) {
+    adminUpdateProduct(
+      name: $name
+      cloverId: $cloverId
+      category: $category
+      description: $description
+      image: $image
+      quantity: $quantity
+      price: $price
+    ) {
+      category {
+        name
+      }
+      cloverId
+      description
+      image
+      name
+      price
+      quantity
+    }
+  }
+`;
+
 export const ADD_SHIP_INFO = gql`
   mutation addShipInfo(
     $street: String
@@ -150,7 +182,15 @@ export const AUTH_RESET_PROVIDER = gql`
 `;
 
 export const AUTH_RESET_VALIDATOR = gql`
-  mutation authResetValidator($securityCode: String!, $email: String!, $newPass: String!) {
-    authResetValidator(securityCode: $securityCode, email: $email, newPass: $newPass)
+  mutation authResetValidator(
+    $securityCode: String!
+    $email: String!
+    $newPass: String!
+  ) {
+    authResetValidator(
+      securityCode: $securityCode
+      email: $email
+      newPass: $newPass
+    )
   }
 `;
