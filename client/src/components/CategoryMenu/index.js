@@ -16,21 +16,6 @@ function CategoryMenu() {
 
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
-  const containerStyles = {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "100vh",
-    marginLeft: ".5%",
-  };
-
-  const itemStyles = {
-    flex: "0 0 25%",
-    padding: "5px",
-    boxSizing: "border-box",
-    textAlign: "center",
-  };
 
   useEffect(() => {
     if (categoryData) {

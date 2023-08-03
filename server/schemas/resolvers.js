@@ -42,7 +42,10 @@ function randIntGen() {
 function UpdateCloverStock(merchantId, itemId, stockInt) {
   const options = {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${process.env.CLOVER_KEY}`,
+    },
     body: JSON.stringify({ quantity: stockInt }),
   };
 
@@ -207,10 +210,10 @@ const resolvers = {
         return;
       }
 
-      const length = 4 * args.productInt;
-      const width = 3.5 * args.productInt;
-      const weight = 1 * args.productInt;
-      const height = 3.5 * args.productInt;
+      const length = 1 * args.productInt;
+      const width = 1 * args.productInt;
+      const weight = 0.7 * args.productInt;
+      const height = 1 * args.productInt;
 
       try {
         const user = await User.findById(context.user._id).select(
@@ -368,7 +371,7 @@ const resolvers = {
 
           return { session: session.id };
         } catch (err) {
-          return console.log("something went wrong cs334");
+          return console.log(err);
         }
       } else {
         throw new AuthenticationError("No auth to make action.");
@@ -460,23 +463,31 @@ const resolvers = {
           );
         });
 
-        // products.forEach(async (product) => {
-        //   const merchantId = process.env.MERCHANT_ID;
+        products.forEach(async (product) => {
+          const merchantId = process.env.CLOVER_MERCHANT_ID;
+          let itemId = product.cloverId;
+          let purchasedQuantity = parseInt(product.purchaseQuantity);
+          let stockInt = purchasedQuantity * -1;
 
-        //   let queriedProd = await Product.findById(product._id);
-        //   let itemId = queriedProd.cloverId;
+          console.log(merchantId, itemId, stockInt);
 
-        //   let purchasedQuantity = parseInt(product.purchaseQuantity);
-        //   let reducedStock = purchasedQuantity * -1;
-        //   let stockInt = reducedStock;
-
-        //   UpdateCloverStock(merchantId, itemId, stockInt);
-        // });
+          // UpdateCloverStock(merchantId, itemId, stockInt);
+        });
 
         // saving orders with token + user data
 
+        const prods = [];
+
+        products.map((p) => {
+          for (let i = 0; i < p.purchaseQuantity; i++) {
+            prods.push({
+              _id: p._id,
+            });
+          }
+        });
+
         const order = new Order({
-          products,
+          products: prods,
           firstName,
           lastName,
           address,
@@ -504,7 +515,7 @@ const resolvers = {
 
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        console.log("updated User resolver ");
+        console.log("updated User resolver HITTTT ");
         try {
           return await User.findByIdAndUpdate(context.user._id, args, {
             new: true,
@@ -603,9 +614,15 @@ const resolvers = {
       if (context.user.isAdmin !== true) {
         throw new AuthenticationError("Not authorized to view this page.");
       }
-
       try {
         console.log(args);
+
+        // const product = await Product.findByIdAndUpdate(args._id, args, {
+        //   new: true,
+        // });
+
+        // return product;
+
       } catch (err) {
         console.log(error);
       }

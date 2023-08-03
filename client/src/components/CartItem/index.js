@@ -46,7 +46,7 @@ const CartItem = ({ item }) => {
           <span>Qty:{" "}</span>
           <input
             type="number"
-            placeholder="1"
+            min={0}
             value={item.purchaseQuantity}
             onChange={onChange}
           />

@@ -9,6 +9,7 @@ export const QUERY_PRODUCTS = gql`
       price
       quantity
       image
+      cloverId
       category {
         _id
       }
@@ -32,6 +33,7 @@ export const QUERY_ALL_PRODUCTS = gql`
       description
       price
       quantity
+      cloverId
       category {
         name
       }
@@ -96,6 +98,7 @@ export const ADMIN_ORDER_VIEW = gql`
         price
         name
         image
+        cloverId
         _id
       }
     }

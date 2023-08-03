@@ -30,11 +30,16 @@ const Cart = () => {
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const { loading, data: data2, refetch: refetchUser } = useQuery(QUERY_USER);
 
-  const currentCartState = () => {
-    return state.cart.length;
-  };
+  const cartInt = [];
+  state.cart.forEach((item) => {
+    cartInt.push(item.purchaseQuantity);
+  });
 
-  let productInt = currentCartState();
+  let num = cartInt.reduce((accumulator, currVal) => {
+    return accumulator + currVal;
+  }, 0);
+
+  let productInt = Math.abs(num);
 
   const {
     loading: load,
@@ -185,7 +190,7 @@ const Cart = () => {
     const inputValue = parseInt(event.target.value);
     const maxAllowed = parseInt(user.points);
     const newValue = Math.min(inputValue, maxAllowed);
-    const minVal = 50; 
+    const minVal = 50;
     event.target.value = newValue;
 
     if (inputValue / 10 > pricing[2].toFixed(2)) {
@@ -201,9 +206,7 @@ const Cart = () => {
     }
 
     if (inputValue < minVal) {
-      return alert(
-        `Minimum points able to use is 50.`
-      );
+      return alert(`Minimum points able to use is 50.`);
     }
 
     setPointValue(inputValue);

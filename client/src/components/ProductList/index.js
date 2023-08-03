@@ -57,6 +57,9 @@ function ProductList(props) {
               name={product.name}
               price={product.price}
               quantity={product.quantity}
+              // cloverId={product.cloverId}
+              // description={product.description}
+              // category={product.category}
             />
           ))}
         </div>

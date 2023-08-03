@@ -7,6 +7,7 @@ import { idbPromise } from "../../utils/helpers";
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { DEL_PRODUCT } from "../../utils/mutations";
+import AdminUpdateForm from "../AdminUpdateForm";
 
 function ProductItem(item) {
   const [displayModal, setDisplayModal] = useState();
@@ -15,7 +16,7 @@ function ProductItem(item) {
 
   const [state, dispatch] = useStoreContext();
 
-  const { image, name, _id, price, quantity } = item;
+  const { image, name, _id, price, quantity, description, cloverId, category } = item;
 
   const { cart } = state;
 
@@ -93,6 +94,22 @@ function ProductItem(item) {
         >
           Update
         </button>
+
+        {displayModal ? (
+          <AdminUpdateForm
+            displayModal={setDisplayModal}
+            id={_id}
+            name={name}
+            cloverId={cloverId}
+            category={category}
+            description={description}
+            image={image}
+            price={price}
+            quantity={quantity}
+          />
+        ) : (
+          console.log("display: false")
+        )}
       </div>
     );
   } else {

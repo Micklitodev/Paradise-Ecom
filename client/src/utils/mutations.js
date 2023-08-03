@@ -21,6 +21,7 @@ export const ADD_ORDER = gql`
         description
         price
         quantity
+        cloverId
         category {
           name
         }

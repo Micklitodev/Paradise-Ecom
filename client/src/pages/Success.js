@@ -20,8 +20,6 @@ function Success() {
           cloverId: item.cloverId,
         }));
 
-        console.log(products)
-
         if (products.length <= 0) {
           setAnError(true);
           return;
