@@ -215,8 +215,8 @@ const Cart = () => {
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
-        <CiShoppingCart size={25} style={{ marginLeft: 7, marginTop: 4 }} />
-        <p style={{ textAlign: "center", position: "relative", top: -1.5 }}>
+        <CiShoppingCart size={23} style={{ marginLeft: 7, marginTop: 6, color: "white" }} />
+        <p style={{ textAlign: "center", position: "relative", top: 0, fontSize: 10, color: "white"}}>
           Cart
         </p>
       </div>
@@ -412,7 +412,7 @@ const Cart = () => {
             </div>
             {Auth.loggedIn() ? (
               <button
-                className="bg-blue-400 text-white h-15 mt-2"
+                className="bg-green-300 text-white h-15 mt-2"
                 onClick={submitCheckout}
               >
                 Checkout

@@ -337,7 +337,7 @@ const resolvers = {
           line_items.push({
             price_data: {
               currency: "usd",
-              unit_amount: shippingPrice,
+              unit_amount: parseInt(shippingPrice),
               product_data: {
                 name: "Shipping",
                 description: "Shipping fee",
@@ -364,6 +364,7 @@ const resolvers = {
             total: session.amount_total,
             subTotal: session.amount_subtotal,
             pointsUsed: session.total_details.amount_discount,
+            products: products,
           });
 
           const tempToken = new TempKey({ token, stripeSessionId: session.id });
@@ -419,6 +420,8 @@ const resolvers = {
         }
 
         const total = decodedToken.data.total;
+
+        const tempProducts = decodedToken.data.products;
 
         // user data
 
@@ -476,18 +479,8 @@ const resolvers = {
 
         // saving orders with token + user data
 
-        const prods = [];
-
-        products.map((p) => {
-          for (let i = 0; i < p.purchaseQuantity; i++) {
-            prods.push({
-              _id: p._id,
-            });
-          }
-        });
-
         const order = new Order({
-          products: prods,
+          products: tempProducts,
           firstName,
           lastName,
           address,
@@ -622,7 +615,6 @@ const resolvers = {
         // });
 
         // return product;
-
       } catch (err) {
         console.log(error);
       }

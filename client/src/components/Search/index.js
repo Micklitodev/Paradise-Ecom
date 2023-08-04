@@ -33,7 +33,15 @@ const SearchBar = () => {
       }}
     >
       <input
-        style={{ minHeight: 30, width: 300 }}
+        style={{
+          maxHeight: 35,
+          width: 300,
+          borderRadius: 50,
+          border: "solid 1px white",
+          backgroundColor: "rgb(246, 249, 248)",
+          textAlign: 'center',
+          color: 'grey'
+        }}
         type="text"
         name="search"
         value={search.search}
@@ -44,8 +52,8 @@ const SearchBar = () => {
         style={{ padding: 5, minHeight: 40 }}
         onClick={handleSubmit}
       >
-        <CiSearch size={20} />
-        <p style={{ maxHeight: "2px", fontSize: 10 }}>search</p>
+        <CiSearch style={{ color: "white" }} size={20} />
+        <p style={{ maxHeight: "2px", color: "white", fontSize: 10 }}>search</p>
       </button>
     </div>
   );

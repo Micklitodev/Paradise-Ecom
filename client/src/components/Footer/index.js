@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { CiFacebook, CiInstagram, CiTwitter } from "react-icons/ci";
+
 const Footer = () => {
   return (
     <div className="bg-white min-h-[75vh] w-full text-gray-700 py-10">
@@ -66,9 +68,32 @@ const Footer = () => {
       </div>
       <br />
 
-      <p className="text-center mt-8">
+      <p className="text-center mt-10">
         All Rights Reserved to @Paradise Hemp Dispensary.
       </p>
+      <div className="text-center mt-4">
+        <Link
+          className="inline-block"
+          to="https://www.facebook.com/"
+          target="_blank"
+        >
+          <CiFacebook size={30} />
+        </Link>
+        <Link
+          className="inline-block"
+          to="https://www.instagram.com/"
+          target="_blank"
+        >
+          <CiInstagram size={30} />
+        </Link>
+        <Link
+          className="inline-block"
+          to="https://www.twitter.com/"
+          target="_blank"
+        >
+          <CiTwitter size={30} />
+        </Link>
+      </div>
     </div>
   );
 };
