@@ -39,8 +39,8 @@ const SearchBar = () => {
           borderRadius: 50,
           border: "solid 1px white",
           backgroundColor: "rgb(246, 249, 248)",
-          textAlign: 'center',
-          color: 'grey'
+          textAlign: "center",
+          color: "grey",
         }}
         type="text"
         name="search"

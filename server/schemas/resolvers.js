@@ -127,13 +127,12 @@ const resolvers = {
 
         const filteredProducts = products.filter((p) => p.quantity > 0);
 
-        if (context.user.isAdmin) {
+        if (context.user?.isAdmin) {
           return products;
-        } else {
-          return filteredProducts;
         }
+        return filteredProducts;
       } catch (err) {
-        return console.log("search failed qs105");
+        return console.log(err);
       }
     },
     user: async (parent, args, context) => {

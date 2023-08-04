@@ -13,7 +13,7 @@ const SearchRes = () => {
   Redirector.checkTokens();
   useScrollHelper();
 
-  const [querySearch, { data, loading}] = useLazyQuery(SEARCH_QUERY);
+  const [querySearch, { data, loading }] = useLazyQuery(SEARCH_QUERY);
   const url = window.location.href;
   const searchParams = url.split("/").pop();
   const sanitizedParams = searchParams.replace(/%20/g, " ");
@@ -26,7 +26,7 @@ const SearchRes = () => {
     }
 
     fetchData();
-  }, [querySearch, sanitizedParams]);
+  }, []);
 
   return (
     <>
@@ -39,8 +39,9 @@ const SearchRes = () => {
         <h2 className="text-center">Search</h2>
         <hr />
         
-        {!loading ? (
+        { !loading && data?.querySearch ? (
           <>
+          {console.log(data)}
             <div style={{ 
               display: "flex", 
               flexWrap: 'wrap',
