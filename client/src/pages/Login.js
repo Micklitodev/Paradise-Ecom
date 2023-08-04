@@ -90,13 +90,21 @@ function Login(props) {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-blue-400 text-white"
+                className="bg-black bg-opacity-40 text-white"
               >
                 Submit
               </button>
             </div>
             <div>
               <br />
+              <em style={{ fontSize: 13 }}>
+                <Link to="/signup" className="text-gray-400">
+                  Don't have an account?
+                </Link>
+              </em>
+
+              <br /> 
+
               <em style={{ fontSize: 13 }}>
                 <Link to="/resetlink" className="text-gray-400">
                   Forgot username or password?

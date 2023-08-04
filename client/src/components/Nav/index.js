@@ -20,8 +20,8 @@ const Nav = () => {
   return (
     <>
       <div className="sticky top-0 z-10 w-full ">
-        <header className="w-full h-18 drop-shadow-md">
-          <div className="flex items-center justify-between w-full h-full px-2">
+        <header className="w-full h-14 drop-shadow-md">
+          <div className="flex items-center bg-black bg-opacity-30 justify-between w-full h-full px-2">
             {/* site name container */}
             <Link
               to="/home"

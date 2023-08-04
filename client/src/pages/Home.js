@@ -61,7 +61,7 @@ const Home = () => {
           }}
         />
         <h1
-          className="center hidden md:block"
+          className="left-60  hidden md:block"
           style={{
             textTransform: "uppercase",
             position: "absolute",
@@ -78,7 +78,7 @@ const Home = () => {
         </h1>
         <div>
           <h5
-            className="about left-20 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs bg-white bg-opacity-20 rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
+            className="about left-20 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs bg-black bg-opacity-20 rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
             style={{
               position: "absolute",
               color: "white",
@@ -87,7 +87,6 @@ const Home = () => {
               fontSize: 17,
               textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
               borderRadius: 5,
-              border: "solid 1px grey",
               maxWidth: "55%",
               maxHeight: "340px",
               overflow: "auto",
@@ -108,7 +107,7 @@ const Home = () => {
             a happier, and more harmonious existence as we embrace the
             incredible potential of hemp together. Your paradise awaits!
           </h5>
-          <a className="h-40 w-40 hidden md:block" href="#promotions">
+          <a className="h-28 w-40 hidden md:block" href="#promotions">
             <div
               style={{
                 marginBottom: 30,
@@ -119,19 +118,26 @@ const Home = () => {
             ></div>
           </a>
         </div>
-        <br />
+
         <div>
-          <br />
           <div id="promotions">
             <Info />
           </div>
           <br />
           <br />
-          <CategoryMenu />
+          <br />
+          <br />
+          <br />
+          <div>
+            <CategoryMenu />
+          </div>
           <Cart />
         </div>
         <br />
         <br />
+        <br />
+          <br />
+          <br />
         <Footer />
       </>
     );
