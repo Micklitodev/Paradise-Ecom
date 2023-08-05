@@ -5,26 +5,11 @@ import { QUERY_TOP_10 } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import ProductItem from "../ProductItem";
 
-const divStyle = {
-  display: "flex",
-  justifyContent: "center",
-  borderRadius: "10px",
-};
-
 const arrowStyle = {
-  position: "absolute",
-  top: "50%",
-  transform: "translateY(-50%)",
-  width: "40px",
-  height: "40px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  color: "rgba(0, 0, 0, 0.8)",
-  fontSize: "35px",
-  cursor: "pointer",
-  marginLeft: "3%",
-  marginRight: "3%",
+  color: "rgba(160, 160, 160, 0.8)",
+  fontSize: "30px",
+  marginLeft: "-2%",
+  marginRight: "-2%",
 };
 
 const RecentlyAdded = () => {
@@ -37,36 +22,58 @@ const RecentlyAdded = () => {
 
   return (
     <>
-      <div className=" mx-auto">
-        <h3 className="text-center">New Items</h3>
-        <hr className="border-t border-gray-300 my-4" />
-
-        <div>
-          <div id="certs">
-            <br />
-            <br />
-            <Slide
-              prevArrow={<div style={{ ...arrowStyle }}>&lt;</div>}
-              nextArrow={<div style={{ ...arrowStyle }}>&gt;</div>}
-              slidesToShow={3} // Show 3 items per slide
-            >
-              {data.queryNewProducts.map((slideProduct, index) => (
-                <div key={index}>
-                  <div style={{ ...divStyle }}>
-                    <ProductItem
-                      key={slideProduct._id}
-                      _id={slideProduct._id}
-                      image={slideProduct.image}
-                      name={slideProduct.name}
-                      price={slideProduct.price}
-                      quantity={slideProduct.quantity}
-                    />
-                  </div>
-                </div>
-              ))}
-            </Slide>
-          </div>
-        </div>
+      <h3 className="text-center py-2">New Items</h3>
+      <hr className="border-t border-gray-200 my-4 mx-7" />
+      <div style={{ maxWidth: "80vw", position: "relative", left: "9%" }}>
+        <Slide
+          prevArrow={
+            <div style={{ ...arrowStyle }} onClick={console.log("hit")}>
+              &lt;
+            </div>
+          }
+          nextArrow={<div style={{ ...arrowStyle }}>&gt;</div>}
+          responsive={[
+            {
+              breakpoint: 1300, // Large-sized screens (desktop)
+              settings: {
+                slidesToShow: 4,
+              },
+            },
+            {
+              breakpoint: 950, // Medium-sized screens (desktop)
+              settings: {
+                slidesToShow: 3,
+              },
+            },
+            {
+              breakpoint: 600, // Small screens (desktop)
+              settings: {
+                slidesToShow: 2,
+              },
+            },
+            {
+              breakpoint: 400, // Small screens (mobile)
+              settings: {
+                slidesToShow: 1,
+              },
+            },
+          ]}
+        >
+          {data.queryNewProducts.map((slideProduct, index) => (
+            <div key={index}>
+              <div className="flex justify-center rounded-10 mb-4">
+                <ProductItem
+                  key={slideProduct._id}
+                  _id={slideProduct._id}
+                  image={slideProduct.image}
+                  name={slideProduct.name}
+                  price={slideProduct.price}
+                  quantity={slideProduct.quantity}
+                />
+              </div>
+            </div>
+          ))}
+        </Slide>
       </div>
     </>
   );

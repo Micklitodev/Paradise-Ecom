@@ -46,7 +46,7 @@ function CategoryMenu() {
   return (
     <div className="container mx-auto">
     <h3 className="text-center text-uppercase">Categories</h3>
-    <hr className="border-t border-gray-300 my-4" />
+    <hr className="border-t border-gray-200 my-4" />
     <br /> 
     <br /> 
     <br /> 
@@ -58,7 +58,7 @@ function CategoryMenu() {
             onClick={() => {
               handleClick(item._id);
             }}
-            className="block w-48 sm:w-56"
+            className="block w-48 sm:w-56 rounded-md py-6"
           >
             <div className="flex-shrink-0">
               <img

@@ -75,7 +75,7 @@ const Home = () => {
           {" "}
           Welcome to Paradise{" "}
         </h1>
-        <div>
+        <div style={{marginTop: -60}}>
           <h5
             className="about left-20 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs bg-black bg-opacity-20 rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
             style={{

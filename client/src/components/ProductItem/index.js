@@ -69,7 +69,7 @@ function ProductItem(item) {
             alt={name}
             src={`${image}`}
           />
-          <p>{name}</p>
+          <p className="text-white">{name}</p>
         </Link>
         <div>
           <div>
@@ -116,7 +116,7 @@ function ProductItem(item) {
   } else {
     return (
       <>
-        <div className="card px-1 mx-1 py-1 borderwrap">
+        <div className="card px-2 mx-1 py-1 borderwrap">
           <Link to={`/products/${_id}`}>
             <img
               style={{ height: 220, width: 260 }}
@@ -132,7 +132,7 @@ function ProductItem(item) {
             <span>${price}</span>
           </div>
           <button
-            className="bg-blue-400 text-white h-15 mt-2"
+            className="bg-blue-500 bg-opacity-40 text-white h-15 mt-2"
             onClick={addToCart}
           >
             Add to cart
