@@ -7,12 +7,13 @@ db.once("open", async () => {
   const categories = await Category.insertMany([
     { name: "Edible", image: "edible.png" },
     { name: "Flower", image: "flower.png" },
-    { name: "Pens", image: "pen.png" },
-    { name: "Accessories", image: "accessories.png" },
+    { name: "Pens", image: "pen.png" }, //2
+    { name: "Accessories", image: "accessories.png" }, //3
     { name: "Hookah", image: "hookah.png" },
     { name: "Glass", image: "glass.png" },
     { name: "CBD", image: "cbd.png" },
     { name: "Nootropics", image: "nootropic.png" },
+    { name: "Batteries", image: "batteries.png" },
   ]);
 
   console.log("categories seeded");
@@ -29,44 +30,48 @@ db.once("open", async () => {
       category: categories[1]._id,
       price: 2.99,
       quantity: 500,
+      cloverId: "ZZRFHM84G16RA",
+    },
+    {
+      name: "Eleaf Ijust S Kit Rainbow",
+      description:
+        "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+      image: "t",
+      category: categories[2]._id,
+      price: 49.99,
+      quantity: 80,
+      cloverId: "VPFGVV1WXKGT6",
+    },
+    {
+      name: "Eleaf Ijust X Kit Black",
+      description:
+        "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+      image: "t",
+      category: categories[2]._id,
+      price: 49.99,
+      quantity: 80,
       cloverId: "ZZRXHM84G16RA",
     },
-    // {
-    //   name: "Eleaf Ijust S Kit Rainbow",
-    //   description: "",
-    //   image: "",
-    //   category: "",
-    //   price: 49.99,
-    //   quantity: 80,
-    //   cloverId: "VPFGVV1WXKGT6",
-    // },
-    // {
-    //   name: "Eleaf Ijust X Kit Black",
-    //   description: "",
-    //   image: "",
-    //   category: "",
-    //   price: 49.99,
-    //   quantity: 80,
-    //   cloverId: "ZZRXHM84G16RA",
-    // },
-    // {
-    //   name: "Wismec Theorem Rdta",
-    //   description: "",
-    //   image: "",
-    //   category: "",
-    //   price: 24.99,
-    //   quantity: 80,
-    //   cloverId: "G300WYQM77DFE",
-    // },
-    // {
-    //   name: "20700 21700 Battery",
-    //   description: "",
-    //   image: "",
-    //   category: "",
-    //   price: 15.99,
-    //   quantity: 80,
-    //   cloverId: "NYJ3G9RA9939C",
-    // },
+    {
+      name: "Wismec Theorem Rdta",
+      description:
+        "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+      image: "t",
+      category: categories[2]._id,
+      price: 24.99,
+      quantity: 80,
+      cloverId: "G300WYQM77DFE",
+    },
+    {
+      name: "20700 21700 Battery",
+      description:
+        "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+      image: "t",
+      category: categories[3]._id,
+      price: 15.99,
+      quantity: 80,
+      cloverId: "NYJ3G9RA9939C",
+    },
     // {
     //   name: "Nic Packs",
     //   description: "",

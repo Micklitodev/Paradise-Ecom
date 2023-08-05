@@ -38,18 +38,21 @@ const SearchBar = () => {
           width: 300,
           borderRadius: 50,
           border: "solid 1px white",
-          backgroundColor: "rgb(246, 249, 248)",
+          backgroundColor: "rgb(244, 244, 244)",
+          opacity: ".9",
           textAlign: "center",
           color: "grey",
         }}
         type="text"
         name="search"
+        placeholder="Search by product or category"
         value={search.search}
         onChange={handleChange}
       />
       <button
         className="mb-2.5"
         style={{ padding: 5, minHeight: 40 }}
+        disabled={!search.search}
         onClick={handleSubmit}
       >
         <CiSearch style={{ color: "white" }} size={20} />

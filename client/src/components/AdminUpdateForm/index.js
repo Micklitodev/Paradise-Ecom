@@ -13,6 +13,7 @@ const AdminUpdateForm = (props) => {
   const [adminUpdateProduct] = useMutation(ADMIN_UPDATE_PRODUCT);
 
   const [formData, setFormData] = useState({
+    id: props.id,
     name: props.name,
     cloverId: props.cloverId,
     category: props.category,
@@ -57,6 +58,7 @@ const AdminUpdateForm = (props) => {
         const bucket = "paradise-hemp-imgbucket";
 
         const {
+          id,
           name,
           cloverId,
           category,
@@ -67,6 +69,7 @@ const AdminUpdateForm = (props) => {
         } = formData;
 
         const variables = {
+          id,
           name,
           cloverId,
           category,
@@ -83,12 +86,12 @@ const AdminUpdateForm = (props) => {
         if (!data) {
           throw new Error("Something went wrong!");
         }
-
         console.log(data);
       } catch (err) {
         console.error(err);
       } finally {
         setFormData({
+          id: props.id,
           name: props.name,
           cloverId: props.cloverId,
           category: props.category,
@@ -237,6 +240,7 @@ const AdminUpdateForm = (props) => {
                         <option value="Glass">Glass</option>
                         <option value="CBD">CBD</option>
                         <option value="Nootropics">Nootropics</option>
+                        <option value="Batteries">Batteries</option>
                       </select>
                     </div>
 

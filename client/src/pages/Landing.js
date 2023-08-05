@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Modal from "../components/Modal";
 
 const LandingPage = () => {
@@ -19,47 +20,61 @@ const LandingPage = () => {
 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
-      alpha: true,
+      alpha: false,
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    camera.position.set(0, 0, -6.5);
+    camera.position.set(0, 0, 50);
 
-    const pointLight = new THREE.PointLight(0xffffff, 0.02);
-    pointLight.position.set(-5, 5, -15);
+    // lighting
+    const pointLight = new THREE.PointLight(0xffffff, 0.3);
+    pointLight.position.set(0, 0, 50);
 
-    const pointLight2 = new THREE.PointLight(0xffffff, 0.02);
-    pointLight2.position.set(-7, -1, -10);
+    const ambiant = new THREE.AmbientLight(0xffffff, 0.0);
+    scene.add(pointLight, ambiant);
 
-    scene.add(pointLight2);
-
-    const pointLight3 = new THREE.PointLight(0xffffff, 0.02);
-    pointLight3.position.set(10, 1, -18);
-
-    scene.add(pointLight, pointLight2, pointLight3);
-
-    const ambiant = new THREE.AmbientLight(0x292929, 0.02);
-    scene.add(ambiant);
-
-    // const lightHelper = new THREE.PointLightHelper(pointLight3);
+    // const lightHelper = new THREE.PointLightHelper(pointLight);
     // scene.add(lightHelper);
 
+    // textures
     const textureLoader = new THREE.TextureLoader();
-    const normalTexture = textureLoader.load("./textures/NormalMap.png");
+    // const leafbg = textureLoader.load("./images/paradise7.png");
+    // scene.background = leafbg;
 
-    const orb = new THREE.Mesh(
-      new THREE.SphereGeometry(1, 72, 72),
-      new THREE.MeshStandardMaterial({
-        metalness: 0.1,
-        roughness: 0.2,
-        normalMap: normalTexture,
-        normalScale: new THREE.Vector2(4),
-        color: "0x292929",
-      })
+    const gltfloader = new GLTFLoader();
+
+    let bud = "";
+
+    gltfloader.load(
+      "./weed/scene.gltf",
+      (gltf) => {
+        bud = gltf.scene;
+        console.log("GLTF Loaded:", bud);
+        bud.position.set(0, 40, -10);
+        bud.scale.set(1, 1, 1);
+        scene.add(bud);
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      (error) => {
+        console.log(error);
+      }
     );
 
-    orb.position.set(0, 0, -10);
-    scene.add(orb);
+    // const orb = new THREE.Mesh(
+    //   new THREE.SphereGeometry(1, 72, 72),
+    //   new THREE.MeshStandardMaterial({
+    //     metalness: 0.1,
+    //     roughness: 0.2,
+    //     normalMap: normalTexture,
+    //     normalScale: new THREE.Vector2(4),
+    //     color: "0x292929",
+    //   })
+    // );
+
+    // orb.position.set(0, 0, -10);
+    // scene.add(orb);
 
     let mouseX = 0;
     let mouseY = 0;
@@ -77,18 +92,20 @@ const LandingPage = () => {
 
     const clock = new THREE.Clock();
 
-    const animate = () => {
+    const animate = async () => {
       requestAnimationFrame(animate);
 
-      let time = clock.getElapsedTime();
-      orb.rotation.y += 0.5 * time;
+      if (bud) {
+        let time = clock.getElapsedTime();
+        bud.rotation.y += 0.5 * time;
 
-      targetX = mouseX * 0.001;
-      targetY = mouseY * 0.001;
+        targetX = mouseX * 0.001;
+        targetY = mouseY * 0.0001;
 
-      orb.rotation.y += 0.5 * (targetX - orb.rotation.y);
-      orb.rotation.x += 0.5 * (targetY - orb.rotation.x);
-      orb.rotation.z += 0.5 * (targetY - orb.rotation.x);
+        bud.rotation.y += 0.5 * (targetX - bud.rotation.y);
+        bud.rotation.x += 0.5 * (targetY - bud.rotation.x);
+        bud.rotation.z += 0.5 * (targetY - bud.rotation.x);
+      }
 
       renderer.render(scene, camera);
     };
@@ -114,20 +131,19 @@ const LandingPage = () => {
     setDisplayModal(true);
   };
 
-  return ( 
+  return (
     <>
       <div className="container2">
         <h1> paradise dispensary </h1>
       </div>
+
       <div className="landingP">
         <button onClick={handleClick} className="landingBtn">
           {" "}
           Visit Site{" "}
         </button>
       </div>
-      {displayModal ? (
-        <Modal displayModal={setDisplayModal}/>
-      ) : null}
+      {displayModal ? <Modal displayModal={setDisplayModal} /> : null}
 
       <canvas ref={canvasRef} />
     </>

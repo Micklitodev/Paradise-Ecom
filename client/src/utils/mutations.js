@@ -114,6 +114,7 @@ export const USER_VERIF_ADMIN = gql`
 
 export const ADMIN_UPDATE_PRODUCT = gql`
   mutation adminUpdateProduct(
+    $id: ID
     $name: String
     $cloverId: String
     $category: String
@@ -123,6 +124,7 @@ export const ADMIN_UPDATE_PRODUCT = gql`
     $price: Float
   ) {
     adminUpdateProduct(
+      id: $id
       name: $name
       cloverId: $cloverId
       category: $category
@@ -140,6 +142,7 @@ export const ADMIN_UPDATE_PRODUCT = gql`
       name
       price
       quantity
+      _id
     }
   }
 `;

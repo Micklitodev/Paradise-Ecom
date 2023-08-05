@@ -16,7 +16,8 @@ function ProductItem(item) {
 
   const [state, dispatch] = useStoreContext();
 
-  const { image, name, _id, price, quantity, description, cloverId, category } = item;
+  const { image, name, _id, price, quantity, description, cloverId, category } =
+    item;
 
   const { cart } = state;
 
@@ -52,7 +53,7 @@ function ProductItem(item) {
           variables: { id },
         });
 
-        window.location.assign("/manageproducts");
+        window.location.reload();
       } catch (err) {
         console.log(err);
       }

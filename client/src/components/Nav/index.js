@@ -21,7 +21,9 @@ const Nav = () => {
     <>
       <div className="sticky top-0 z-10 w-full ">
         <header className="w-full h-14 drop-shadow-md">
-          <div className="flex items-center bg-black bg-opacity-30 justify-between w-full h-full px-2">
+          <div className="flex items-center bg-black bg-opacity-30 justify-between w-full h-full px-2" 
+          style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)" }}
+          >
             {/* site name container */}
             <Link
               to="/home"
@@ -36,16 +38,26 @@ const Nav = () => {
                 {Auth.isAdmin() ? (
                   <>
                     <li className="mx-1">
-                      <Link to="/adminorderview">View Orders</Link>
+                      <Link to="/adminorderview" className="text-white">
+                        View Orders
+                      </Link>
                     </li>
                     <li className="mx-1">
-                      <Link to="/manageproducts">Manage Products</Link>
+                      <Link to="/manageproducts" className="text-white">
+                        Manage Products
+                      </Link>
                     </li>
                     <li className="mx-1">
-                      <Link to="/verifusers">Verify Users</Link>
+                      <Link to="/verifusers" className="text-white">
+                        Verify Users
+                      </Link>
                     </li>
                     <li className="mx-1">
-                      <Link to="/home" onClick={() => Auth.logout()}>
+                      <Link
+                        to="/home"
+                        className="text-white"
+                        onClick={() => Auth.logout()}
+                      >
                         Logout
                       </Link>
                     </li>
@@ -75,7 +87,7 @@ const Nav = () => {
                     <li style={{ position: "relative", top: -0 }}>
                       <Link to="/dashboard">
                         <div>
-                          <CiGrid42 size={20}  style={{ color: "white" }} />
+                          <CiGrid42 size={20} style={{ color: "white" }} />
                           <p
                             className="text-white"
                             style={{ marginLeft: -3, fontSize: 10 }}
@@ -88,11 +100,16 @@ const Nav = () => {
                     <li style={{ position: "relative", top: -0 }}>
                       <Link href="/home" onClick={() => Auth.logout()}>
                         <div>
-                          <CiLogout size={20} style={{ marginLeft: 1, color: "white" }} />
+                          <CiLogout
+                            size={20}
+                            style={{ marginLeft: 1, color: "white" }}
+                          />
                           <p
-                               className="text-white"
+                            className="text-white"
                             style={{ marginLeft: -3, fontSize: 10 }}
-                          >Logout</p>
+                          >
+                            Logout
+                          </p>
                         </div>
                       </Link>
                     </li>

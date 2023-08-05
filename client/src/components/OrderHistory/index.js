@@ -12,10 +12,10 @@ function OrderHistory(props) {
             <br />
             <br />
             <h3 style={{ textAlign: "center" }}>
-              Order History for {props.data?.user.firstName} {props.data?.user.lastName}
+              Order History for {props.data?.user?.firstName} {props.data?.user?.lastName}
             </h3>
             <hr /> 
-            <OrderMap data={props.data?.user.orders} />
+            <OrderMap data={props.data?.user?.orders} />
           </>
         ) : null}
       </div>

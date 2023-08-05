@@ -153,6 +153,7 @@ const AdminProdAdd = () => {
               <option value="Glass">Glass</option>
               <option value="CBD">CBD</option>
               <option value="Nootropics">Nootropics</option>
+              <option value="Batteries">Batteries</option>
             </select>
           </div>
 

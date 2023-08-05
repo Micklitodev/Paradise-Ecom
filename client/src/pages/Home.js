@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
 import Info from "../components/Info";
+import RecentlyAdded from "../components/RecentlyAdded";
 
 const Home = () => {
   Redirector.checkTokens();
@@ -16,10 +17,8 @@ const Home = () => {
     return (
       <>
         <Nav />
-        <br />
-        <br />
         <img
-          src="./images/headerimg.jpeg"
+          src="./images/paradise7.png"
           alt="header of delta 8."
           style={{
             width: "100vw",
@@ -51,7 +50,7 @@ const Home = () => {
       <>
         <Nav />
         <img
-          src="./images/paradise2.png"
+          src="./images/paradise3.png"
           alt="header of delta 8."
           style={{
             width: "100vw",
@@ -120,10 +119,9 @@ const Home = () => {
         </div>
 
         <div>
-          <div id="promotions">
-            <Info />
+          <div>
+            <RecentlyAdded />
           </div>
-          <br />
           <br />
           <br />
           <br />
@@ -131,13 +129,21 @@ const Home = () => {
           <div>
             <CategoryMenu />
           </div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <div id="promotions">
+            <Info />
+          </div>
           <Cart />
         </div>
         <br />
         <br />
         <br />
-          <br />
-          <br />
+        <br />
+        <br />
         <Footer />
       </>
     );

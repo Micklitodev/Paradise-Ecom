@@ -99,6 +99,17 @@ const resolvers = {
         return console.log("failed to update p074");
       }
     },
+    queryNewProducts: async () => {
+      try {
+        const newestProducts = await Product.find()
+          .sort({ createdAt: -1 })
+          .limit(5);
+
+        return newestProducts;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     querySearch: async (parent, args, context) => {
       try {
         const regex = new RegExp(args.search, "i");
@@ -607,15 +618,18 @@ const resolvers = {
         throw new AuthenticationError("Not authorized to view this page.");
       }
       try {
-        console.log(args);
+        console.log(args)
+        const category = await Category.findOne({ name: args.category });
+        args.category = category._id;
 
-        // const product = await Product.findByIdAndUpdate(args._id, args, {
-        //   new: true,
-        // });
+        const product = await Product.findByIdAndUpdate(args.id, args, {
+          new: true,
+        });
 
-        // return product;
+        console.log(product)
+        return product;
       } catch (err) {
-        console.log(error);
+        console.log(err);
       }
     },
     delProduct: async (parent, args, context) => {

@@ -72,6 +72,7 @@ const typeDefs = gql`
     categories: [Category]
     products(category: ID, name: String): [Product]
     product(_id: ID!): Product
+    queryNewProducts: [Product]
     user: User
     order(_id: ID!): Order
     checkout(products: [ID]!, shipPrice: Float!, points: Int): Checkout
@@ -108,6 +109,7 @@ const typeDefs = gql`
     ): Product
     updateProduct(_id: ID!, quantity: Int!): Product
     adminUpdateProduct(
+      id: ID
       name: String
       cloverId: String
       category: String
