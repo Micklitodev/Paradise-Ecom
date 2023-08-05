@@ -41,12 +41,7 @@ function Login(props) {
       <br />
       <br />
       <br />
-      <div>
-        <br />
-        <Link style={{ marginLeft: 10 }} to="/signup">
-          ← Go to Signup
-        </Link>
-
+      <div className="mt-20">
         <div className="container borderwrap" style={{ minHeight: "60vh" }}>
           <h2 className="text-2xl font-semibold">Login</h2>
           <form
@@ -103,7 +98,7 @@ function Login(props) {
                 </Link>
               </em>
 
-              <br /> 
+              <br />
 
               <em style={{ fontSize: 13 }}>
                 <Link to="/resetlink" className="text-gray-400">

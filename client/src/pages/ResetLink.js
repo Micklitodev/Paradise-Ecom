@@ -71,30 +71,16 @@ const ResetLink = () => {
 
   return (
     <>
-    <Nav />
-    <br />
-    <br />
-    <br />
-    <Link style={{ marginLeft: 10 }} to="/login">
-        ← Go to login{" "}
-      </Link>
-    {ChangeReject ? (
-      <>
-        <Jumbotron className="text-center">
-          <h2 className="text-2xl font-semibold">Password Reset Failed!</h2>
-          <p>Redirecting...</p>
-          {setTimeout(() => {
-            window.location.assign("/login");
-          }, 3000)}
-        </Jumbotron>
-      </>
-    ) : (
-      <>
-        {" "}
-        {changeSuccess ? (
+      <Nav />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="mt-20 mb-20">
+        {ChangeReject ? (
           <>
             <Jumbotron className="text-center">
-              <h2 className="text-2xl font-semibold">Password Successfully Changed!</h2>
+              <h2 className="text-2xl font-semibold">Password Reset Failed!</h2>
               <p>Redirecting...</p>
               {setTimeout(() => {
                 window.location.assign("/login");
@@ -103,115 +89,147 @@ const ResetLink = () => {
           </>
         ) : (
           <>
-            {!submitted ? (
-              <div className="container borderwrap" style={{ minHeight: "60vh" }}>
-                <h2 className="text-2xl font-semibold">Reset Password</h2>
-                <p> Please enter your email for your account. </p>
-                <form
-                  style={{ maxWidth: 300 }}
-                  onSubmit={handleFormSubmit}
-                  className="flex flex-col items-center space-y-4"
-                >
-                  <div className="flex flex-col my-2">
-                    <label htmlFor="email" className="mb-1">
-                      Email address:
-                    </label>
-                    <input
-                      placeholder="youremail@test.com"
-                      name="email"
-                      type="email"
-                      id="email"
-                      value={formState.email}
-                      onChange={handleChange}
-                      className="border border-gray-300 px-3 py-2 rounded-md w-full"
-                    />
-                  </div>
-                  {error ? (
-                    <div>
-                      <p className="error-text">The provided credentials are incorrect</p>
-                    </div>
-                  ) : null}
-                  <div className="flex justify-end">
-                    <button
-                      type="submit"
-                      disabled={!formState.email}
-                      className="bg-blue-400 text-white"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                  <div>
-                    <br />
-                  </div>
-                </form>
-                <br />
-              </div>
+            {changeSuccess ? (
+              <>
+                <Jumbotron className="text-center">
+                  <h2 className="text-2xl font-semibold">
+                    Password Successfully Changed!
+                  </h2>
+                  <p>Redirecting...</p>
+                  {setTimeout(() => {
+                    window.location.assign("/login");
+                  }, 3000)}
+                </Jumbotron>
+              </>
             ) : (
-              <div className="container borderwrap" style={{ minHeight: "60vh" }}>
-                <h2 className="text-2xl font-semibold">Reset Password</h2>
-                <p className="text-center">
-                  {" "}
-                  Please enter the 6-digit code from the email address that you provided. If you do not see an email from us, please check your spam folder. If you still cannot find the email, the email did not relate to an account.{" "}
-                  <Link to="/login" className="text-green-500 hover:underline">Try again</Link>{" "}
-                </p>
-                <form
-                  style={{ maxWidth: 300 }}
-                  onSubmit={handleSecuritySubmit}
-                  className="flex flex-col items-center space-y-4"
-                >
-                  <div className="flex flex-col my-2">
-                    <label htmlFor="newPass" className="mb-1">
-                      New Password:
-                    </label>
-                    <input
-                      name="newPass"
-                      value={codeInput.newPass}
-                      type="password"
-                      onChange={handleSecurityChange}
-                      className="border border-gray-300 px-3 py-2 rounded-md w-full"
-                    />
-                  </div>
-                  <div className="flex flex-col my-2">
-                    <label htmlFor="securityCode" className="mb-1">
-                      Security Code:
-                    </label>
-                    <input
-                      name="securityCode"
-                      value={codeInput.securityCode}
-                      onChange={handleSecurityChange}
-                      className="border border-gray-300 px-3 py-2 rounded-md w-full"
-                    />
-                  </div>
-                  {error ? (
-                    <div>
-                      <p className="error-text">The provided credentials are incorrect</p>
-                    </div>
-                  ) : null}
-                  <div className="flex justify-end">
-                    <button
-                      type="submit"
-                      disabled={!codeInput.securityCode}
-                      className="bg-blue-400 text-white"
+              <>
+                {!submitted ? (
+                  <div
+                    className="container borderwrap"
+                    style={{ minHeight: "60vh" }}
+                  >
+                    <h2 className="text-2xl font-semibold">Reset Password</h2>
+                    <p> Please enter your email for your account. </p>
+                    <form
+                      style={{ maxWidth: 300 }}
+                      onSubmit={handleFormSubmit}
+                      className="flex flex-col items-center space-y-4"
                     >
-                      Submit
-                    </button>
-                  </div>
-                  <div>
+                      <div className="flex flex-col my-2">
+                        <label htmlFor="email" className="mb-1">
+                          Email address:
+                        </label>
+                        <input
+                          placeholder="youremail@test.com"
+                          name="email"
+                          type="email"
+                          id="email"
+                          value={formState.email}
+                          onChange={handleChange}
+                          className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        />
+                      </div>
+                      {error ? (
+                        <div>
+                          <p className="error-text">
+                            The provided credentials are incorrect
+                          </p>
+                        </div>
+                      ) : null}
+                      <div className="flex justify-end">
+                        <button
+                          type="submit"
+                          disabled={!formState.email}
+                          className="bg-black bg-opacity-40 text-white"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                      <div>
+                        <br />
+                      </div>
+                    </form>
                     <br />
                   </div>
-                </form>
-                <br />
-              </div>
+                ) : (
+                  <div
+                    className="container borderwrap"
+                    style={{ minHeight: "60vh" }}
+                  >
+                    <h2 className="text-2xl font-semibold">Reset Password</h2>
+                    <p className="text-center">
+                      {" "}
+                      Please enter the 6-digit code from the email address that
+                      you provided. If you do not see an email from us, please
+                      check your spam folder. If you still cannot find the
+                      email, the email did not relate to an account.{" "}
+                      <Link
+                        to="/login"
+                        className="text-green-500 hover:underline"
+                      >
+                        Try again
+                      </Link>{" "}
+                    </p>
+                    <form
+                      style={{ maxWidth: 300 }}
+                      onSubmit={handleSecuritySubmit}
+                      className="flex flex-col items-center space-y-4"
+                    >
+                      <div className="flex flex-col my-2">
+                        <label htmlFor="newPass" className="mb-1">
+                          New Password:
+                        </label>
+                        <input
+                          name="newPass"
+                          value={codeInput.newPass}
+                          type="password"
+                          onChange={handleSecurityChange}
+                          className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        />
+                      </div>
+                      <div className="flex flex-col my-2">
+                        <label htmlFor="securityCode" className="mb-1">
+                          Security Code:
+                        </label>
+                        <input
+                          name="securityCode"
+                          value={codeInput.securityCode}
+                          onChange={handleSecurityChange}
+                          className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        />
+                      </div>
+                      {error ? (
+                        <div>
+                          <p className="error-text">
+                            The provided credentials are incorrect
+                          </p>
+                        </div>
+                      ) : null}
+                      <div className="flex justify-end">
+                        <button
+                          type="submit"
+                          disabled={!codeInput.securityCode}
+                          className="bg-black bg-opacity-40 text-white"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                      <div>
+                        <br />
+                      </div>
+                    </form>
+                    <br />
+                  </div>
+                )}
+              </>
             )}
           </>
         )}
-      </>
-    )}
-    <br />
-    <br />
-    <Footer />
-  </>
-  
+      </div>
+      <br />
+      <br />
+      <Footer />
+    </>
   );
 };
 

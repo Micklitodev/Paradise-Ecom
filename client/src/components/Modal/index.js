@@ -35,11 +35,13 @@ const Modal = (props) => {
                 boxShadow: "lg",
                 position: "relative",
                 display: "flex",
+                border: "1px solid white",
                 flexDirection: "column",
                 width: "full",
-                backgroundColor: "white",
+                backgroundColor: "rgb(10, 10, 10)",
                 outline: "none",
                 focus: "outline-none",
+                color: 'white'
               }}
             >
               <div
@@ -90,7 +92,7 @@ const Modal = (props) => {
                 </button>
               </div>
               {/*body*/}
-              <div id="agreement" style={{ padding: "20px" }}>
+              <div id="agreement" style={{ padding: "20px", color: 'white'}}>
                 The statements made regarding these products have not been
                 evaluated by the Food and Drug Administration. The efficacy of
                 these products has not been confirmed by FDA-approved research.
@@ -144,7 +146,6 @@ const Modal = (props) => {
                 </button>
                 <button
                   style={{
-      
                     fontWeight: "bold",
                     textTransform: "uppercase",
                     padding: "0.75rem 1.5rem",
@@ -165,15 +166,6 @@ const Modal = (props) => {
             </div>
           </div>
         </div>
-        <div
-          style={{
-            opacity: "0.25",
-            position: "fixed",
-            inset: "0",
-            zIndex: "40",
-            backgroundColor: "black",
-          }}
-        ></div>
       </div>
     </>
   );

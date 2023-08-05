@@ -48,9 +48,7 @@ function CategoryMenu() {
     <h3 className="text-center text-uppercase">Categories</h3>
     <hr className="border-t border-gray-200 my-4" />
     <br /> 
-    <br /> 
-    <br /> 
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-28">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-20">
       {categories.map((item) => (
         <div key={item._id} className="flex flex-col items-center">
           <Link

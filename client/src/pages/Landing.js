@@ -40,6 +40,7 @@ const LandingPage = () => {
     const textureLoader = new THREE.TextureLoader();
     // const leafbg = textureLoader.load("./images/paradise7.png");
     // scene.background = leafbg;
+    const normalTexture = textureLoader.load('./textures/NormalMap.png')
 
     const gltfloader = new GLTFLoader();
 
@@ -62,18 +63,18 @@ const LandingPage = () => {
       }
     );
 
-    // const orb = new THREE.Mesh(
-    //   new THREE.SphereGeometry(1, 72, 72),
-    //   new THREE.MeshStandardMaterial({
-    //     metalness: 0.1,
-    //     roughness: 0.2,
-    //     normalMap: normalTexture,
-    //     normalScale: new THREE.Vector2(4),
-    //     color: "0x292929",
-    //   })
-    // );
+    const orb = new THREE.Mesh(
+      new THREE.SphereGeometry(1, 72, 72),
+      new THREE.MeshStandardMaterial({
+        metalness: 0.1,
+        roughness: 0.2,
+        normalMap: normalTexture,
+        normalScale: new THREE.Vector2(4),
+        color: "0x292929",
+      })
+    );
 
-    // orb.position.set(0, 0, -10);
+    orb.position.set(0, 0, -10);
     // scene.add(orb);
 
     let mouseX = 0;

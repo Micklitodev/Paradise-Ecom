@@ -24,6 +24,7 @@ import ProductCata from './pages/ProductCata'
 import Contact from './pages/Contact';
 import Terms from './pages/Terms'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import PointsPolicy from './pages/PointsPolicy';
 import LithiumWarn from './pages/LithiumWarn'
 import LabResults from './pages/LabResults'
 import SearchRes from './pages/SearchRes';
@@ -110,6 +111,10 @@ function App() {
               <Route 
                 path="privacypolicy" 
                 element={<PrivacyPolicy />} 
+              />
+              <Route 
+                path="pointspolicy" 
+                element={<PointsPolicy />} 
               />
               <Route 
                 path="lithiumionbatwarn" 

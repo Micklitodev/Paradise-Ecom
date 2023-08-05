@@ -11,7 +11,7 @@ import useScrollHelper from "../utils/scrollhelper";
 
 const Dashboard = () => {
   Redirector.checkTokens();
-  useScrollHelper()
+  useScrollHelper();
 
   const { data } = useQuery(QUERY_USER);
   console.log(data);
@@ -23,23 +23,26 @@ const Dashboard = () => {
       <br />
       <br />
       <h2
-          style={{
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          Dashboard 
-        </h2>
+        style={{
+          display: "grid",
+          placeItems: "center",
+        }}
+      >
+        Dashboard
+      </h2>
       {data ? (
         <>
           {" "}
           <div>
             <OrderHistory data={data} />
             {!Auth.isVerified() ? (
-              <div className="borderwrap container">
+              <div className="container">
                 {" "}
                 <VerifForm data={data} />{" "}
+                <br />
+                <br />
               </div>
+          
             ) : (
               ""
             )}

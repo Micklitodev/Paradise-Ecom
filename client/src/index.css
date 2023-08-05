@@ -20,7 +20,6 @@
 html,
 body {
   min-height: 100%;
-  background-color: #ffffffcf;
 }
 
 body {
@@ -176,7 +175,7 @@ form {
 
 .unverifiedbar {
   z-index: 1;
-  margin-top: 60px;
+  margin-top: 56px;
   background-color: rgba(237, 52, 52, 0.506);
   opacity: 0.8;
   text-align: center;
