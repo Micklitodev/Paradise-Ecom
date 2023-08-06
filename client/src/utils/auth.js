@@ -31,16 +31,14 @@ class AuthService {
 
   isAgreementValid(token) {
     try {
-
-      const decoded = decode(token); 
-      if (decoded.exp < Date.now() / 1000 || token == null ) {
+      const decoded = decode(token);
+      if (decoded.exp < Date.now() / 1000 || token == null) {
         localStorage.removeItem("id_token");
         window.location.assign("/");
-        return false
-      } else return true
-
+        return false;
+      } else return true;
     } catch (err) {
-      window.location.assign('/')
+      window.location.assign("/");
       return false;
     }
   }

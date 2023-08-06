@@ -143,18 +143,18 @@ export const SEARCH_QUERY = gql`
 `;
 
 export const QUERY_TOP_10 = gql`
-{
-  queryNewProducts {
-    _id
-    name
-    description
-    price
-    quantity
-    cloverId
-    image
-    category {
+  {
+    queryNewProducts {
+      _id
       name
+      description
+      price
+      quantity
+      cloverId
+      image
+      category {
+        name
+      }
     }
   }
-}
-`
+`;

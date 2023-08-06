@@ -10,9 +10,8 @@ const resetKeySchema = new Schema({
   },
   email: {
     type: String,
-    required: true, 
+    required: true,
   },
-
   createdAt: {
     type: Date,
     default: Date.now,

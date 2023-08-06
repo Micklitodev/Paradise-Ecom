@@ -7,13 +7,14 @@ const LithiumWarn = () => {
   return (
     <>
       <Nav />
-      <br />
-      <br />
-      <br />
-      <div className="container" style={{ width: "60%" }}>
-        <h1 style={{ textAlign: "center" }}> LITHIUM ION BATTERY WARNING: </h1>
-        <br />
-
+      <h1 className="mt-20" style={{ textAlign: "center" }}>
+        {" "}
+        LITHIUM ION BATTERY WARNING:{" "}
+      </h1>
+      <div
+        className="container borderwrap bg-black bg-opacity-40 px-4 py-4"
+        style={{ width: "60%" }}
+      >
         <h3>LITHIUM ION BATTERY WARNING:</h3>
         <ol>
           <li>
@@ -40,7 +41,8 @@ const LithiumWarn = () => {
           </li>
           <li>Advanced User Item. Use at Your Own Risk!</li>
         </ol>
-
+        <br />
+        <br />
         <h3>CBD AND DELTA8 WARNING</h3>
         <p>
           By using of a CBD Additive (Cannabidiol Oil), I accept full

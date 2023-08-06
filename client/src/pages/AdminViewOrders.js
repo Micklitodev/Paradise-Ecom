@@ -5,12 +5,12 @@ import { useQuery } from "@apollo/client";
 import { ADMIN_ORDER_VIEW } from "../utils/queries";
 import Jumbotron from "../components/Jumbotron";
 import OrderMap from "../components/OrderMap";
-import useScrollHelper from '../utils/scrollhelper'
+import useScrollHelper from "../utils/scrollhelper";
 
 const AdminOrderView = () => {
   const token = localStorage.getItem("id_token");
   Auth.isTokenExpired(token);
-  useScrollHelper()
+  useScrollHelper();
 
   const { loading, data } = useQuery(ADMIN_ORDER_VIEW);
 
@@ -22,11 +22,8 @@ const AdminOrderView = () => {
     return (
       <>
         <Nav />
-        <br />
-        <br />
-        <br />
-        <br />
         <h2
+          className="mt-20"
           style={{
             display: "grid",
             placeItems: "center",
@@ -35,13 +32,13 @@ const AdminOrderView = () => {
           View Orders
         </h2>
         <OrderMap data={data.adminOrderView} />
-        <br /> 
+        <br />
       </>
     );
   } else {
     return (
       <>
-        <div className="center">
+        <div className="center mt-20 ">
           <Jumbotron>
             <h2> Err no auth to access this page.</h2>
           </Jumbotron>

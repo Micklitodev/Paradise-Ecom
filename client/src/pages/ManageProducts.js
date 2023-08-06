@@ -15,11 +15,8 @@ const ManageProducts = () => {
     return (
       <>
         <Nav />
-        <br />
-        <br />
-        <br />
-        <br />
         <h2
+          className="mt-20"
           style={{
             display: "grid",
             placeItems: "center",
@@ -28,16 +25,18 @@ const ManageProducts = () => {
           {" "}
           Manage Products{" "}
         </h2>
-
         <div
-          className="borderwrap container p-4"
+          className="borderwrap bg-black bg-opacity-40 container p-4"
           style={{ maxWidth: "1020px" }}
         >
           <h3 className="text-2xl font-bold"> Update / Delete Product</h3>
           <br />
           <SearchBar />
         </div>
-        <div className="container">
+        <div
+          className="borderwrap bg-black bg-opacity-40 container p-4"
+          style={{ maxWidth: "1020px" }}
+        >
           <AdminProdAdd />
         </div>
         <br />

@@ -6,7 +6,10 @@ const Footer = () => {
   return (
     <div
       className=" min-h-[75vh] w-full text-gray-700 py-10"
-      style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3", backgroundColor: "rgb(10, 10, 10)"}}
+      style={{
+        boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3",
+        backgroundColor: "rgb(10, 10, 10)",
+      }}
     >
       <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-3 gap-20">
         <div className="md:col-span-2 ml-5">
@@ -38,9 +41,6 @@ const Footer = () => {
         <div className="ml-5">
           <h3 className=" font-semibold uppercase mb-4">Footer Menu</h3>
           <ul className="space-y-4">
-            {/* <li>
-      <Link to="/search">Search</Link>
-    </li> */}
             <li>
               <Link to="/terms">
                 <p>Terms Of Use</p>
@@ -54,6 +54,11 @@ const Footer = () => {
             <li>
               <Link to="/contact">
                 <p>Contact Us</p>
+              </Link>
+            </li>
+            <li>
+              <Link to="/PointsPolicy">
+                <p>Points Policy</p>
               </Link>
             </li>
             <li>

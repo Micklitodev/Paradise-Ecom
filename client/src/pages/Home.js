@@ -18,16 +18,6 @@ const Home = () => {
     return (
       <>
         <Nav />
-        <img
-          src="./images/paradise7.png"
-          alt="header of delta 8."
-          style={{
-            width: "100vw",
-            borderRadius: 0,
-            maxHeight: "70vh",
-            opacity: 0.9,
-          }}
-        />
         <div style={{ display: "grid", placeItems: "center", marginTop: 50 }}>
           <br />
           <h1
@@ -36,6 +26,7 @@ const Home = () => {
               fontSize: 80,
               fontWeight: 900,
             }}
+            className="mt-40"
           >
             {" "}
             admin portal{" "}
@@ -115,32 +106,18 @@ const Home = () => {
             ></div>
           </a>
         </div>
-
         <div>
-          <div>
+          <div className="mb-20">
             <RecentlyAdded />
           </div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <div>
+          <div className="mb-20">
             <CategoryMenu />
           </div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <div id="promotions">
+          <div id="promotions" className="mb-20">
             <Info />
           </div>
           <Cart />
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
         <br />
         <Footer />
       </>

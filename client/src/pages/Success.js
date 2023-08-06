@@ -58,18 +58,20 @@ function Success() {
     <>
       {anError ? (
         <Jumbotron>
-          <h2>Session Expired</h2>
+          <h1 className="mt-40">Session Expired</h1>
         </Jumbotron>
       ) : (
         <>
           <div>
             <Jumbotron>
-              <h1>Success!</h1>
+              <h1 className="mt-20">Success!</h1>
               <br />
-              {/* <img className='center' src="./images/thankyou.gif" alt="thank you gif" /> */}
-              <br />
-              <br />
-              <h2>You will now be redirected to the home page...</h2>
+              <div className="borderwrap container px-20 py-20 bg-black bg-opacity-40">
+                <h2 className="mb-20">
+                  Thank You for your purchase with Paradise Hemp Dispensary
+                </h2>
+                <h4>You will now be redirected to the dashboard...</h4>
+              </div>
             </Jumbotron>
           </div>
         </>

@@ -18,11 +18,8 @@ const Dashboard = () => {
   return (
     <>
       <Nav />
-      <br />
-      <br />
-      <br />
-      <br />
       <h2
+        className="mt-20"
         style={{
           display: "grid",
           placeItems: "center",
@@ -32,33 +29,26 @@ const Dashboard = () => {
       </h2>
       {data ? (
         <>
-          {" "}
           <div>
             <OrderHistory data={data} />
             {!Auth.isVerified() ? (
               <div className="container">
                 {" "}
-                <VerifForm data={data} />{" "}
-                <br />
+                <VerifForm data={data} /> <br />
                 <br />
               </div>
-          
-            ) : (
-              ""
-            )}
+            ) : null}
             <br />
-          </div>{" "}
+          </div>
         </>
       ) : (
         <>
           <Jumbotron>
-            <h3>
-              {" "}
+            <h3 className="mt-20">
               <a style={{ color: "#6499A4" }} href="/login">
-                {" "}
                 Login{" "}
               </a>{" "}
-              to access this page.{" "}
+              to access this page.
             </h3>
           </Jumbotron>
         </>

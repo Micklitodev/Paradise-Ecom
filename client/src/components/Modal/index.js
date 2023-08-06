@@ -10,7 +10,6 @@ const Modal = (props) => {
       variables: { userChoice },
     });
     Auth.agreement(data.agreement);
-    // window.location.assign("/home");
   };
 
   return (
@@ -161,7 +160,7 @@ const Modal = (props) => {
                   }}
                   type="button"
                   onClick={handleAgree}
-                  className="bg-red-500 text-white h-15"
+                  className="bg-red-500 bg-opacity-80 text-white h-15"
                 >
                   Agree
                 </button>

@@ -72,11 +72,7 @@ const ResetLink = () => {
   return (
     <>
       <Nav />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div className="mt-20 mb-20">
+      <div className="mt-40 mb-40">
         {ChangeReject ? (
           <>
             <Jumbotron className="text-center">
@@ -120,7 +116,7 @@ const ResetLink = () => {
                           Email address:
                         </label>
                         <input
-                          placeholder="youremail@test.com"
+                          placeholder="email@example.com"
                           name="email"
                           type="email"
                           id="email"
@@ -140,7 +136,7 @@ const ResetLink = () => {
                         <button
                           type="submit"
                           disabled={!formState.email}
-                          className="bg-black bg-opacity-40 text-white"
+                          className="bg-green-400 bg-opacity-80 text-black"
                         >
                           Submit
                         </button>
@@ -157,7 +153,7 @@ const ResetLink = () => {
                     style={{ minHeight: "60vh" }}
                   >
                     <h2 className="text-2xl font-semibold">Reset Password</h2>
-                    <p className="text-center">
+                    <p className="text-center" style={{ maxWidth: "45%" }}>
                       {" "}
                       Please enter the 6-digit code from the email address that
                       you provided. If you do not see an email from us, please
@@ -167,7 +163,7 @@ const ResetLink = () => {
                         to="/login"
                         className="text-green-500 hover:underline"
                       >
-                        Try again
+                        Try again!
                       </Link>{" "}
                     </p>
                     <form
@@ -183,6 +179,7 @@ const ResetLink = () => {
                           name="newPass"
                           value={codeInput.newPass}
                           type="password"
+                          placeholder="Password88!"
                           onChange={handleSecurityChange}
                           className="border border-gray-300 px-3 py-2 rounded-md w-full"
                         />
@@ -194,6 +191,7 @@ const ResetLink = () => {
                         <input
                           name="securityCode"
                           value={codeInput.securityCode}
+                          placeholder="541-323"
                           onChange={handleSecurityChange}
                           className="border border-gray-300 px-3 py-2 rounded-md w-full"
                         />
@@ -209,7 +207,7 @@ const ResetLink = () => {
                         <button
                           type="submit"
                           disabled={!codeInput.securityCode}
-                          className="bg-black bg-opacity-40 text-white"
+                          className="bg-green-400 bg-opacity-80 text-black"
                         >
                           Submit
                         </button>
@@ -226,8 +224,6 @@ const ResetLink = () => {
           </>
         )}
       </div>
-      <br />
-      <br />
       <Footer />
     </>
   );

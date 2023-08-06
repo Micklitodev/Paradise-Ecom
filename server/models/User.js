@@ -1,29 +1,29 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const bcrypt = require('bcrypt');
-const Order = require('./Order');
+const bcrypt = require("bcrypt");
+const Order = require("./Order");
 
 const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   lastName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 5
+    minlength: 5,
   },
   phone: {
     type: String,
@@ -35,43 +35,43 @@ const userSchema = new Schema({
     type: String,
   },
   state: {
-    type: String, 
-  }, 
+    type: String,
+  },
   zip: {
     type: Number,
-  }, 
+  },
   isAdmin: {
     type: Boolean,
-    default: false
+    default: false,
   },
   isVerified: {
     type: Boolean,
-    default: false
+    default: false,
   },
   isIdSubmitted: {
     type: Boolean,
-    default: false
+    default: false,
   },
   isIdRejected: {
     type: Boolean,
-    default: false
+    default: false,
   },
   idFront: {
-    type: String
+    type: String,
   },
   idBack: {
-    type: String
+    type: String,
   },
   points: {
-    type: Number, 
-    default: 0
+    type: Number,
+    default: 0,
   },
-  orders: [Order.schema]
+  orders: [Order.schema],
 });
 
 // set up pre-save middleware to hash password
-userSchema.pre('save', async function(next) {
-  if (this.isNew || this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -80,10 +80,10 @@ userSchema.pre('save', async function(next) {
 });
 
 // compare the incoming password with the hashed password
-userSchema.methods.isCorrectPassword = async function(password) {
+userSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

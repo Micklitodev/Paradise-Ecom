@@ -3,20 +3,20 @@ import Footer from "../components/Footer";
 import useScrollHelper from "../utils/scrollhelper";
 
 const PrivacyPolicy = () => {
-  useScrollHelper()
+  useScrollHelper();
   return (
     <>
       <Nav />
-      <br />
-      <br />
-      <br />
-      <div className="container" style={{ width: "60%" }}>
-        <h1 style={{ textAlign: "center" }}> PRIVACY POLICY </h1>
+      <h1 className="mt-20 text-center"> PRIVACY POLICY </h1>
+      <div
+        className="container borderwrap bg-black bg-opacity-40 py-2 px-2"
+        style={{ width: "60%" }}
+      >
         <h3>PRIVACY POLICY</h3>
         <p>
           This privacy policy sets out how www.samsparadisevape.com uses and
           protects any information that you give www.samsparadisevape.com when
-          you use this website. www.samsparadisevape.com is committed to
+          you use this website. www.paradisehempdispensary.com is committed to
           ensuring that your privacy is protected. Should we ask you to provide
           certain information by which you can be identified when using this
           website, then you can be assured that it will only be used in
@@ -25,6 +25,7 @@ const PrivacyPolicy = () => {
           check this page from time to time to ensure that you are happy with
           any changes.
         </p>
+        <br />
         <h3>WHAT WE COLLECT</h3>
         <p>We may collect the following information:</p>
         <ul>
@@ -33,6 +34,7 @@ const PrivacyPolicy = () => {
           <li>Demographic Information (postcode, preferences, interests)</li>
           <li>Other Information Relevant to Customer Surveys and/or Offers</li>
         </ul>
+        <br />
         <h3>WHAT WE DO WITH THE INFORMATION WE GATHER</h3>
         <p>
           We require this information to understand your needs and provide you
@@ -55,6 +57,7 @@ const PrivacyPolicy = () => {
             according to your interests.
           </li>
         </ul>
+        <br />
         <h3>SECURITY</h3>
         <p>
           We are committed to ensuring that your information is secure. In order
@@ -62,6 +65,7 @@ const PrivacyPolicy = () => {
           suitable physical, electronic and managerial procedures to safeguard
           and secure the information we collect online.
         </p>
+        <br />
         <h3>HOW WE USE COOKIES</h3>
         <p>
           A cookie is a small file which asks permission to be placed on your
@@ -90,8 +94,8 @@ const PrivacyPolicy = () => {
           taking full advantage of the website.
         </p>
       </div>
-      <br /> 
-      <br /> 
+      <br />
+      <br />
       <Footer />
     </>
   );

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
@@ -6,38 +6,38 @@ const productSchema = new Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   cloverId: {
-    type: String, 
-  }, 
+    type: String,
+  },
   description: {
-    type: String
+    type: String,
   },
   image: {
-    type: String
+    type: String,
   },
   price: {
     type: Number,
     required: true,
-    min: 0.99
+    min: 0.99,
   },
   quantity: {
     type: Number,
     min: 0,
-    default: 0
+    default: 0,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true
-  }
+    ref: "Category",
+    required: true,
+  },
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

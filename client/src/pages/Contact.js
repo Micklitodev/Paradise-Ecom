@@ -48,89 +48,89 @@ const Contact = () => {
   return (
     <>
       <Nav />
-      <br />
-      <br />
-      <br />
 
       {Auth.loggedIn() ? (
         <>
           {fromSubmitted ? (
             <div>
               <Jumbotron>
-                <br />
-                <br />
-                <h2>Message Sent!</h2>
+                <h2 className="mt-20">Message Sent!</h2>
                 <p>We will be in contact shortly!</p>
               </Jumbotron>
             </div>
           ) : (
             <>
-              <div className="borderwrap container">
-                <h3 className="text-2xl font-semibold">Contact Us</h3>
-                <br />
-
-                <form
-                  onSubmit={handleSubmit}
-                  className="flex flex-col items-center space-y-4"
-                >
-                  <div className="flex flex-col my-2">
-                    <label htmlFor="name" className="mb-1">
-                      Name:
-                    </label>
-                    <input
-                      style={{ width: 300 }}
-                      className="border border-gray-300 px-3 py-2 rounded-md w-full"
-                      label="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-
-                  <div className="flex flex-col my-2">
-                    <label htmlFor="email" className="mb-1">
-                      Email:
-                    </label>
-                    <input
-                      style={{ width: 300 }}
-                      className="border border-gray-300 px-3 py-2 rounded-md w-full"
-                      label="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-
-                  <div className="flex flex-col my-2">
-                    <label htmlFor="message" className="mb-1">
-                      Message:
-                    </label>
-                    <textarea
-                      className="border border-gray-300 px-3 py-2 rounded-md w-full"
-                      label="message"
-                      name="message"
-                      cols="100"
-                      rows="10"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-
+              <div className="mt-20">
+                <div className="borderwrap bg-black bg-opacity-40 container ">
+                  <h3 className="text-2xl font-semibold">Contact Us</h3>
                   <br />
-                  <div className="flex justify-end">
-                    <button
-                      disabled={
-                        !formData.name || !formData.email || !formData.message
-                      }
-                      className="bg-blue-400 text-white py-1"
-                      type="submit"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-                <br />
+
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col items-center space-y-4"
+                  >
+                    <div className="flex flex-col my-2">
+                      <label htmlFor="name" className="mb-1">
+                        Name:
+                      </label>
+                      <input
+                        style={{ width: 300 }}
+                        className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        label="name"
+                        name="name"
+                        placeholder="John Smith"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    <div className="flex flex-col my-2">
+                      <label htmlFor="email" className="mb-1">
+                        Email:
+                      </label>
+                      <input
+                        style={{ width: 300 }}
+                        className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        label="email"
+                        name="email"
+                        type="email"
+                        placeholder="sample@example.com"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    <div className="flex flex-col my-2">
+                      <label htmlFor="message" className="mb-1">
+                        Message:
+                      </label>
+                      <textarea
+                        className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        label="message"
+                        name="message"
+                        placeholder="What would you like to let us know?"
+                        cols="100"
+                        rows="10"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+
+                    <br />
+                    <div className="flex justify-end">
+                      <button
+                        disabled={
+                          !formData.name || !formData.email || !formData.message
+                        }
+                        className=" bg-green-400 bg-opacity-80 text-black py-1 w-40"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                  <br />
+                </div>
               </div>
             </>
           )}
@@ -140,9 +140,7 @@ const Contact = () => {
           {" "}
           <div>
             <Jumbotron>
-              <br />
-              <br />
-              <h2>
+              <h2 className="mt-20">
                 <Link className="text-green-400" to="/login">
                   Login{" "}
                 </Link>

@@ -3,7 +3,7 @@ const Info = () => {
   return (
     <>
       <div className="container mx-auto">
-        <h3 className="text-center text-uppercase">Promotions</h3>
+        <h3 className="text-center text-uppercase py-2">Promotions</h3>
         <div className="container bg-black bg-opacity-40 borderwrap">
           <h4> Earn Points on Your Purchase: </h4>
           <p
@@ -33,7 +33,8 @@ const Info = () => {
           <p>
             For more info visit our points policy by clicking
             <Link style={{ color: "#6499A4" }} to="/pointspolicy">
-             {" "} Here
+              {" "}
+              Here
             </Link>
           </p>
 

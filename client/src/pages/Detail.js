@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import Nav from '../components/Nav'
-
+import Nav from "../components/Nav";
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
 import {
@@ -20,7 +19,7 @@ import useScrollHelper from "../utils/scrollhelper";
 
 function Detail() {
   Redirector.checkTokens();
-  useScrollHelper(); 
+  useScrollHelper();
 
   const [state, dispatch] = useStoreContext();
   const { id } = useParams();
@@ -34,8 +33,7 @@ function Detail() {
   useEffect(() => {
     if (products.length) {
       setCurrentProduct(products.find((product) => product._id === id));
-    }
-    else if (data) {
+    } else if (data) {
       dispatch({
         type: UPDATE_PRODUCTS,
         products: data.products,
@@ -44,8 +42,7 @@ function Detail() {
       data.products.forEach((product) => {
         idbPromise("products", "put", product);
       });
-    }
-    else if (!loading) {
+    } else if (!loading) {
       idbPromise("products", "get").then((indexedProducts) => {
         dispatch({
           type: UPDATE_PRODUCTS,
@@ -86,55 +83,52 @@ function Detail() {
   };
 
   return (
-<>
-<Nav /> 
-<br /> 
-<br /> 
-  {currentProduct && cart ? (
-    <div className="container mx-auto my-8 px-4 max-w-md">
-      <Link to="/home" className=" hover:underline">
-        ← Back to Products
-      </Link>
+    <>
+      <Nav />
+      {currentProduct && cart ? (
+        <div className="container mx-auto my-8 px-4 max-w-md mt-20">
+          <Link to="/home" className="hover:underline text-white">
+            ← Back to Products
+          </Link>
 
-      <h2 className="text-2xl font-bold my-4">{currentProduct.name}</h2>
+          <div className="bg-black mt-2 rounded-md bg-opacity-40 py-1 px-10">
+            <h2 className="text-2xl font-bold my-4">{currentProduct.name}</h2>
 
-      <p className="text-gray-600">{currentProduct.description}</p>
+            <p>{currentProduct.description}</p>
 
-      <p className="text-lg font-bold mt-4">
-        <strong>Price:</strong> ${currentProduct.price}{" "}
-        <button
-        className="bg-blue-400 text-white h-15 mt-2"
-          onClick={addToCart}
-         
-        >
-          Add to Cart
-        </button>
-        <button
-          disabled={!cart.find((p) => p._id === currentProduct._id)}
-          onClick={removeFromCart}
-          className="bg-red-400 text-white h-15 mt-2"
-  
-        >
-          Remove from Cart
-        </button>
-      </p>
+            <p className="text-lg font-bold mt-4">
+              <strong>Price:</strong> ${currentProduct.price}{" "}
+              <button
+                className="bg-green-400 bg-opacity-80 h-15 mt-2"
+                onClick={addToCart}
+              >
+                Add to Cart
+              </button>
+              <button
+                disabled={!cart.find((p) => p._id === currentProduct._id)}
+                onClick={removeFromCart}
+                className="bg-red-400 bg-opacity-80 h-15 mt-2"
+              >
+                Remove from Cart
+              </button>
+            </p>
 
-      <img
-        src={`${currentProduct.image}`}
-        alt={currentProduct.name}
-        className="my-4 rounded-lg shadow-md"
-      />
-    </div>
-  ) : null}
-  {loading ? (
-    <img src={spinner} alt="loading" className="mx-auto my-8" />
-  ) : null}
-  <Cart />
-  <br />
-  <br />
-  <Footer />
-</>
-
+            <img
+              src={`${currentProduct.image}`}
+              alt={currentProduct.name}
+              className="my-4 rounded-lg shadow-md"
+            />
+          </div>
+        </div>
+      ) : null}
+      {loading ? (
+        <img src={spinner} alt="loading" className="mx-auto my-8" />
+      ) : null}
+      <Cart />
+      <br />
+      <br />
+      <Footer />
+    </>
   );
 }
 

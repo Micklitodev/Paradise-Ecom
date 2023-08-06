@@ -132,7 +132,7 @@ function ProductItem(item) {
             <span>${price}</span>
           </div>
           <button
-            className="bg-blue-500 bg-opacity-40 text-white h-15 mt-2"
+            className="bg-green-400 bg-opacity-80 text-black h-15 mt-2"
             onClick={addToCart}
           >
             Add to cart

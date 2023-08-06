@@ -23,11 +23,14 @@ const LandingPage = () => {
           </h1>
           <button
             onClick={handleClick}
-            className="bg-red-500 text-white mb-30 w-40 h-20"
+            className="bg-red-500 bg-opacity-80 text-white mb-30 w-40 h-20"
           >
             Enter Site
           </button>
-          <em style={{fontSize: 11}}> All rights reserved to @Paradise Hemp Dispensary</em>
+          <em style={{ fontSize: 11 }}>
+            {" "}
+            All rights reserved to @Paradise Hemp Dispensary
+          </em>
         </div>
         {displayModal && <Modal displayModal={setDisplayModal} />}
       </div>

@@ -31,24 +31,21 @@ const SearchRes = () => {
   return (
     <>
       <Nav />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div>
+      <div className="mt-20">
         <h2 className="text-center">Search</h2>
         <hr />
-        
-        { !loading && data?.querySearch.length > 0 ? (
+        {!loading && data?.querySearch.length > 0 ? (
           <>
-          {console.log(data)}
-            <div style={{ 
-              display: "flex", 
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+            >
               {data.querySearch?.map((product) => (
-                
                 <ProductItem
                   key={product._id}
                   _id={product._id}
@@ -57,10 +54,9 @@ const SearchRes = () => {
                   price={product.price}
                   quantity={product.quantity}
                 />
-                
               ))}
             </div>
-            <br /> 
+            <br />
           </>
         ) : (
           <>

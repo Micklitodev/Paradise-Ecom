@@ -70,25 +70,17 @@ const VerifUsers = () => {
     return (
       <>
         <Nav />
-        <br />
-        <br />
-        <br />
-        <br />
-        <h2 className="text-center">Verify Users</h2>
-
+        <h2 className="text-center mt-20">Verify Users</h2>
         {filteredUser?.length ? (
           <div className="text-center">
             {filteredUser.length} user(s) to verify.
           </div>
         ) : null}
 
-        <div className="borderwrap container mx-auto">
+        <div className="borderwrap bg-black bg-opacity-40 container mx-auto">
           {!filteredUser?.length ? (
             <>
-              <br />
-              <br />
-              <br />
-              <div style={{ height: "20vh" }}>
+              <div className="mt-20" style={{ height: "20vh" }}>
                 <h3>All done!</h3>
               </div>
             </>
@@ -113,10 +105,8 @@ const VerifUsers = () => {
                   alt=""
                   style={{ maxHeight: 200 }}
                 />
-
                 <br />
                 <br />
-
                 <button
                   className="bg-red-400 text-white py-1 px-20 mx-14"
                   onClick={handleReject}
@@ -135,7 +125,6 @@ const VerifUsers = () => {
               </div>
             ))
           )}
-
           <br />
         </div>
       </>

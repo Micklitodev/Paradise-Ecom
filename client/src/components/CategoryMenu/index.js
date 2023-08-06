@@ -48,8 +48,10 @@ function CategoryMenu() {
       <br />
       <div className="grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
         {categories.map((item) => (
-          <div key={item._id} className="flex flex-col items-center rounded-md borderwrap bg-black bg-opacity-40" 
-          style={{}}
+          <div
+            key={item._id}
+            className="flex flex-col items-center rounded-md borderwrap bg-black bg-opacity-40"
+            style={{}}
           >
             <Link
               to={`/products/categories/${item._id}`}

@@ -10,7 +10,7 @@ const arrowStyle = {
   fontSize: "30px",
   marginLeft: "-2%",
   marginRight: "-2%",
-  zIndex: 1, 
+  zIndex: 1,
 };
 
 const RecentlyAdded = () => {

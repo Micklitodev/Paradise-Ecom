@@ -40,11 +40,11 @@ function Signup(props) {
   return (
     <>
       <Nav />
-      <br />
-      <br />
-      <div className="mt-4">
-        <br />
-        <div className="container bg-black bg-opacity-40 borderwrap" style={{ minHeight: "60vh" }}>
+      <div className="mt-24 mb-40">
+        <div
+          className="container bg-black bg-opacity-40 borderwrap"
+          style={{ minHeight: "60vh" }}
+        >
           <br />
           <h2 className="text-2xl font-semibold">Signup</h2>
           <form
@@ -114,7 +114,7 @@ function Signup(props) {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-black bg-opacity-40 text-white"
+                className="bg-green-400 bg-opacity-80 text-black"
               >
                 Submit
               </button>
@@ -122,7 +122,7 @@ function Signup(props) {
             <div>
               <br />
               <em style={{ fontSize: 13 }}>
-                <Link to="/login" className="text-gray-400">
+                <Link to="/login" className="text-gray-300">
                   Already have an account?
                 </Link>
               </em>
@@ -131,11 +131,6 @@ function Signup(props) {
           <br />
         </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <Footer />
     </>
   );

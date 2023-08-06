@@ -618,7 +618,7 @@ const resolvers = {
         throw new AuthenticationError("Not authorized to view this page.");
       }
       try {
-        console.log(args)
+        console.log(args);
         const category = await Category.findOne({ name: args.category });
         args.category = category._id;
 
@@ -626,7 +626,7 @@ const resolvers = {
           new: true,
         });
 
-        console.log(product)
+        console.log(product);
         return product;
       } catch (err) {
         console.log(err);
