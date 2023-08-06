@@ -16,6 +16,7 @@ const Info = () => {
               maxWidth: "750px",
               marginBottom: "10px",
               padding: "15px",
+              fontSize: 15,
             }}
           >
             <br />

@@ -34,14 +34,13 @@ const OrderMap = (props) => {
       {ordersWithConsolidatedProducts?.length > 0 ? (
         <>
           {ordersWithConsolidatedProducts.map((order) => (
-            <div key={order._id} className="container borderwrap">
+            <div key={order._id} className="container borderwrap py-2">
               <hr />
-              <h3 className="text-2xl font-semibold">Order #: {order._id}</h3>
-              <p>Address: {order.address}</p>
-              <p>
+              <h3>
                 Order Date:{" "}
                 {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
-              </p>
+              </h3>
+              <p>Address: {order.address}</p>
               <a
                 href={order.tracking}
                 target="_blank"

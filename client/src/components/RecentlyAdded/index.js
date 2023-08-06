@@ -10,11 +10,11 @@ const arrowStyle = {
   fontSize: "30px",
   marginLeft: "-2%",
   marginRight: "-2%",
+  zIndex: 1, 
 };
 
 const RecentlyAdded = () => {
   const { data, loading } = useQuery(QUERY_TOP_10);
-  console.log(data);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -37,24 +37,28 @@ const RecentlyAdded = () => {
               breakpoint: 1300, // Large-sized screens (desktop)
               settings: {
                 slidesToShow: 4,
+                slidesToScroll: 1,
               },
             },
             {
               breakpoint: 950, // Medium-sized screens (desktop)
               settings: {
                 slidesToShow: 3,
+                slidesToScroll: 1,
               },
             },
             {
               breakpoint: 600, // Small screens (desktop)
               settings: {
                 slidesToShow: 2,
+                slidesToScroll: 1,
               },
             },
             {
               breakpoint: 400, // Small screens (mobile)
               settings: {
                 slidesToShow: 1,
+                slidesToScroll: 1,
               },
             },
           ]}

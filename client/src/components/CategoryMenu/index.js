@@ -16,7 +16,6 @@ function CategoryMenu() {
 
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
-
   useEffect(() => {
     if (categoryData) {
       dispatch({
@@ -45,34 +44,35 @@ function CategoryMenu() {
 
   return (
     <div className="container mx-auto">
-    <h3 className="text-center text-uppercase">Categories</h3>
-    <hr className="border-t border-gray-200 my-4" />
-    <br /> 
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-20">
-      {categories.map((item) => (
-        <div key={item._id} className="flex flex-col items-center">
-          <Link
-            to={`/products/categories/${item._id}`}
-            onClick={() => {
-              handleClick(item._id);
-            }}
-            className="block w-48 sm:w-56 rounded-md py-6"
+      <h3 className="text-center text-uppercase">Categories</h3>
+      <hr className="border-t border-gray-200 my-4" />
+      <br />
+      <div className="grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+        {categories.map((item) => (
+          <div key={item._id} className="flex flex-col items-center border rounded-md borderwrap" 
+          style={{}}
           >
-            <div className="flex-shrink-0">
-              <img
-                src={`./images/${item.image}`}
-                alt="categoryimg"
-                className="max-h-48 w-full object-cover"
-              />
-            </div>
-            <br />
-            <p className="text-center">{item.name}</p>
-          </Link>
-        </div>
-      ))}
+            <Link
+              to={`/products/categories/${item._id}`}
+              onClick={() => {
+                handleClick(item._id);
+              }}
+              className="block w-48 sm:w-56 rounded-md py-4"
+            >
+              <div className="flex-shrink-0">
+                <img
+                  src={`./images/${item.image}`}
+                  alt="categoryimg"
+                  className="max-h-48 w-full object-cover"
+                />
+              </div>
+              <br />
+              <p className="text-center">{item.name}</p>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-  
   );
 }
 

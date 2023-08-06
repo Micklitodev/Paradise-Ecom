@@ -39,7 +39,7 @@ const SearchRes = () => {
         <h2 className="text-center">Search</h2>
         <hr />
         
-        { !loading && data?.querySearch ? (
+        { !loading && data?.querySearch.length > 0 ? (
           <>
           {console.log(data)}
             <div style={{ 

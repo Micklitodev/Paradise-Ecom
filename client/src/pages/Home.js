@@ -23,7 +23,7 @@ const Home = () => {
           style={{
             width: "100vw",
             borderRadius: 0,
-            maxHeight: "60vh",
+            maxHeight: "70vh",
             opacity: 0.9,
           }}
         />
