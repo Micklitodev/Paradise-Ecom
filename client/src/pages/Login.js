@@ -42,7 +42,7 @@ function Login(props) {
       <br />
       <br />
       <div className="mt-20">
-        <div className="container borderwrap" style={{ minHeight: "60vh" }}>
+        <div className="container bg-black bg-opacity-40 borderwrap" style={{ minHeight: "60vh" }}>
           <h2 className="text-2xl font-semibold">Login</h2>
           <form
             style={{ maxWidth: 300 }}

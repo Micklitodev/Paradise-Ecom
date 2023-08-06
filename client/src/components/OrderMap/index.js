@@ -34,7 +34,7 @@ const OrderMap = (props) => {
       {ordersWithConsolidatedProducts?.length > 0 ? (
         <>
           {ordersWithConsolidatedProducts.map((order) => (
-            <div key={order._id} className="container borderwrap py-2">
+            <div key={order._id} className="container bg-black bg-opacity-40 borderwrap py-2">
               <hr />
               <h3>
                 Order Date:{" "}

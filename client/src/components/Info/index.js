@@ -4,8 +4,7 @@ const Info = () => {
     <>
       <div className="container mx-auto">
         <h3 className="text-center text-uppercase">Promotions</h3>
-        <hr className="border-t border-gray-300 my-4 mt-10 mb-10" />
-        <div className="container borderwrap">
+        <div className="container bg-black bg-opacity-40 borderwrap">
           <h4> Earn Points on Your Purchase: </h4>
           <p
             className="text-center "

@@ -105,7 +105,7 @@ const ResetLink = () => {
               <>
                 {!submitted ? (
                   <div
-                    className="container borderwrap"
+                    className="container bg-black bg-opacity-40 borderwrap"
                     style={{ minHeight: "60vh" }}
                   >
                     <h2 className="text-2xl font-semibold">Reset Password</h2>
@@ -153,7 +153,7 @@ const ResetLink = () => {
                   </div>
                 ) : (
                   <div
-                    className="container borderwrap"
+                    className="container bg-black bg-opacity-40 borderwrap"
                     style={{ minHeight: "60vh" }}
                   >
                     <h2 className="text-2xl font-semibold">Reset Password</h2>

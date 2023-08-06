@@ -22,26 +22,29 @@ const Modal = (props) => {
             overflowY: "auto",
             position: "fixed",
             inset: "0",
-            zIndex: "50",
+            zIndex: "5",
             outline: "none",
             focus: "outline-none",
           }}
         >
-          <div style={{ width: "auto", margin: "6rem auto", maxWidth: 750 }}>
+          <div
+            style={{
+              width: "auto",
+              margin: "6rem auto",
+              maxWidth: 1100,
+              padding: 10,
+            }}
+          >
             <div
               style={{
-                border: "none",
                 borderRadius: "10px",
                 boxShadow: "lg",
                 position: "relative",
                 display: "flex",
-                border: "1px solid white",
                 flexDirection: "column",
-                width: "full",
                 backgroundColor: "rgb(10, 10, 10)",
-                outline: "none",
-                focus: "outline-none",
-                color: 'white'
+                color: "white",
+                boxShadow: "0 0 1rem rgba(220, 220, 220, 0.5)",
               }}
             >
               <div
@@ -92,7 +95,7 @@ const Modal = (props) => {
                 </button>
               </div>
               {/*body*/}
-              <div id="agreement" style={{ padding: "20px", color: 'white'}}>
+              <div id="agreement" style={{ padding: "20px", color: "white" }}>
                 The statements made regarding these products have not been
                 evaluated by the Food and Drug Administration. The efficacy of
                 these products has not been confirmed by FDA-approved research.
@@ -158,7 +161,7 @@ const Modal = (props) => {
                   }}
                   type="button"
                   onClick={handleAgree}
-                  className="bg-blue-400 text-white h-15"
+                  className="bg-red-500 text-white h-15"
                 >
                   Agree
                 </button>

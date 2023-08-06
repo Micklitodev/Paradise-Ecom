@@ -44,7 +44,7 @@ function Signup(props) {
       <br />
       <div className="mt-4">
         <br />
-        <div className="container borderwrap" style={{ minHeight: "60vh" }}>
+        <div className="container bg-black bg-opacity-40 borderwrap" style={{ minHeight: "60vh" }}>
           <br />
           <h2 className="text-2xl font-semibold">Signup</h2>
           <form

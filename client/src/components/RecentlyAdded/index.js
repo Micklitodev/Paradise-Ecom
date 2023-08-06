@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import ProductItem from "../ProductItem";
 
 const arrowStyle = {
-  color: "rgba(160, 160, 160, 0.8)",
+  color: "rgba(230, 230, 230, 0.8)",
   fontSize: "30px",
   marginLeft: "-2%",
   marginRight: "-2%",
@@ -23,7 +23,6 @@ const RecentlyAdded = () => {
   return (
     <>
       <h3 className="text-center py-2">New Items</h3>
-      <hr className="border-t border-gray-200 my-4 mx-7" />
       <div style={{ maxWidth: "80vw", position: "relative", left: "9%" }}>
         <Slide
           prevArrow={

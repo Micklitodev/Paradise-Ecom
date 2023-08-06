@@ -8,6 +8,7 @@ import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
 import Info from "../components/Info";
 import RecentlyAdded from "../components/RecentlyAdded";
+import ThreeHeader from "../components/ThreeHeader";
 
 const Home = () => {
   Redirector.checkTokens();
@@ -49,16 +50,16 @@ const Home = () => {
     return (
       <>
         <Nav />
-        <img
-          src="./images/paradise3.png"
-          alt="header of delta 8."
+        <div
           style={{
             width: "100vw",
             borderRadius: 0,
             maxHeight: "100vh",
-            opacity: 0.9,
+            opacity: 0.8,
           }}
-        />
+        >
+          <ThreeHeader />
+        </div>
         <h1
           className="left-60  hidden md:block"
           style={{
@@ -71,17 +72,14 @@ const Home = () => {
             textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
             borderRadius: 5,
           }}
-        >
-          {" "}
-          Welcome to Paradise{" "}
-        </h1>
-        <div style={{marginTop: -60}}>
+        ></h1>
+        <div style={{ marginTop: -60 }}>
           <h5
             className="about left-20 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs bg-black bg-opacity-20 rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
             style={{
               position: "absolute",
               color: "white",
-              top: 245,
+              top: 270,
               fontWeight: 900,
               fontSize: 17,
               textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",

@@ -1,16 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import Modal from "../components/Modal";
 
-const LandingPage = () => {
-  const [displayModal, setDisplayModal] = useState(false);
+const ThreeHeader = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
 
+    // camera and scene
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -33,14 +32,12 @@ const LandingPage = () => {
     const ambiant = new THREE.AmbientLight(0xffffff, 0.0);
     scene.add(pointLight, ambiant);
 
+    // light helper
+
     // const lightHelper = new THREE.PointLightHelper(pointLight);
     // scene.add(lightHelper);
 
-    // textures
-    const textureLoader = new THREE.TextureLoader();
-    // const leafbg = textureLoader.load("./images/paradise7.png");
-    // scene.background = leafbg;
-    const normalTexture = textureLoader.load('./textures/NormalMap.png')
+    //gltf
 
     const gltfloader = new GLTFLoader();
 
@@ -51,7 +48,7 @@ const LandingPage = () => {
       (gltf) => {
         bud = gltf.scene;
         console.log("GLTF Loaded:", bud);
-        bud.position.set(0, 40, -10);
+        bud.position.set(50, 30, -15);
         bud.scale.set(1, 1, 1);
         scene.add(bud);
       },
@@ -63,19 +60,7 @@ const LandingPage = () => {
       }
     );
 
-    const orb = new THREE.Mesh(
-      new THREE.SphereGeometry(1, 72, 72),
-      new THREE.MeshStandardMaterial({
-        metalness: 0.1,
-        roughness: 0.2,
-        normalMap: normalTexture,
-        normalScale: new THREE.Vector2(4),
-        color: "0x292929",
-      })
-    );
-
-    orb.position.set(0, 0, -10);
-    // scene.add(orb);
+    //mouse defs
 
     let mouseX = 0;
     let mouseY = 0;
@@ -91,7 +76,11 @@ const LandingPage = () => {
       mouseY = event.clientY - windowHalfY;
     };
 
+    // clock
+
     const clock = new THREE.Clock();
+
+    // animation loop :)
 
     const animate = async () => {
       requestAnimationFrame(animate);
@@ -128,27 +117,17 @@ const LandingPage = () => {
     };
   }, []);
 
-  const handleClick = (e) => {
-    setDisplayModal(true);
-  };
-
   return (
     <>
       <div className="container2">
-        <h1> paradise dispensary </h1>
-      </div>
-
-      <div className="landingP">
-        <button onClick={handleClick} className="landingBtn">
+        <h1 style={{ position: "absolute", top: "19%" }}>
           {" "}
-          Visit Site{" "}
-        </button>
+          Paradise Dispensary{" "}
+        </h1>
       </div>
-      {displayModal ? <Modal displayModal={setDisplayModal} /> : null}
-
       <canvas ref={canvasRef} />
     </>
   );
 };
 
-export default LandingPage;
+export default ThreeHeader;
