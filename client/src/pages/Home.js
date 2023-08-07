@@ -65,36 +65,6 @@ const Home = () => {
           }}
         ></h1>
         <div style={{ marginTop: -60 }}>
-          <h5
-            className="about left-20 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs bg-black bg-opacity-20 rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
-            style={{
-              position: "absolute",
-              color: "white",
-              top: 270,
-              fontWeight: 900,
-              fontSize: 17,
-              textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-              borderRadius: 5,
-              maxWidth: "55%",
-              maxHeight: "340px",
-              overflow: "auto",
-            }}
-          >
-            At Paradise Hemp Dispensary, we believe that nature holds the key to
-            well-being, and we are committed to providing our customers with the
-            highest quality hemp products available. Founded with a passion for
-            natural alternatives, we have curated a diverse selection of premium
-            hemp products that cater to the needs of both seasoned enthusiasts
-            and newcomers to the world of hemp. From premium CBD oils and
-            tinctures to soothing topicals and edibles, our collection is
-            thoughtfully crafted to deliver the best that hemp has to offer.
-            Paradise Hemp Dispensary is not just a place to buy hemp products;
-            it's a community that fosters wellness, sustainability, and a shared
-            passion for nature's bountiful offerings. We invite you to
-            experience the natural bliss of Paradise Hemp Dispensary. Join us to
-            a happier, and more harmonious existence as we embrace the
-            incredible potential of hemp together. Your paradise awaits!
-          </h5>
           <a className="h-28 w-40 hidden md:block" href="#promotions">
             <div
               style={{
@@ -107,7 +77,7 @@ const Home = () => {
           </a>
         </div>
         <div>
-          <div className="mb-20">
+          <div className="mb-20 mt-20">
             <RecentlyAdded />
           </div>
           <div className="mb-20">

@@ -6,6 +6,10 @@ import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const AdminUpdateForm = (props) => {
+  const protocol = "https";
+  const host = "firebasestorage.googleapis.com/";
+  const bucket = "paradise-hemp-imgbucket";
+
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
   const uniqueId = uuidv4();
@@ -31,14 +35,22 @@ const AdminUpdateForm = (props) => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setFormData({ ...formData, image: file });
-    setPreviewImage(URL.createObjectURL(file));
+    setPreviewImage(URL.createObjectURL(event.target.files[0]));
   };
 
   const fileUploadHandler = async () => {
-    const imageRef = ref(storage, `images/${uniqueId}-${formData.image.name}`);
-    await uploadBytes(imageRef, formData.image).then((res) => {
-      console.log(res);
-    });
+    if (formData.image) {
+      const imageRef = ref(
+        storage,
+        `images/${uniqueId}-${formData.image.name}`
+      );
+      await uploadBytes(imageRef, formData.image).then((res) => {
+        setFormData({
+          ...formData,
+          image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${uniqueId}-${res.name}?alt=media`,
+        });
+      });
+    }
   };
 
   const handleImageUploadClick = () => {
@@ -53,9 +65,6 @@ const AdminUpdateForm = (props) => {
         if (formData.image) {
           await fileUploadHandler();
         }
-        const protocol = "https";
-        const host = "firebasestorage.googleapis.com/";
-        const bucket = "paradise-hemp-imgbucket";
 
         const {
           id,
@@ -74,7 +83,7 @@ const AdminUpdateForm = (props) => {
           cloverId,
           category,
           description,
-          image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${uniqueId}-${image.name}?alt=media`,
+          image: image,
           price: parseFloat(price),
           quantity: parseInt(quantity),
         };
@@ -101,7 +110,7 @@ const AdminUpdateForm = (props) => {
           quantity: props.quantity,
         });
         setPreviewImage(null);
-        window.location.assign("/manageproducts");
+        // window.location.assign("/manageproducts");
       }
     }
   };
@@ -131,7 +140,7 @@ const AdminUpdateForm = (props) => {
                   display: "flex",
                   flexDirection: "column",
                   width: "full",
-                  backgroundColor: "white",
+                  backgroundColor: "rgb(10,10,10)",
                   outline: "none",
                   focus: "outline-none",
                 }}
@@ -204,7 +213,7 @@ const AdminUpdateForm = (props) => {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full py-2 px-4 border rounded"
+                        className="w-full py-2 px-4 border rounded text-black"
                       />
                     </div>
 
@@ -217,7 +226,7 @@ const AdminUpdateForm = (props) => {
                         name="cloverId"
                         value={formData.cloverId}
                         onChange={handleInputChange}
-                        className="w-full py-2 px-4 border rounded"
+                        className="w-full py-2 px-4 border rounded text-black"
                       />
                     </div>
 
@@ -229,9 +238,9 @@ const AdminUpdateForm = (props) => {
                         name="category"
                         onChange={handleInputChange}
                         value={formData.category}
-                        className="w-full py-1 px-4 border rounded"
+                        className="w-full py-1 px-4 border rounded text-black"
                       >
-                        <option value={props.category}>{props.category}</option>
+                        <option value=""> Current Setting </option>
                         <option value="Edible">Edible</option>
                         <option value="Flower">Flower</option>
                         <option value="Pens">Pens</option>
@@ -253,7 +262,7 @@ const AdminUpdateForm = (props) => {
                         name="price"
                         value={formData.price}
                         onChange={handleInputChange}
-                        className="w-full py-2 px-4 border rounded"
+                        className="w-full py-2 px-4 border rounded text-black"
                       />
                     </div>
 
@@ -266,7 +275,7 @@ const AdminUpdateForm = (props) => {
                         name="quantity"
                         value={formData.quantity}
                         onChange={handleInputChange}
-                        className="w-full py-2 px-4 border rounded"
+                        className="w-full py-2 px-4 border rounded text-black"
                       />
                     </div>
 
@@ -281,7 +290,7 @@ const AdminUpdateForm = (props) => {
                         rows="10"
                         value={formData.description}
                         onChange={handleInputChange}
-                        className="w-full py-2 px-4 border rounded"
+                        className="w-full py-2 px-4 border rounded text-black"
                       />
                     </div>
 
@@ -291,7 +300,7 @@ const AdminUpdateForm = (props) => {
                         <button
                           type="button"
                           onClick={handleImageUploadClick}
-                          className="py-1 bg-blue-400 text-white rounded hover:bg-blue-500"
+                          className="py-1 bg-blue-400 text-black rounded hover:bg-blue-500"
                         >
                           Upload Image
                         </button>
@@ -318,7 +327,7 @@ const AdminUpdateForm = (props) => {
                     <div className="flex-row flex-end">
                       <button
                         type="submit"
-                        className="py-2 bg-green-500 text-white rounded"
+                        className="py-2 bg-green-500 text-black rounded"
                       >
                         Update Product
                       </button>
@@ -338,8 +347,6 @@ const AdminUpdateForm = (props) => {
                 >
                   <button
                     style={{
-                      color: "white",
-                      backgroundColor: "rgb(100, 100, 100)",
                       fontWeight: "bold",
                       textTransform: "uppercase",
                       padding: "0.75rem 1.5rem",
@@ -352,6 +359,7 @@ const AdminUpdateForm = (props) => {
                     }}
                     type="button"
                     onClick={() => props.displayModal(false)}
+                    className="bg-red-400 text-black"
                   >
                     Close
                   </button>

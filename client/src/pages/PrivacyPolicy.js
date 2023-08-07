@@ -9,21 +9,21 @@ const PrivacyPolicy = () => {
       <Nav />
       <h1 className="mt-20 text-center"> PRIVACY POLICY </h1>
       <div
-        className="container borderwrap bg-black bg-opacity-40 py-2 px-2"
-        style={{ width: "60%" }}
+        className="container borderwrap bg-black bg-opacity-40 px-2 py-2"
+        style={{ width: "65%" }}
       >
         <h3>PRIVACY POLICY</h3>
         <p>
-          This privacy policy sets out how www.samsparadisevape.com uses and
-          protects any information that you give www.samsparadisevape.com when
-          you use this website. www.paradisehempdispensary.com is committed to
-          ensuring that your privacy is protected. Should we ask you to provide
-          certain information by which you can be identified when using this
-          website, then you can be assured that it will only be used in
-          accordance with this privacy statement. www.samsparadisevape.com may
-          change this policy from time to time by updating this page. You should
-          check this page from time to time to ensure that you are happy with
-          any changes.
+          This privacy policy sets out how www.paradisehempdispensary.com uses
+          and protects any information that you give
+          www.paradisehempdispensary.com when you use this website.
+          www.paradisehempdispensary.com is committed to ensuring that your
+          privacy is protected. Should we ask you to provide certain information
+          by which you can be identified when using this website, then you can
+          be assured that it will only be used in accordance with this privacy
+          statement. www.paradisehempdispensary.com may change this policy from
+          time to time by updating this page. You should check this page from
+          time to time to ensure that you are happy with any changes.
         </p>
         <br />
         <h3>WHAT WE COLLECT</h3>

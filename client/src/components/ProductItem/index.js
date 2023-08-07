@@ -19,6 +19,8 @@ function ProductItem(item) {
   const { image, name, _id, price, quantity, description, cloverId, category } =
     item;
 
+  console.log(item);
+
   const { cart } = state;
 
   const addToCart = () => {
@@ -79,7 +81,7 @@ function ProductItem(item) {
         </div>
 
         <button
-          className="bg-red-400 text-white rounded hover:bg-blue-500"
+          className="bg-red-400 text-white rounded "
           onClick={() => {
             handleDelete(_id);
           }}
@@ -88,7 +90,7 @@ function ProductItem(item) {
         </button>
 
         <button
-          className="bg-blue-400 text-white rounded hover:bg-blue-500"
+          className="bg-blue-400 text-white rounded"
           onClick={() => {
             setDisplayModal(true);
           }}

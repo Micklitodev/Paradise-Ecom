@@ -85,6 +85,7 @@ function Detail() {
   return (
     <>
       <Nav />
+      <br />
       {currentProduct && cart ? (
         <div className="container mx-auto my-8 px-4 max-w-md mt-20">
           <Link to="/home" className="hover:underline text-white">

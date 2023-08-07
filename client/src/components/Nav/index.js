@@ -12,17 +12,26 @@ import {
   CiCirclePlus,
 } from "react-icons/ci";
 import { GoHome } from "react-icons/go";
+import { TOGGLE_CART } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
 
 const Nav = () => {
+  const [state, dispatch] = useStoreContext();
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav((prevNav) => !prevNav);
+
+  function toggleCart() {
+    dispatch({ type: TOGGLE_CART });
+    window.location.assign("#shoppingCart");
+    setNav(false);
+  }
 
   return (
     <>
       <div className="sticky top-0 z-10 w-full ">
         <header className="w-full h-14 drop-shadow-md">
           <div
-            className="flex items-center bg-black bg-opacity-30 justify-between w-full h-full px-2"
+            className="flex items-center bg-black bg-opacity-40 justify-between w-full h-full px-2"
             style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)" }}
           >
             {/* site name container */}
@@ -182,7 +191,7 @@ const Nav = () => {
             className={
               !nav
                 ? "hidden"
-                : "absolute bg-gray-200 w-full px-8 pb-4 md:hidden space-y-2 text-right"
+                : "absolute bg-black w-full px-8 pb-4 md:hidden space-y-2 text-right"
             }
           >
             <li>
@@ -196,37 +205,66 @@ const Nav = () => {
             <hr />
             {Auth.isAdmin() ? (
               <>
-                <li className="mx-1">
-                  <Link to="/adminorderview">View Orders</Link>
+                <li className=" px-1 py-1">
+                  <Link to="/adminorderview">
+                    {" "}
+                    <p> View Orders</p>
+                  </Link>
                 </li>
-                <li className="mx-1">
-                  <Link to="/manageproducts">Manage Products</Link>
+                <hr />
+                <li className=" px-1 py-1">
+                  <Link to="/manageproducts">
+                    <p>Manage Products </p>
+                  </Link>
                 </li>
-                <li className="mx-1">
-                  <Link to="/verifusers">Verify Users</Link>
+                <hr />
+                <li className=" px-1 py-1">
+                  <Link to="/verifusers">
+                    <p> Verify Users</p>
+                  </Link>
                 </li>
-                <li className="mx-1">
+                <hr />
+                <li className="px-1 py-1">
                   <Link to="/home" onClick={() => Auth.logout()}>
-                    Logout
+                    <p>Logout</p>
                   </Link>
                 </li>
               </>
             ) : null}
             {Auth.loggedIn() && !Auth.isAdmin() ? (
               <>
-                <li style={{ position: "relative", top: -10 }}>
-                  <Link to="/dashboard">
-                    <div>
-                      <p>Dashboard</p>
-                    </div>
+                <li>
+                  <Link
+                    to="/dashboard"
+                    className="px-4 text-slate-100 hover:text-indigo-200"
+                  >
+                    <p>Dashboard</p>
                   </Link>
                 </li>
-                <li style={{ position: "relative", top: -10 }}>
-                  <Link href="/home" onClick={() => Auth.logout()}>
-                    <div>
-                      <p>Logout</p>
-                    </div>
+
+                <hr />
+                <li>
+                  <Link
+                    className="px-4 text-slate-100 hover:text-indigo-200"
+                    href="/home"
+                    onClick={() => Auth.logout()}
+                  >
+                    <p>Logout</p>
                   </Link>
+                </li>
+                <hr />
+
+                <li>
+                  <Link
+                    className="px-4 text-slate-100 hover:text-indigo-200"
+                    onClick={toggleCart}
+                  >
+                    <p>Cart</p>
+                  </Link>
+                </li>
+                <hr />
+                <li>
+                  <SearchBar />
                 </li>
               </>
             ) : null}
@@ -239,6 +277,10 @@ const Nav = () => {
                   >
                     <p>Login</p>
                   </Link>
+                </li>
+                <hr />
+                <li>
+                  <SearchBar />
                 </li>
               </>
             ) : null}

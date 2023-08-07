@@ -77,6 +77,7 @@ export const QUERY_USER = gql`
           price
           quantity
           image
+          cloverId
         }
       }
     }
@@ -133,6 +134,7 @@ export const SEARCH_QUERY = gql`
       name
       price
       quantity
+      cloverId
       category {
         _id
         image

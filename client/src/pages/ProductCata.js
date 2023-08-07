@@ -13,6 +13,7 @@ const ProductCata = () => {
   return (
     <>
       <Nav />
+      <br />
       <h2 className="text-center mt-20"> Detailed Category </h2>
       <hr />
       <div className="mx-10">

@@ -1,5 +1,6 @@
 import { CiSearch } from "react-icons/ci";
 import React, { useState } from "react";
+import "./style.css";
 
 const SearchBar = () => {
   const [search, setSearch] = useState({ search: "" });
@@ -33,6 +34,7 @@ const SearchBar = () => {
       }}
     >
       <input
+        className="searchbar"
         style={{
           maxHeight: 35,
           width: 300,

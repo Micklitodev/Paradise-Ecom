@@ -8,8 +8,8 @@ import ProductItem from "../ProductItem";
 const arrowStyle = {
   color: "rgba(230, 230, 230, 0.8)",
   fontSize: "30px",
-  marginLeft: "-2%",
-  marginRight: "-2%",
+  marginLeft: "-5%",
+  marginRight: "-5%",
   zIndex: 1,
 };
 

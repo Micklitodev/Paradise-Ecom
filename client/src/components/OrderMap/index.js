@@ -43,7 +43,7 @@ const OrderMap = (props) => {
                 Order Date:{" "}
                 {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
               </h3>
-              <p>Address: {order.address}</p>
+              <p className="text-center">Address: {order.address}</p>
               <a
                 href={order.tracking}
                 target="_blank"

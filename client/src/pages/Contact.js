@@ -48,7 +48,7 @@ const Contact = () => {
   return (
     <>
       <Nav />
-
+      <br />
       {Auth.loggedIn() ? (
         <>
           {fromSubmitted ? (
@@ -105,12 +105,10 @@ const Contact = () => {
                         Message:
                       </label>
                       <textarea
-                        className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        className="border border-gray-300 px-3 py-2 rounded-md w-72"
                         label="message"
                         name="message"
                         placeholder="What would you like to let us know?"
-                        cols="100"
-                        rows="10"
                         value={formData.message}
                         onChange={handleInputChange}
                       />

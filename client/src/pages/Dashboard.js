@@ -18,15 +18,8 @@ const Dashboard = () => {
   return (
     <>
       <Nav />
-      <h2
-        className="mt-20"
-        style={{
-          display: "grid",
-          placeItems: "center",
-        }}
-      >
-        Dashboard
-      </h2>
+      <br />
+      <h2 className="mt-20 text-center">Dashboard</h2>
       {data ? (
         <>
           <div>

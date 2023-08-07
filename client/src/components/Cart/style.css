@@ -72,11 +72,13 @@
     max-width: 100%;
     max-height: auto;
     box-shadow: none;
-    background-color: inherit;
   }
 
   .cart-closed {
     position: relative;
     margin: 0 auto;
+    background-color: black;
+    opacity: 0.8;
+    z-index: 9;
   }
 }

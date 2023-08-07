@@ -31,6 +31,7 @@ const SearchRes = () => {
   return (
     <>
       <Nav />
+      <br />
       <div className="mt-20">
         <h2 className="text-center">Search</h2>
         <hr />
@@ -53,6 +54,9 @@ const SearchRes = () => {
                   name={product.name}
                   price={product.price}
                   quantity={product.quantity}
+                  cloverId={product.cloverId}
+                  description={product.description}
+                  category={product.category}
                 />
               ))}
             </div>
@@ -68,6 +72,7 @@ const SearchRes = () => {
         )}
       </div>
       <Cart />
+      <br />
       <Footer />
     </>
   );

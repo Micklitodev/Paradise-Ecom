@@ -68,10 +68,21 @@ const VerifForm = (props) => {
     });
   };
 
+  const handleUploadButtonClick = (event, fieldName) => {
+    event.preventDefault();
+    const fileInput = document.getElementById(fieldName);
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
   if (!Auth.isVerified() && props.data?.user.isIdSubmitted === false) {
     return (
       <>
-        <div className="container borderwrap" style={{ minHeight: "35vh" }}>
+        <div
+          className="container borderwrap bg-black bg-opacity-40"
+          style={{ minHeight: "35vh" }}
+        >
           <h2 className="text-2xl font-semibold">Verify ID</h2>
           <form
             onSubmit={handleFormSubmit}
@@ -82,32 +93,47 @@ const VerifForm = (props) => {
                 ID Front:
               </label>
               <input
-                style={{ height: 62 }}
+                id="idFront"
                 type="file"
                 accept="image/*"
                 name="idFront"
                 onChange={handleImageChange}
-                className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                className="hidden"
               />
+              <button
+                onClick={(e) => handleUploadButtonClick(e, "idFront")}
+                className="py-1 bg-blue-400 bg-opacity-80 text-black"
+                style={{ height: 62 }}
+              >
+                Select ID Front
+              </button>
             </div>
             <div className="flex flex-col my-2">
               <label htmlFor="idBack" className="mb-1">
                 ID Back:
               </label>
               <input
-                style={{ height: 62 }}
+                id="idBack"
                 type="file"
                 accept="image/*"
                 name="idBack"
                 onChange={handleImageChange}
-                className="border border-gray-300 px-3 py-2 rounded-md w-full"
+                className="hidden"
               />
+              <button
+                onClick={(e) => handleUploadButtonClick(e, "idBack")}
+                className="py-1 bg-blue-400 bg-opacity-80 text-black"
+                style={{ height: 62 }}
+              >
+                Select ID Back
+              </button>
             </div>
+            <br />
             <div className="flex justify-end">
               <button
                 type="submit"
                 disabled={!formState.idFront || !formState.idBack}
-                className="py-1 bg-blue-400 text-white"
+                className="py-5 px-16 bg-green-400 bg-opacity-80 text-black"
               >
                 Submit
               </button>
