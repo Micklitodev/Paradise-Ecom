@@ -7,7 +7,7 @@ import { idbPromise } from "../../utils/helpers";
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { DEL_PRODUCT } from "../../utils/mutations";
-import AdminUpdateForm from "../AdminUpdateForm";
+import AdminUpdateForm from "../AdminUpdate";
 
 function ProductItem(item) {
   const [displayModal, setDisplayModal] = useState();

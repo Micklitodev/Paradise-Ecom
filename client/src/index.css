@@ -11,6 +11,7 @@
   --error: rgba(228, 46, 1, 0.792);
   --spacing-one: calc(1rem * 0.5);
   --spacing-two: calc(1rem);
+  --custom-modal: rgba(15, 17, 17, 0.928);
 }
 
 * {

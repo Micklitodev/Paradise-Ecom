@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Auth from "../utils/auth";
 import Nav from "../components/Nav";
 import AdminProdAdd from "../components/AdminProdAdd";
@@ -10,6 +10,7 @@ const ManageProducts = () => {
   const token = localStorage.getItem("id_token");
   Auth.isTokenExpired(token);
   useScrollHelper();
+  const [displayModal, setDisplayModal] = useState(false);
 
   if (Auth.isAdmin() === true) {
     return (
@@ -32,14 +33,24 @@ const ManageProducts = () => {
           <h3 className="text-2xl font-bold"> Update / Delete Product</h3>
           <br />
           <SearchBar />
+          <div className="mt-20">
+            <h3 className="text-2xl font-bold mb-4"> Add Product </h3>
+            <button
+              onClick={() => {
+                setDisplayModal(true);
+                console.log(displayModal);
+              }}
+              className="bg-green-400 ml-4 px-2 py-2 bg-opacity-80 text-black "
+            >
+              Add Product
+            </button>
+          </div>
+          {displayModal ? (
+            <>
+              <AdminProdAdd displayModal={setDisplayModal} />
+            </>
+          ) : null}
         </div>
-        <div
-          className="borderwrap bg-black bg-opacity-40 container p-4"
-          style={{ maxWidth: "1020px" }}
-        >
-          <AdminProdAdd />
-        </div>
-        <br />
       </>
     );
   } else {

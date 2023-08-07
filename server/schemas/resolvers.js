@@ -103,7 +103,7 @@ const resolvers = {
       try {
         const newestProducts = await Product.find()
           .sort({ createdAt: -1 })
-          .limit(5);
+          .limit(10);
 
         return newestProducts;
       } catch (err) {
