@@ -64,26 +64,14 @@ const Home = () => {
             borderRadius: 5,
           }}
         ></h1>
-        <div style={{ marginTop: -60 }}>
-          <a className="h-28 w-40 hidden md:block" href="#promotions">
-            <div
-              style={{
-                marginBottom: 30,
-                height: 30,
-                width: 30,
-              }}
-              className="scroll-down"
-            ></div>
-          </a>
-        </div>
         <div>
-          <div className="mb-20 mt-20">
+          <div id="recentlyadded" className="mb-20 mt-20">
             <RecentlyAdded />
           </div>
           <div className="mb-20">
             <CategoryMenu />
           </div>
-          <div id="promotions" className="mb-20">
+          <div className="mb-20">
             <Info />
           </div>
           <Cart />

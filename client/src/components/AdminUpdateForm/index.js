@@ -1,15 +1,11 @@
 import { useMutation } from "@apollo/client";
 import { ADMIN_UPDATE_PRODUCT } from "../../utils/mutations";
 import { storage } from "../../firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const AdminUpdateForm = (props) => {
-  const protocol = "https";
-  const host = "firebasestorage.googleapis.com/";
-  const bucket = "paradise-hemp-imgbucket";
-
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
   const uniqueId = uuidv4();
@@ -20,7 +16,7 @@ const AdminUpdateForm = (props) => {
     id: props.id,
     name: props.name,
     cloverId: props.cloverId,
-    category: props.category,
+    category: props.category.name,
     description: props.description,
     image: props.image,
     price: props.price,
@@ -35,22 +31,14 @@ const AdminUpdateForm = (props) => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setFormData({ ...formData, image: file });
-    setPreviewImage(URL.createObjectURL(event.target.files[0]));
+    setPreviewImage(URL.createObjectURL(file));
   };
 
   const fileUploadHandler = async () => {
-    if (formData.image) {
-      const imageRef = ref(
-        storage,
-        `images/${uniqueId}-${formData.image.name}`
-      );
-      await uploadBytes(imageRef, formData.image).then((res) => {
-        setFormData({
-          ...formData,
-          image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${uniqueId}-${res.name}?alt=media`,
-        });
-      });
-    }
+    const imageRef = ref(storage, `images/${uniqueId}-${formData.image.name}`);
+    await uploadBytes(imageRef, formData.image);
+    const imageUrl = await getDownloadURL(imageRef);
+    return imageUrl;
   };
 
   const handleImageUploadClick = () => {
@@ -62,20 +50,14 @@ const AdminUpdateForm = (props) => {
 
     if (formData.name) {
       try {
-        if (formData.image) {
-          await fileUploadHandler();
+        let imageUrl = props.image;
+
+        if (formData.image && formData.image instanceof File) {
+          imageUrl = await fileUploadHandler();
         }
 
-        const {
-          id,
-          name,
-          cloverId,
-          category,
-          description,
-          image,
-          price,
-          quantity,
-        } = formData;
+        const { id, name, cloverId, category, description, price, quantity } =
+          formData;
 
         const variables = {
           id,
@@ -83,7 +65,7 @@ const AdminUpdateForm = (props) => {
           cloverId,
           category,
           description,
-          image: image,
+          image: imageUrl,
           price: parseFloat(price),
           quantity: parseInt(quantity),
         };
@@ -110,7 +92,7 @@ const AdminUpdateForm = (props) => {
           quantity: props.quantity,
         });
         setPreviewImage(null);
-        // window.location.assign("/manageproducts");
+        window.location.reload();
       }
     }
   };
@@ -240,7 +222,10 @@ const AdminUpdateForm = (props) => {
                         value={formData.category}
                         className="w-full py-1 px-4 border rounded text-black"
                       >
-                        <option value=""> Current Setting </option>
+                        <option value={formData.category}>
+                          {" "}
+                          Current Setting{" "}
+                        </option>
                         <option value="Edible">Edible</option>
                         <option value="Flower">Flower</option>
                         <option value="Pens">Pens</option>

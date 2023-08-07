@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT } from "../../utils/mutations";
 import { storage } from "../../firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -35,9 +35,9 @@ const AdminProdAdd = () => {
 
   const fileUploadHandler = async () => {
     const imageRef = ref(storage, `images/${uniqueId}-${formData.image.name}`);
-    await uploadBytes(imageRef, formData.image).then((res) => {
-      console.log(res);
-    });
+    await uploadBytes(imageRef, formData.image);
+    const imageUrl = await getDownloadURL(imageRef);
+    return imageUrl;
   };
 
   const handleImageUploadClick = () => {
@@ -47,31 +47,23 @@ const AdminProdAdd = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    let imageUrl;
+
     if (formData.name) {
       try {
         if (formData.image) {
-          await fileUploadHandler();
+          imageUrl = await fileUploadHandler();
         }
-        const protocol = "https";
-        const host = "firebasestorage.googleapis.com/";
-        const bucket = "paradise-hemp-imgbucket";
 
-        const {
-          name,
-          cloverId,
-          category,
-          description,
-          image,
-          price,
-          quantity,
-        } = formData;
+        const { name, cloverId, category, description, price, quantity } =
+          formData;
 
         const variables = {
           name,
           cloverId,
           category,
           description,
-          image: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/images%2F${uniqueId}-${image.name}?alt=media`,
+          image: imageUrl,
           price: parseFloat(price),
           quantity: parseInt(quantity),
         };
@@ -98,7 +90,7 @@ const AdminProdAdd = () => {
           quantity: "",
         });
         setPreviewImage(null);
-        window.location.assign("/manageproducts");
+        window.location.reload()
       }
     }
   };
@@ -145,7 +137,7 @@ const AdminProdAdd = () => {
             name="category"
             onChange={handleInputChange}
             value={formData.category}
-            className="w-full py-1 px-4 border rounded"
+            className="w-full py-1 px-4 border rounded text-black"
           >
             <option value="">Select a category</option>
             <option value="Edible">Edible</option>

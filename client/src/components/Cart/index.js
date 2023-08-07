@@ -423,7 +423,7 @@ const Cart = () => {
             </div>
             {Auth.loggedIn() ? (
               <button
-                className="bg-green-300 text-white h-15 mt-2"
+                className="bg-green-300 bg-opacity-70 text-black h-15 mt-2"
                 onClick={submitCheckout}
               >
                 Checkout

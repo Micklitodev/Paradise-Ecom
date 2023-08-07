@@ -134,6 +134,7 @@ const ThreeHeader = () => {
       {isLoaded !== 100 ? (
         <>
           <div style={{ height: "100vh", width: "100vw" }}>
+            <h2 className="text-center mt-40"> Loading...</h2>
             <img className="center mt-52 ml-10" src={spinner} alt="loading" />
           </div>
         </>
@@ -176,6 +177,18 @@ const ThreeHeader = () => {
               hemp together. Your paradise awaits!
             </h5>
           </div>{" "}
+          <div style={{ marginTop: -60 }}>
+            <a className="h-28 w-40 hidden md:block" href="#recentlyadded">
+              <div
+                style={{
+                  marginBottom: 30,
+                  height: 30,
+                  width: 30,
+                }}
+                className="scroll-down"
+              ></div>
+            </a>
+          </div>
         </>
       )}
       <canvas ref={canvasRef} />

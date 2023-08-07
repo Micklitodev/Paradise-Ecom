@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import {
   CiLogin,
   CiLogout,
-  CiGrid42,
+  CiBoxList,
   CiMaximize1,
   CiMinimize1,
   CiCirclePlus,
@@ -97,10 +97,10 @@ const Nav = () => {
                     <li style={{ position: "relative", top: -0 }}>
                       <Link to="/dashboard">
                         <div>
-                          <CiGrid42 size={20} style={{ color: "white" }} />
+                          <CiBoxList size={20} style={{ color: "white" }} />
                           <p
                             className="text-white"
-                            style={{ marginLeft: -3, fontSize: 10 }}
+                            style={{ marginLeft: -2, fontSize: 10 }}
                           >
                             Dash
                           </p>
