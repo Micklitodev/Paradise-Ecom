@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
 
-function Signup(props) {
+const Signup = () => {
   Redirector.checkTokens();
   useScrollHelper();
 
@@ -106,9 +106,7 @@ function Signup(props) {
             </div>
             {error ? (
               <div>
-                <p className="error-text">
-                  Account with this email already exists
-                </p>
+                <p className="error-text">{error.message}</p>
               </div>
             ) : null}
             <div className="flex justify-end">

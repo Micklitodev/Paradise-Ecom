@@ -7,7 +7,7 @@ const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes window
-  max: 100, // maximum 100 requests per windowMs
+  max: 1000, // maximum 100 requests per windowMs
   message: "Too many requests from this IP, please try again later.",
 });
 
@@ -36,7 +36,7 @@ app.use("/images", express.static(path.join(__dirname, "../client/images")));
 app.use(express.static(path.join(__dirname, "../client/build")));
 //}
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 

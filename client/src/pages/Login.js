@@ -78,7 +78,7 @@ function Login(props) {
             {error ? (
               <div>
                 <p className="error-text">
-                  The provided credentials are incorrect
+                  {error.message}
                 </p>
               </div>
             ) : null}

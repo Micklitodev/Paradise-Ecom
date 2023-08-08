@@ -9,6 +9,7 @@ import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
 import { CiShoppingCart } from "react-icons/ci";
 import { QUERY_USER, QUERY_CHECKOUT, CALC_SHIP } from "../../utils/queries";
 import { ADD_SHIP_INFO } from "../../utils/mutations";
+import spinner from "../../assets/spinner.gif";
 import "./style.css";
 
 const stripeapi = process.env.REACT_APP_STRIPE_CLIENT_API;
@@ -18,6 +19,7 @@ const Cart = () => {
   const [state, dispatch] = useStoreContext();
   const [displayForm, setDisplayForm] = useState(false);
   const [pointValue, setPointValue] = useState(0);
+  const [checkLoad, setCheckLoad] = useState(false);
 
   const [shippingAddress, setShippingAddress] = useState({
     street: "",
@@ -27,7 +29,7 @@ const Cart = () => {
   });
 
   const [addShipInfo] = useMutation(ADD_SHIP_INFO);
-  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+  const [getCheckout, { data, error }] = useLazyQuery(QUERY_CHECKOUT);
   const { loading, data: data2, refetch: refetchUser } = useQuery(QUERY_USER);
 
   const cartInt = [];
@@ -148,6 +150,8 @@ const Cart = () => {
         points: pointValue,
       },
     });
+
+    setCheckLoad(true);
   }
 
   const toggleForm = () => {
@@ -257,7 +261,10 @@ const Cart = () => {
                     <p style={{ color: "#6499A4" }}>
                       {user.street} <br /> {user.city}, {user.state} {user.zip}
                     </p>
-                    <button className="upShip" onClick={toggleForm}>
+                    <button
+                      className="upShip text-green-300 opacity-80"
+                      onClick={toggleForm}
+                    >
                       Update Shipping Address{" "}
                     </button>
 
@@ -384,6 +391,14 @@ const Cart = () => {
                     />
                     <br />
                     <button
+                      className="text-white"
+                      onClick={() => setDisplayForm(false)}
+                      width="w-fit"
+                    >
+                      Close
+                    </button>
+                    <button
+                      className="text-green-300 opacity-80"
                       disabled={
                         !shippingAddress.street ||
                         !shippingAddress.city ||
@@ -395,9 +410,6 @@ const Cart = () => {
                       width="w-fit"
                     >
                       Update
-                    </button>
-                    <button onClick={() => setDisplayForm(false)} width="w-fit">
-                      Close
                     </button>
                     <br /> <br />
                   </form>
@@ -418,16 +430,35 @@ const Cart = () => {
                   <br />
                   <strong> Total: ${pricing[0].toFixed(2)}</strong>
                   <br />
+                  {error ? (
+                    <div>
+                      <p className="error-text">{error.message}</p>
+                    </div>
+                  ) : null}
                 </>
               ) : null}
             </div>
             {Auth.loggedIn() ? (
-              <button
-                className="bg-green-300 bg-opacity-70 text-black h-15 mt-2"
-                onClick={submitCheckout}
-              >
-                Checkout
-              </button>
+              <>
+                {checkLoad && !error ? (
+                  <>
+                    <div>
+                      <p> Loading Cart </p>
+                      <img src={spinner} alt="load spin" />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <button
+                      className="bg-green-300 bg-opacity-70 text-black h-15 mt-2"
+                      onClick={submitCheckout}
+                    >
+                      Checkout
+                    </button>
+                  </>
+                )}
+              </>
             ) : (
               <a href="/login"> (log in to check out) </a>
             )}

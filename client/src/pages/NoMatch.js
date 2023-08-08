@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Redirector from "../utils/redirector";
 
 const NoMatch = () => {
+  Redirector.checkTokens();
+
   return (
     <div>
       <div className="center">

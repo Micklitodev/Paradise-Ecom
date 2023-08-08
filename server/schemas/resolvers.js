@@ -107,7 +107,7 @@ const resolvers = {
 
         return newestProducts;
       } catch (err) {
-        console.log(err);
+        console.log("something went wrong qnp110 ");
       }
     },
     querySearch: async (parent, args, context) => {
@@ -143,7 +143,7 @@ const resolvers = {
         }
         return filteredProducts;
       } catch (err) {
-        return console.log(err);
+        return console.log("something went wrong qs146");
       }
     },
     user: async (parent, args, context) => {
@@ -262,100 +262,102 @@ const resolvers = {
 
         return shipment;
       } catch (err) {
-        return console.log("something went wrong sc224");
+        throw new Error("Something went wrong unable to calculate shipping");
       }
     },
-
     checkout: async (parent, args, context) => {
       if (context.user.isVerified) {
         // ensure shipping
         if (args.shipPrice <= 0) {
-          throw new AuthenticationError("Shipping price was not set.");
+          throw new Error("Shipping price was not set.");
         }
 
         const url = new URL(context.headers.referer).origin;
         const order = new Order({ products: args.products });
-        const shippingPrice = args.shipPrice * 100;
+        const shippingPrice = parseInt(args.shipPrice * 100);
+
         const line_items = [];
 
         // push each product as line item
 
-        try {
-          const { products } = await order.populate("products");
+        const { products } = await order.populate("products");
 
-          for (let i = 0; i < products.length; i++) {
-            const product = await stripe.products.create({
-              name: products[i].name,
-              description: products[i].description,
-              images: [`${products[i].image}`],
-            });
-
-            const price = await stripe.prices.create({
-              product: product.id,
-              unit_amount: products[i].price * 100,
-              currency: "usd",
-            });
-
-            line_items.push({
-              price: price.id,
-              quantity: 1,
-            });
-          }
-
-          // handle points
-
-          const user = await User.findOne({ _id: context.user._id });
-
-          let couponId = null;
-
-          if (args.points > 0) {
-            if (args.points > user.points) {
-              throw new AuthenticationError(
-                "points used greater than user point balance."
-              );
-            }
-
-            if (args.points < 50) {
-              throw new AuthenticationError("must use more than 50 points");
-            }
-
-            const coupon = await stripe.coupons.create({
-              amount_off: args.points * 10,
-              currency: "usd",
-              duration: "once",
-            });
-
-            couponId = coupon.id;
-          }
-
-          // handle tax
-
-          const taxRate = await stripe.taxRates.create({
-            display_name: "Tax",
-            description: "Sales Tax",
-            jurisdiction: "GA",
-            percentage: 8.75,
-            inclusive: false,
+        for (let i = 0; i < products.length; i++) {
+          const product = await stripe.products.create({
+            name: products[i].name,
+            description: products[i].description,
+            images: [`${products[i].image}`],
           });
 
-          for (let i = 0; i < line_items.length; i++) {
-            line_items[i].tax_rates = [taxRate.id];
-          }
-
-          // add shipping price line item
+          const price = await stripe.prices.create({
+            product: product.id,
+            unit_amount: parseInt(products[i].price * 100),
+            currency: "usd",
+          });
 
           line_items.push({
-            price_data: {
-              currency: "usd",
-              unit_amount: parseInt(shippingPrice),
-              product_data: {
-                name: "Shipping",
-                description: "Shipping fee",
-              },
-            },
+            price: price.id,
             quantity: 1,
           });
+        }
 
+        // handle points
+
+        const user = await User.findOne({ _id: context.user._id });
+
+        if (!user) {
+          throw new AuthenticationError("not logged in");
+        }
+
+        let couponId = null;
+
+        if (args.points > 0) {
+          if (args.points > user.points) {
+            throw new Error("points used greater than user point balance.");
+          }
+
+          if (args.points < 50) {
+            throw new Error("must use more than 50 points");
+          }
+
+          const coupon = await stripe.coupons.create({
+            amount_off: args.points * 10,
+            currency: "usd",
+            duration: "once",
+          });
+
+          couponId = coupon.id;
+        }
+
+        // handle tax
+
+        const taxRate = await stripe.taxRates.create({
+          display_name: "Tax",
+          description: "Sales Tax",
+          jurisdiction: "GA",
+          percentage: 8.75,
+          inclusive: false,
+        });
+
+        for (let i = 0; i < line_items.length; i++) {
+          line_items[i].tax_rates = [taxRate.id];
+        }
+
+        // add shipping price line item
+
+        line_items.push({
+          price_data: {
+            currency: "usd",
+            unit_amount: shippingPrice,
+            product_data: {
+              name: "Shipping",
+              description: "Shipping fee",
+            },
+          },
+          quantity: 1,
+        });
+
+        try {
           // create stripe sesssion
 
           const session = await stripe.checkout.sessions.create({
@@ -382,7 +384,7 @@ const resolvers = {
 
           return { session: session.id };
         } catch (err) {
-          return console.log(err);
+          throw new Error("Session Failed.");
         }
       } else {
         throw new AuthenticationError("No auth to make action.");
@@ -405,7 +407,7 @@ const resolvers = {
 
         return { token, user };
       } catch (err) {
-        return console.log("failed to update au357");
+        throw new AuthenticationError("Account already exists.");
       }
     },
     addOrder: async (parent, { products, url }, context) => {
@@ -468,7 +470,6 @@ const resolvers = {
         // update db inventory and clover inventory
 
         products.forEach(async (item) => {
-          console.log("updated db prodqty");
           await resolvers.Mutation.updateProduct(
             parent,
             { _id: item._id, quantity: parseInt(item.purchaseQuantity) * -1 },
@@ -476,16 +477,14 @@ const resolvers = {
           );
         });
 
-        products.forEach(async (product) => {
-          const merchantId = process.env.CLOVER_MERCHANT_ID;
-          let itemId = product.cloverId;
-          let purchasedQuantity = parseInt(product.purchaseQuantity);
-          let stockInt = purchasedQuantity * -1;
+        // products.forEach(async (product) => {
+        //   const merchantId = process.env.CLOVER_MERCHANT_ID;
+        //   let itemId = product.cloverId;
+        //   let purchasedQuantity = parseInt(product.purchaseQuantity);
+        //   let stockInt = purchasedQuantity * -1;
 
-          console.log(merchantId, itemId, stockInt);
-
-          // UpdateCloverStock(merchantId, itemId, stockInt);
-        });
+        //   // UpdateCloverStock(merchantId, itemId, stockInt);
+        // });
 
         // saving orders with token + user data
 
@@ -499,18 +498,22 @@ const resolvers = {
           shipmentId,
         });
 
-        await User.findByIdAndUpdate(context.user._id, {
-          $push: { orders: order },
-        });
+        try {
+          await User.findByIdAndUpdate(context.user._id, {
+            $push: { orders: order },
+          });
 
-        await order.save();
-        await user.save();
+          await order.save();
+          await user.save();
 
-        // delete tempkey token so endpoint cannot be hit again
+          // delete tempkey token so endpoint cannot be hit again
 
-        await TempKey.deleteOne({ _id: tempToken._id });
+          await TempKey.deleteOne({ _id: tempToken._id });
 
-        return order;
+          return order;
+        } catch (err) {
+          throw new Error("Failed to Save Order, Contact Support.");
+        }
       }
 
       throw new AuthenticationError("Not logged in");
@@ -518,11 +521,11 @@ const resolvers = {
 
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        console.log("updated User resolver HITTTT ");
         try {
-          return await User.findByIdAndUpdate(context.user._id, args, {
-            new: true,
-          });
+          // return await User.findByIdAndUpdate(context.user._id, args, {
+          //   new: true,
+          // });
+          console.log("updated User resolver HITTTT ");
         } catch (err) {
           return console.log("failed to update uu454");
         }
@@ -541,7 +544,7 @@ const resolvers = {
 
         return user;
       } catch (err) {
-        return console.log("something went wrong asi471");
+        throw new Error('ShipInfo Update Failed')
       }
     },
     idUpload: async (parent, args, context) => {
@@ -556,7 +559,7 @@ const resolvers = {
             const updatedUser = await user.save();
             return updatedUser;
           } catch (err) {
-            return console.log("something went wrong iu486");
+            throw new Error('Failed to upload data')
           }
         }
       } else {
@@ -610,7 +613,7 @@ const resolvers = {
           { new: true }
         );
       } catch (err) {
-        return console.log("something went wrong up541");
+        return console.log("Error update failed. ");
       }
     },
     adminUpdateProduct: async (parent, args, context) => {
@@ -618,7 +621,6 @@ const resolvers = {
         throw new AuthenticationError("Not authorized to view this page.");
       }
       try {
-        console.log(args);
         const category = await Category.findOne({ name: args.category });
         args.category = category._id;
 
@@ -626,10 +628,9 @@ const resolvers = {
           new: true,
         });
 
-        console.log(product);
         return product;
       } catch (err) {
-        console.log(err);
+        throw new Error('Product Update Failed')
       }
     },
     delProduct: async (parent, args, context) => {
@@ -641,37 +642,37 @@ const resolvers = {
         const product = Product.findByIdAndRemove(args._id);
         return product;
       } catch (err) {
-        return console.log("something went wrong dp553");
+        throw new Error('Product Delete failed')
       }
     },
+
     login: async (parent, { email, password }) => {
       if (!emailRegex.test(email)) {
         throw new AuthenticationError("Email is not in the correct format");
       }
+      const user = await User.findOne({ email });
 
-      try {
-        const user = await User.findOne({ email });
-
-        if (user.banned === true) {
-          throw new AuthenticationError("user account banned");
-        }
-
-        if (!user) {
-          throw new AuthenticationError("Incorrect credentials");
-        }
-
-        const correctPw = await user.isCorrectPassword(password);
-
-        if (!correctPw) {
-          throw new AuthenticationError("Incorrect credentials");
-        }
-
-        const token = signToken(user);
-
-        return { token, user };
-      } catch (err) {
-        return console.log("something went wrong l578");
+      if (user.banned === true) {
+        throw new AuthenticationError("user account banned");
       }
+
+      if (!user) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+
+      const token = signToken(user);
+
+      if (!token) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+
+      return { token, user };
     },
     agreement: async (parent, args, context) => {
       try {
@@ -722,7 +723,7 @@ const resolvers = {
 
         console.log(" Contact Message sent");
       } catch (err) {
-        return console.log("something went wrong sm630");
+        throw new Error('Contact Message Failed')
       }
     },
     authResetProvider: async (parent, args, context) => {
@@ -732,14 +733,13 @@ const resolvers = {
       if (!emailRegex.test(email)) {
         throw new AuthenticationError("Email is not in the correct format.");
       }
+      const user = await User.findOne({ email: email });
+
+      if (!user) {
+        throw new AuthenticationError("Account does not exist.");
+      }
 
       try {
-        const user = await User.findOne({ email: email });
-
-        if (!user) {
-          throw new AuthenticationError("No user found.");
-        }
-
         const token = resetToken({
           email: email,
           uuv4id: randInt,
@@ -777,7 +777,7 @@ const resolvers = {
 
         console.log("Reset Message sent");
       } catch (err) {
-        return console.log("something went wrong arp685");
+        throw Error(" 500 - Email send failed.");
       }
     },
     authResetValidator: async (parent, args, context) => {
@@ -801,7 +801,7 @@ const resolvers = {
         });
 
         if (!resetKey) {
-          throw new AuthenticationError("something went wrong");
+          throw new AuthenticationError("invalid or expired token");
         }
 
         const { token } = resetKey;
@@ -817,7 +817,7 @@ const resolvers = {
 
         if (decodedToken.data.uuv4id !== parseInt(securityCode)) {
           await ResetKey.deleteOne({ _id: resetKey._id });
-          throw new AuthenticationError("reset failed");
+          throw new AuthenticationError("Reset Failed");
         }
 
         if (decodedToken.data.uuv4id === parseInt(securityCode)) {
@@ -829,7 +829,7 @@ const resolvers = {
         await ResetKey.deleteOne({ _id: resetKey._id });
         return { message: "success" };
       } catch (err) {
-        return console.log("something went wrong arv737");
+        return { message: "rejected" };
       }
     },
   },

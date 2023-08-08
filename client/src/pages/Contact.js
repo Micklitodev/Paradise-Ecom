@@ -13,7 +13,7 @@ const Contact = () => {
   Redirector.checkTokens();
   useScrollHelper();
   const [fromSubmitted, setFormSubmitted] = useState(false);
-  const [sendMail] = useMutation(SEND_MAIL);
+  const [sendMail, { error }] = useMutation(SEND_MAIL);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -52,12 +52,23 @@ const Contact = () => {
       {Auth.loggedIn() ? (
         <>
           {fromSubmitted ? (
-            <div>
-              <Jumbotron>
-                <h2 className="mt-20">Message Sent!</h2>
-                <p>We will be in contact shortly!</p>
-              </Jumbotron>
-            </div>
+            <>
+              {error ? (
+                <div>
+                  <Jumbotron>
+                    <h2 className="mt-20">Message Failed!</h2>
+                    <p>Please reload the page and try again. </p>
+                  </Jumbotron>
+                </div>
+              ) : (
+                <div>
+                  <Jumbotron>
+                    <h2 className="mt-20">Message Sent!</h2>
+                    <p>We will be in contact shortly!</p>
+                  </Jumbotron>
+                </div>
+              )}
+            </>
           ) : (
             <>
               <div className="mt-20">

@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 const VerifForm = (props) => {
   const [formState, setFormState] = useState({ idFront: "", idBack: "" });
 
-  const [idUpload] = useMutation(ID_UPLOAD);
+  const [idUpload, { error }] = useMutation(ID_UPLOAD);
   const uniqueId = uuidv4();
 
   const handleFormSubmit = async (event) => {
@@ -146,15 +146,28 @@ const VerifForm = (props) => {
     );
   } else if (props.data?.user.isIdSubmitted) {
     return (
-      <div style={{ maxHeight: "20vh" }}>
-        <Jumbotron>
-          <h2> Submitted! </h2>
-          <h4>Please wait for review! </h4>
-        </Jumbotron>
-      </div>
+      <>
+        {error ? (
+          <>
+            <div style={{ maxHeight: "20vh" }}>
+              <Jumbotron>
+                <h2> Error </h2>
+                <h4> Failed please reload and try again. </h4>
+              </Jumbotron>
+            </div>
+          </>
+        ) : (
+          <>
+            <div style={{ maxHeight: "20vh" }}>
+              <Jumbotron>
+                <h2> Submitted! </h2>
+                <h4>Please wait for review! </h4>
+              </Jumbotron>
+            </div>
+          </>
+        )}
+      </>
     );
-  } else {
-    return <div>Your account has already been verified!</div>;
   }
 };
 

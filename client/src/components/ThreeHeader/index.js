@@ -134,7 +134,7 @@ const ThreeHeader = () => {
       {isLoaded !== 100 ? (
         <>
           <div style={{ height: "100vh", width: "100vw" }}>
-            <h2 className="text-center mt-40"> Loading...</h2>
+            <h2 className="text-center mt-40"> Warming Up </h2>
             <img className="center mt-52 ml-10" src={spinner} alt="loading" />
           </div>
         </>

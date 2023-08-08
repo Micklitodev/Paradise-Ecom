@@ -18,21 +18,20 @@ const ResetLink = () => {
   const [changeSuccess, setChangeSuccess] = useState(false);
   const [ChangeReject, setChangeReject] = useState(false);
 
-  const [authResetProvider] = useMutation(AUTH_RESET_PROVIDER);
-  const [authResetValidator] = useMutation(AUTH_RESET_VALIDATOR);
-
-  const error = false;
+  const [authResetProvider, { error }] = useMutation(AUTH_RESET_PROVIDER);
+  const [authResetValidator, { error: error2 }] =
+    useMutation(AUTH_RESET_VALIDATOR);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await authResetProvider({
+      await authResetProvider({
         variables: { ...formState },
       });
+
+      setSubmitted(true);
     } catch (e) {
       console.log(e);
-    } finally {
-      setSubmitted(true);
     }
   };
 
@@ -45,8 +44,12 @@ const ResetLink = () => {
 
       if (data.authResetValidator.message === "success") {
         setChangeSuccess(true);
-      } else {
+        console.log("accepted");
+      }
+
+      if (data.authResetValidator.message === "rejected") {
         setChangeReject(true);
+        console.log("rejected");
       }
     } catch (err) {
       console.log(err);
@@ -127,9 +130,7 @@ const ResetLink = () => {
                       </div>
                       {error ? (
                         <div>
-                          <p className="error-text">
-                            The provided credentials are incorrect
-                          </p>
+                          <p className="error-text">{error.message}</p>
                         </div>
                       ) : null}
                       <div className="flex justify-end">
@@ -196,11 +197,9 @@ const ResetLink = () => {
                           className="border border-gray-300 px-3 py-2 rounded-md w-full"
                         />
                       </div>
-                      {error ? (
+                      {error2 ? (
                         <div>
-                          <p className="error-text">
-                            The provided credentials are incorrect
-                          </p>
+                          <p className="error-text">{error2.message}</p>
                         </div>
                       ) : null}
                       <div className="flex justify-end">

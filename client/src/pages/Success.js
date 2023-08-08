@@ -3,10 +3,12 @@ import { useMutation } from "@apollo/client";
 import Jumbotron from "../components/Jumbotron";
 import { ADD_ORDER } from "../utils/mutations";
 import { idbPromise } from "../utils/helpers";
+import Redirector from "../utils/redirector";
 
 function Success() {
-  const [anError, setAnError] = useState(false);
+  Redirector.checkTokens();
   const [addOrder, { error }] = useMutation(ADD_ORDER);
+  const [preError, setPreError] = useState(false);
 
   useEffect(() => {
     async function saveOrder() {
@@ -21,23 +23,20 @@ function Success() {
         }));
 
         if (products.length <= 0) {
-          setAnError(true);
+          setPreError(true);
           return;
         }
 
         const { data } = await addOrder({ variables: { products, url } });
 
         if (!data.addOrder.products) {
-          setAnError(true);
           return;
         }
 
         if (error) {
-          setAnError(true);
           return;
         }
 
-        setAnError(false);
         const productData = data.addOrder.products;
         productData?.forEach((item) => {
           idbPromise("cart", "delete", item);
@@ -56,7 +55,7 @@ function Success() {
 
   return (
     <>
-      {anError ? (
+      {error || preError ? (
         <Jumbotron>
           <h1 className="mt-40">Session Expired</h1>
         </Jumbotron>
