@@ -28,6 +28,7 @@ const nodemailer = require("nodemailer");
 const stripe = require("stripe")(stripeapi);
 const client = new EasyPostClient(api);
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const carrier = "USPS";
 
 let shipObj;
 
@@ -37,25 +38,6 @@ function randIntGen() {
   const randomBuffer = crypto.randomBytes(4);
   const randomNumber = randomBuffer.readUInt32BE(0);
   return min + (randomNumber % (max - min + 1));
-}
-
-function UpdateCloverStock(merchantId, itemId, stockInt) {
-  const options = {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${process.env.CLOVER_KEY}`,
-    },
-    body: JSON.stringify({ quantity: stockInt }),
-  };
-
-  fetch(
-    `https://sandbox.dev.clover.com/v3/merchants/${merchantId}/item_stocks/${itemId}`,
-    options
-  )
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err));
 }
 
 const resolvers = {
@@ -220,10 +202,49 @@ const resolvers = {
         return;
       }
 
-      const length = 1 * args.productInt;
-      const width = 1 * args.productInt;
-      const weight = 0.7 * args.productInt;
-      const height = 1 * args.productInt;
+      const productInt = args.productInt;
+
+      const boxSizes = [
+        {
+          name: "x-smallbox",
+          dimensions: { L: 6, W: 4, H: 4 },
+          weightFactor: 0.4,
+          rangeMax: 1,
+          rangeMin: 1,
+        },
+        {
+          name: "smallbox",
+          dimensions: { L: 8, W: 6, H: 5 },
+          weightFactor: 0.4,
+          rangeMax: 3,
+          rangeMin: 2,
+        },
+        {
+          name: "mediumbox",
+          dimensions: { L: 12, W: 9, H: 6 },
+          weightFactor: 0.4,
+          rangeMax: 5,
+          rangeMin: 4,
+        },
+        {
+          name: "largebox",
+          dimensions: { L: 12, W: 12, H: 7 },
+          weightFactor: 0.5,
+          rangeMax: 8,
+          rangeMin: 6,
+        },
+        {
+          name: "x-largebox",
+          dimensions: { L: 16, W: 12, H: 9 },
+          weightFactor: 0.5,
+          rangeMax: Infinity,
+          rangeMin: 9,
+        },
+      ];
+
+      let selectedBox = boxSizes.find(
+        (box) => productInt >= box.rangeMin && productInt <= box.rangeMax
+      );
 
       try {
         const user = await User.findById(context.user._id).select(
@@ -251,16 +272,18 @@ const resolvers = {
             phone: "4155559999",
           },
           parcel: {
-            length: length,
-            width: width,
-            height: height,
-            weight: weight,
+            length: selectedBox.dimensions.L,
+            width: selectedBox.dimensions.W,
+            height: selectedBox.dimensions.H,
+            weight: selectedBox.weightFactor * productInt,
           },
         });
 
+        const rate = shipment.lowestRate([`${carrier}`]);
+
         shipObj = shipment;
 
-        return shipment;
+        return rate;
       } catch (err) {
         throw new Error("Something went wrong unable to calculate shipping");
       }
@@ -462,7 +485,7 @@ const resolvers = {
 
         const boughtShipment = await client.Shipment.buy(
           shipObj.id,
-          shipObj.lowestRate(["USPS"])
+          shipObj.lowestRate([`${carrier}`])
         );
         const tracking = boughtShipment.tracker.public_url;
         const shipmentId = boughtShipment.tracker.shipment_id;
@@ -476,15 +499,6 @@ const resolvers = {
             context
           );
         });
-
-        // products.forEach(async (product) => {
-        //   const merchantId = process.env.CLOVER_MERCHANT_ID;
-        //   let itemId = product.cloverId;
-        //   let purchasedQuantity = parseInt(product.purchaseQuantity);
-        //   let stockInt = purchasedQuantity * -1;
-
-        //   // UpdateCloverStock(merchantId, itemId, stockInt);
-        // });
 
         // saving orders with token + user data
 
@@ -518,21 +532,6 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-
-    updateUser: async (parent, args, context) => {
-      if (context.user) {
-        try {
-          // return await User.findByIdAndUpdate(context.user._id, args, {
-          //   new: true,
-          // });
-          console.log("updated User resolver HITTTT ");
-        } catch (err) {
-          return console.log("failed to update uu454");
-        }
-      }
-
-      throw new AuthenticationError("Not logged in");
-    },
     addShipInfo: async (parent, args, context) => {
       if (!context.user || !context.user.isVerified) {
         throw new AuthenticationError("Not logged in or not verified! ");
@@ -544,7 +543,7 @@ const resolvers = {
 
         return user;
       } catch (err) {
-        throw new Error('ShipInfo Update Failed')
+        throw new Error("ShipInfo Update Failed");
       }
     },
     idUpload: async (parent, args, context) => {
@@ -557,9 +556,10 @@ const resolvers = {
             user.isIdSubmitted = true;
             user.isIdRejected = false;
             const updatedUser = await user.save();
+            await resolvers.Mutation.sendVerifNotif(parent, args, context);
             return updatedUser;
           } catch (err) {
-            throw new Error('Failed to upload data')
+            throw new Error("Failed to upload data");
           }
         }
       } else {
@@ -630,7 +630,7 @@ const resolvers = {
 
         return product;
       } catch (err) {
-        throw new Error('Product Update Failed')
+        throw new Error("Product Update Failed");
       }
     },
     delProduct: async (parent, args, context) => {
@@ -642,7 +642,7 @@ const resolvers = {
         const product = Product.findByIdAndRemove(args._id);
         return product;
       } catch (err) {
-        throw new Error('Product Delete failed')
+        throw new Error("Product Delete failed");
       }
     },
 
@@ -651,10 +651,6 @@ const resolvers = {
         throw new AuthenticationError("Email is not in the correct format");
       }
       const user = await User.findOne({ email });
-
-      if (user.banned === true) {
-        throw new AuthenticationError("user account banned");
-      }
 
       if (!user) {
         throw new AuthenticationError("Incorrect credentials");
@@ -680,6 +676,48 @@ const resolvers = {
         return token;
       } catch (err) {
         return console.log("something went wrong a586");
+      }
+    },
+    sendVerifNotif: async (parent, args, context) => {
+      if (!context.user) {
+        throw new AuthenticationError("No Auth.");
+      }
+
+      const user = await User.findById(context.user._id);
+
+      if (!user) {
+        throw new AuthenticationError("No Auth.");
+      }
+
+      const { firstName, lastName } = user;
+
+      try {
+        let transporter = nodemailer.createTransport({
+          host: mghost,
+          port: mgport,
+          auth: {
+            user: mguser,
+            pass: mgpass,
+          },
+        });
+
+        await transporter.sendMail({
+          from: "michaelvrms@gmail.com",
+          to: "michaelvrms@gmail.com",
+          subject: "New Verification",
+          html: `
+          <>
+            <p style="text-align: center; font-size: 24px;">
+             ${firstName} ${lastName} is awaiting ID verification. 
+            </p>
+            <br>
+          </>
+        `,
+        });
+
+        console.log("Verif Message sent");
+      } catch (err) {
+        throw new Error("Verif Message Failed");
       }
     },
     sendMail: async (parent, args, context) => {
@@ -723,7 +761,7 @@ const resolvers = {
 
         console.log(" Contact Message sent");
       } catch (err) {
-        throw new Error('Contact Message Failed')
+        throw new Error("Contact Message Failed");
       }
     },
     authResetProvider: async (parent, args, context) => {

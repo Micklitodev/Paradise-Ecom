@@ -89,25 +89,13 @@ const Cart = () => {
   }
 
   function calculateTotal() {
-    let lowestRate = { rate: 0 };
+    let lowestRate = 0;
+
     if (!load && rate) {
-      const rates = rate.calcShip?.rates;
-
-      if (rates && rates.length > 0) {
-        lowestRate = rates.reduce((minRate, currentRate) => {
-          const minRateValue = parseFloat(minRate.rate);
-          const currentRateValue = parseFloat(currentRate.rate);
-
-          if (currentRateValue < minRateValue) {
-            return currentRate;
-          } else {
-            return minRate;
-          }
-        });
-      }
+      lowestRate = rate.calcShip?.rate;
     }
 
-    let shipTotal = parseFloat(lowestRate.rate);
+    let shipTotal = parseFloat(lowestRate);
     let sum = 0;
 
     state.cart.forEach((item) => {

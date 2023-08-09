@@ -19,7 +19,6 @@ function ProductItem(item) {
   const { image, name, _id, price, quantity, description, cloverId, category } =
     item;
 
-  console.log(item);
 
   const { cart } = state;
 

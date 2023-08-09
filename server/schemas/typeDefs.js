@@ -90,12 +90,6 @@ const typeDefs = gql`
       password: String!
     ): Auth
     addOrder(products: [inputOrder]!, url: String!): Order
-    updateUser(
-      firstName: String
-      lastName: String
-      email: String
-      password: String
-    ): User
     addShipInfo(street: String, city: String, state: String, zip: Int): User
     userVerifAdmin(_id: ID!, action: String!): User
     addProduct(
@@ -122,6 +116,7 @@ const typeDefs = gql`
     idUpload(idFront: String!, idBack: String!): User
     login(email: String!, password: String!): Auth
     agreement(userChoice: String!): JSON
+    sendVerifNotif: JSON
     sendMail(name: String!, email: String!, message: String!): JSON
     authResetProvider(email: String!): User
     authResetValidator(
