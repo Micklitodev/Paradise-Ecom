@@ -117,7 +117,7 @@ function ProductItem(item) {
   } else {
     return (
       <>
-        <div className="card px-2 mx-1 py-1 borderwrap bg-black bg-opacity-50">
+        <div className="card px-2 mx-1 py-1 borderwrap bg-black bg-opacity-40">
           <Link to={`/products/${_id}`}>
             <img
               style={{ height: 220, width: 260 }}

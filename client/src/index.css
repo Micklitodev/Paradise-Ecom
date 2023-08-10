@@ -16,13 +16,13 @@
 
 * {
   box-sizing: border-box;
-  color: rgb(248, 248, 248);
+  color: rgb(252, 252, 252);
 }
 
 html,
 body {
   min-height: 100%;
-  background-image: url("../public/images/paradise3.png");
+  background-image: url("../public/images/paradise3.jpg");
   background-attachment: fixed;
   background-size: cover;
 }
@@ -104,7 +104,7 @@ canvas {
   top: 0;
   left: 0;
   outline: none;
-  mix-blend-mode: exclusion;
+  mix-blend-mode: exclusion !important;
 }
 
 .container2 {

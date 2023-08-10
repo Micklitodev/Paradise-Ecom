@@ -16,7 +16,7 @@ import { TOGGLE_CART } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 
 const Nav = () => {
-  const [state, dispatch] = useStoreContext();
+  const [, dispatch] = useStoreContext();
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav((prevNav) => !prevNav);
 
@@ -31,8 +31,8 @@ const Nav = () => {
       <div className="sticky top-0 z-10 w-full ">
         <header className="w-full h-14 drop-shadow-md">
           <div
-            className="flex items-center bg-black bg-opacity-40 justify-between w-full h-full px-2"
-            style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)" }}
+            className="flex items-center justify-between w-full h-full px-2"
+            style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)", backgroundColor: 'rgba(5, 5, 5, 0.55)'}}
           >
             {/* site name container */}
             <Link

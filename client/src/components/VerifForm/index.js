@@ -102,10 +102,12 @@ const VerifForm = (props) => {
               />
               <button
                 onClick={(e) => handleUploadButtonClick(e, "idFront")}
-                className="py-1 bg-blue-400 bg-opacity-80 text-black"
+                className={`py-1 bg-blue-400 ${
+                  formState.idFront ? "bg-opacity-40" : "bg-opacity-80"
+                } text-black`}
                 style={{ height: 62 }}
               >
-                Select ID Front
+                {formState.idFront ? "Uploaded!" : "Select ID Front"}
               </button>
             </div>
             <div className="flex flex-col my-2">
@@ -122,10 +124,12 @@ const VerifForm = (props) => {
               />
               <button
                 onClick={(e) => handleUploadButtonClick(e, "idBack")}
-                className="py-1 bg-blue-400 bg-opacity-80 text-black"
+                className={`py-1 bg-blue-400 ${
+                  formState.idBack ? "bg-opacity-40" : "bg-opacity-80"
+                } text-black`}
                 style={{ height: 62 }}
               >
-                Select ID Back
+                {formState.idBack ? "Uploaded!" : "Select ID Back"}
               </button>
             </div>
             <br />

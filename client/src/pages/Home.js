@@ -9,6 +9,7 @@ import useScrollHelper from "../utils/scrollhelper";
 import Info from "../components/Info";
 import RecentlyAdded from "../components/RecentlyAdded";
 import ThreeHeader from "../components/ThreeHeader";
+import Overlay from "../components/Overlay";
 
 const Home = () => {
   Redirector.checkTokens();
@@ -49,21 +50,11 @@ const Home = () => {
             opacity: 0.8,
           }}
         >
-          <ThreeHeader />
+          <Overlay>
+            <ThreeHeader />
+          </Overlay>
         </div>
-        <h1
-          className="left-60  hidden md:block"
-          style={{
-            textTransform: "uppercase",
-            position: "absolute",
-            top: "20vh",
-            fontWeight: 900,
-            fontSize: 30,
-            color: "white",
-            textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-            borderRadius: 5,
-          }}
-        ></h1>
+
         <div>
           <div id="recentlyadded" className="mb-20 mt-20">
             <RecentlyAdded />

@@ -14,16 +14,16 @@ const LandingPage = () => {
         style={{
           height: "100vh",
           width: "100vw",
-          backgroundColor: "rgb(10, 10, 10)",
+          backgroundColor: "rgba(10, 10, 10, 0.97)",
         }}
       >
         <div className="container2">
           <h1 className="mt-10 ml-2" style={{ color: "white" }}>
-            Paradise Dispensary
+            Paradise Hemp Dispensary
           </h1>
           <button
             onClick={handleClick}
-            className="bg-red-500 bg-opacity-80 text-white mb-30 w-40 h-20"
+            className="bg-green-500 bg-opacity-80 text-white mb-30 w-40 h-20"
           >
             Enter Site
           </button>

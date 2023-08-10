@@ -21,7 +21,7 @@ const ThreeHeader = () => {
 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
-      alpha: false,
+      alpha: true,
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -49,7 +49,7 @@ const ThreeHeader = () => {
       "./weed/scene.gltf",
       (gltf) => {
         bud = gltf.scene;
-        bud.position.set(47, 30, -17);
+        bud.position.set(65, 30, -20);
         bud.scale.set(1, 1, 1);
         scene.add(bud);
 
@@ -134,6 +134,7 @@ const ThreeHeader = () => {
       {isLoaded !== 100 ? (
         <>
           <div style={{ height: "100vh", width: "100vw" }}>
+            <br /> <br /> <br />
             <h2 className="text-center mt-40"> Warming Up </h2>
             <img className="center mt-52 ml-10" src={spinner} alt="loading" />
           </div>
@@ -145,11 +146,11 @@ const ThreeHeader = () => {
               Paradise Hemp Dispensary
             </h1>
             <h5
-              className="about left-20 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs bg-black bg-opacity-10 rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
+              className="about left-40 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
               style={{
                 position: "absolute",
                 color: "white",
-                top: 270,
+                top: 260,
                 fontWeight: 900,
                 fontSize: 17,
                 textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",

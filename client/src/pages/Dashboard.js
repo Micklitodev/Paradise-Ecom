@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_USER } from "../utils/queries";
 import Jumbotron from "../components/Jumbotron";
 import useScrollHelper from "../utils/scrollhelper";
+import Cart from '../components/Cart'
 
 const Dashboard = () => {
   Redirector.checkTokens();
@@ -46,6 +47,7 @@ const Dashboard = () => {
           </Jumbotron>
         </>
       )}
+      <Cart /> 
       <Footer />
     </>
   );

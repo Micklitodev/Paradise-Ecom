@@ -29,6 +29,7 @@ import LithiumWarn from "./pages/LithiumWarn";
 import LabResults from "./pages/LabResults";
 import SearchRes from "./pages/SearchRes";
 import ResetLink from "./pages/ResetLink";
+import Checkout from "./pages/Checkout";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -69,7 +70,7 @@ function App() {
               />
               <Route path="/search/:id" element={<SearchRes />} />
               <Route path="/resetLink" element={<ResetLink />} />
-
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="Terms" element={<Terms />} />
               <Route path="privacypolicy" element={<PrivacyPolicy />} />

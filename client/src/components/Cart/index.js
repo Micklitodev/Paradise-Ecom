@@ -15,7 +15,7 @@ import "./style.css";
 const stripeapi = process.env.REACT_APP_STRIPE_CLIENT_API;
 const stripePromise = loadStripe(stripeapi);
 
-const Cart = () => {
+const Cart = (props) => {
   const [state, dispatch] = useStoreContext();
   const [displayForm, setDisplayForm] = useState(false);
   const [pointValue, setPointValue] = useState(0);
@@ -88,6 +88,12 @@ const Cart = () => {
     dispatch({ type: TOGGLE_CART });
   }
 
+  useEffect(() => {
+    if (props.CheckoutPage) {
+      toggleCart();
+    }
+  }, []);
+
   function calculateTotal() {
     let lowestRate = 0;
 
@@ -131,15 +137,19 @@ const Cart = () => {
       }
     });
 
-    getCheckout({
-      variables: {
-        products: productIds,
-        shipPrice: pricing[1],
-        points: pointValue,
-      },
-    });
+    if (!props.CheckoutPage) {
+      window.location.assign("/checkout");
+    } else {
+      getCheckout({
+        variables: {
+          products: productIds,
+          shipPrice: pricing[1],
+          points: pointValue,
+        },
+      });
 
-    setCheckLoad(true);
+      setCheckLoad(true);
+    }
   }
 
   const toggleForm = () => {
@@ -204,6 +214,177 @@ const Cart = () => {
     setPointValue(inputValue);
   };
 
+  const RenderAddress = () => {
+    return (
+      <>
+        {Auth.loggedIn() && Auth.isVerified() ? (
+          <>
+            <hr />
+            <div className="container">
+              Shipping Address:
+              {user?.street ? (
+                <div>
+                  <p style={{ color: "#6499A4" }}>
+                    {user.street} <br /> {user.city}, {user.state} {user.zip}
+                  </p>
+                  <button
+                    className="upShip text-green-300 opacity-80"
+                    onClick={toggleForm}
+                  >
+                    Update Shipping Address{" "}
+                  </button>
+
+                  <br />
+                  <br />
+
+                  {user?.points && props?.CheckoutPage ? (
+                    <>
+                      <hr style={{ width: "118%", marginLeft: "-9%" }} />
+                      Point Balance:
+                      <p style={{ color: "#6499A4" }}> {user.points} points </p>
+                      Use{" "}
+                      <input
+                        style={{
+                          textAlign: "center",
+                          maxWidth: "fit-content",
+                        }}
+                        type="number"
+                        pattern="^[0-9]+$"
+                        label="points"
+                        name="points"
+                        defaultValue={0}
+                        max={parseInt(user.points)}
+                        min={50}
+                        onInput={handlePointInput}
+                      />
+                      Points.
+                      <br />
+                      <br />
+                    </>
+                  ) : null}
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="container">
+                  <input
+                    className="formInput"
+                    label="street"
+                    name="street"
+                    placeholder="112 test street"
+                    value={shippingAddress.street}
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <input
+                    className="formInput"
+                    label="city"
+                    name="city"
+                    placeholder="Atlanta"
+                    value={shippingAddress.city}
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <input
+                    className="formInput"
+                    label="state"
+                    name="state"
+                    list="statesList"
+                    autoComplete="off"
+                    value={shippingAddress.state}
+                    onChange={handleInputChange}
+                  />
+                  <datalist id="statesList">
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </datalist>
+                  <br />
+                  <input
+                    className="formInput"
+                    label="zip"
+                    name="zip"
+                    placeholder="30041"
+                    value={shippingAddress.zip}
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <button
+                    className="text-white"
+                    onClick={() => setDisplayForm(false)}
+                    width="w-fit"
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="text-green-300 opacity-80"
+                    disabled={
+                      !shippingAddress.street ||
+                      !shippingAddress.city ||
+                      !shippingAddress.state ||
+                      !shippingAddress.zip
+                    }
+                    type="submit"
+                    variant="success"
+                    width="w-fit"
+                  >
+                    Update
+                  </button>
+                  <br /> <br />
+                </form>
+              )}
+            </div>
+          </>
+        ) : null}
+      </>
+    );
+  };
+
   if (!state.cartOpen) {
     return (
       <div id="shoppingCart" className="cart-closed" onClick={toggleCart}>
@@ -226,240 +407,110 @@ const Cart = () => {
     );
   }
 
-  return (
-    <div className="cart" id="shoppingCart">
-      <div className="close" onClick={toggleCart}>
-        [close]
-      </div>
-      <h2>Shopping Cart</h2>
-      <br />
-      {state.cart.length ? (
+  const RenderPrices = () => {
+    return (
+      <div className="flex-row space-between">
         <div>
-          {state.cart.map((item) => (
-            <CartItem key={item._id} item={item} />
-          ))}
-          <br />
-          {Auth.loggedIn() && Auth.isVerified() ? (
+          <strong> Subtotal: ${pricing[2].toFixed(2)}</strong>
+          {Auth.loggedIn() ? (
             <>
-              <hr />
-              <div className="container">
-                Shipping Address:
-                {user?.street ? (
-                  <div>
-                    <p style={{ color: "#6499A4" }}>
-                      {user.street} <br /> {user.city}, {user.state} {user.zip}
-                    </p>
-                    <button
-                      className="upShip text-green-300 opacity-80"
-                      onClick={toggleForm}
-                    >
-                      Update Shipping Address{" "}
-                    </button>
-
-                    <br />
-                    <br />
-
-                    {user?.points ? (
-                      <>
-                        {/* <hr style={{width: '118%', marginLeft: '-9%' }} />  */}
-                        <hr />
-                        Point Balance:
-                        <p style={{ color: "#6499A4" }}>
-                          {" "}
-                          {user.points} points{" "}
-                        </p>
-                        Use{" "}
-                        <input
-                          style={{
-                            textAlign: "center",
-                            maxWidth: "fit-content",
-                          }}
-                          type="number"
-                          pattern="^[0-9]+$"
-                          label="points"
-                          name="points"
-                          defaultValue={0}
-                          max={parseInt(user.points)}
-                          min={50}
-                          onInput={handlePointInput}
-                        />
-                        Points.
-                      </>
-                    ) : null}
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="container">
-                    <input
-                      className="formInput"
-                      label="street"
-                      name="street"
-                      placeholder="112 test street"
-                      value={shippingAddress.street}
-                      onChange={handleInputChange}
-                    />
-                    <br />
-                    <input
-                      className="formInput"
-                      label="city"
-                      name="city"
-                      placeholder="Atlanta"
-                      value={shippingAddress.city}
-                      onChange={handleInputChange}
-                    />
-                    <br />
-                    <input
-                      className="formInput"
-                      label="state"
-                      name="state"
-                      list="statesList"
-                      autoComplete="off"
-                      value={shippingAddress.state}
-                      onChange={handleInputChange}
-                    />
-                    <datalist id="statesList">
-                      <option value="AL">Alabama</option>
-                      <option value="AK">Alaska</option>
-                      <option value="AZ">Arizona</option>
-                      <option value="AR">Arkansas</option>
-                      <option value="CA">California</option>
-                      <option value="CO">Colorado</option>
-                      <option value="CT">Connecticut</option>
-                      <option value="DE">Delaware</option>
-                      <option value="FL">Florida</option>
-                      <option value="GA">Georgia</option>
-                      <option value="HI">Hawaii</option>
-                      <option value="ID">Idaho</option>
-                      <option value="IL">Illinois</option>
-                      <option value="IN">Indiana</option>
-                      <option value="IA">Iowa</option>
-                      <option value="KS">Kansas</option>
-                      <option value="KY">Kentucky</option>
-                      <option value="LA">Louisiana</option>
-                      <option value="ME">Maine</option>
-                      <option value="MD">Maryland</option>
-                      <option value="MA">Massachusetts</option>
-                      <option value="MI">Michigan</option>
-                      <option value="MN">Minnesota</option>
-                      <option value="MS">Mississippi</option>
-                      <option value="MO">Missouri</option>
-                      <option value="MT">Montana</option>
-                      <option value="NE">Nebraska</option>
-                      <option value="NV">Nevada</option>
-                      <option value="NH">New Hampshire</option>
-                      <option value="NJ">New Jersey</option>
-                      <option value="NM">New Mexico</option>
-                      <option value="NY">New York</option>
-                      <option value="NC">North Carolina</option>
-                      <option value="ND">North Dakota</option>
-                      <option value="OH">Ohio</option>
-                      <option value="OK">Oklahoma</option>
-                      <option value="OR">Oregon</option>
-                      <option value="PA">Pennsylvania</option>
-                      <option value="RI">Rhode Island</option>
-                      <option value="SC">South Carolina</option>
-                      <option value="SD">South Dakota</option>
-                      <option value="TN">Tennessee</option>
-                      <option value="TX">Texas</option>
-                      <option value="UT">Utah</option>
-                      <option value="VT">Vermont</option>
-                      <option value="VA">Virginia</option>
-                      <option value="WA">Washington</option>
-                      <option value="WV">West Virginia</option>
-                      <option value="WI">Wisconsin</option>
-                      <option value="WY">Wyoming</option>
-                    </datalist>
-                    <br />
-                    <input
-                      className="formInput"
-                      label="zip"
-                      name="zip"
-                      placeholder="30041"
-                      value={shippingAddress.zip}
-                      onChange={handleInputChange}
-                    />
-                    <br />
-                    <button
-                      className="text-white"
-                      onClick={() => setDisplayForm(false)}
-                      width="w-fit"
-                    >
-                      Close
-                    </button>
-                    <button
-                      className="text-green-300 opacity-80"
-                      disabled={
-                        !shippingAddress.street ||
-                        !shippingAddress.city ||
-                        !shippingAddress.state ||
-                        !shippingAddress.zip
-                      }
-                      type="submit"
-                      variant="success"
-                      width="w-fit"
-                    >
-                      Update
-                    </button>
-                    <br /> <br />
-                  </form>
-                )}
-              </div>
+              <br />
+              <strong> Shipping: ${pricing[1].toFixed(2)}</strong>
+              <br />
+              <strong> Total: ${pricing[0].toFixed(2)}</strong>
+              <br />
+              {error ? (
+                <div>
+                  <p className="error-text">{error.message}</p>
+                </div>
+              ) : null}
             </>
           ) : null}
-
-          <hr />
-
-          <div className="flex-row space-between">
-            <div>
-              <strong> Subtotal: ${pricing[2].toFixed(2)}</strong>
-              {Auth.loggedIn() ? (
-                <>
-                  <br />
-                  <strong> Shipping: ${pricing[1].toFixed(2)}</strong>
-                  <br />
-                  <strong> Total: ${pricing[0].toFixed(2)}</strong>
-                  <br />
-                  {error ? (
-                    <div>
-                      <p className="error-text">{error.message}</p>
-                    </div>
-                  ) : null}
-                </>
-              ) : null}
-            </div>
-            {Auth.loggedIn() ? (
+        </div>
+        {Auth.loggedIn() ? (
+          <>
+            {checkLoad && !error ? (
               <>
-                {checkLoad && !error ? (
-                  <>
-                    <div>
-                      <p> Loading Cart </p>
-                      <img src={spinner} alt="load spin" />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <button
-                      className="bg-green-300 bg-opacity-70 text-black h-15 mt-2"
-                      onClick={submitCheckout}
-                    >
-                      Checkout
-                    </button>
-                  </>
-                )}
+                <div>
+                  <p> Loading Cart </p>
+                  <img src={spinner} alt="load spin" />
+                </div>
               </>
             ) : (
-              <a href="/login"> (log in to check out) </a>
+              <>
+                {" "}
+                <button
+                  className="bg-green-300 bg-opacity-70 text-black h-15 mt-2"
+                  onClick={submitCheckout}
+                >
+                  Checkout
+                </button>
+              </>
             )}
+          </>
+        ) : (
+          <a href="/login"> (log in to check out) </a>
+        )}
+      </div>
+    );
+  };
+
+  if (props.CheckoutPage) {
+    return (
+      <div id="shoppingCart">
+        <h2 className="text-center">Shopping Cart</h2>
+        <br />
+        {state.cart.length ? (
+          <div>
+            {" "}
+            <div style={{ maxWidth: 500 }}>
+              {state.cart.map((item) => (
+                <>
+                  <CartItem key={item._id} item={item} />
+                  <br />
+                </>
+              ))}
+            </div>
+            <br />
+            <RenderAddress />
+            <hr />
+            <RenderPrices />
           </div>
+        ) : (
+          <>
+            <h3>You dont have anything in your cart yet!</h3>
+            <br />
+          </>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div className="cart" id="shoppingCart">
+        <div className="close" onClick={toggleCart}>
+          [close]
         </div>
-      ) : (
-        <>
-          <h3>You dont have anything in your cart yet!</h3>
-          <br />
-        </>
-      )}
-    </div>
-  );
+        <h2>Shopping Cart</h2>
+        <br />
+        {state.cart.length ? (
+          <div>
+            {state.cart.map((item) => (
+              <CartItem key={item._id} item={item} />
+            ))}
+            <br />
+            <RenderAddress />
+            <hr />
+            <RenderPrices />
+          </div>
+        ) : (
+          <>
+            <h3>You dont have anything in your cart yet!</h3>
+            <br />
+          </>
+        )}
+      </div>
+    );
+  }
 };
 
 export default Cart;

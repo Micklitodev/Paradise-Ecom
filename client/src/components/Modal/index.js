@@ -41,7 +41,7 @@ const Modal = (props) => {
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "rgb(10, 10, 10)",
+                backgroundColor: "rgba(10, 10, 10, 0.98)",
                 color: "white",
                 boxShadow: "0 0 1rem rgba(220, 220, 220, 0.5)",
               }}
@@ -160,7 +160,7 @@ const Modal = (props) => {
                   }}
                   type="button"
                   onClick={handleAgree}
-                  className="bg-red-500 bg-opacity-80 text-white h-15"
+                  className="bg-green-500 bg-opacity-80 text-white h-15"
                 >
                   Agree
                 </button>
