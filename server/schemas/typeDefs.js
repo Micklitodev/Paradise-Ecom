@@ -117,6 +117,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     agreement(userChoice: String!): JSON
     sendVerifNotif: JSON
+    sendOrderEmail: JSON
     sendMail(name: String!, email: String!, message: String!): JSON
     authResetProvider(email: String!): User
     authResetValidator(

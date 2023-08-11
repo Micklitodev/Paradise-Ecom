@@ -29,6 +29,7 @@ const stripe = require("stripe")(stripeapi);
 const client = new EasyPostClient(api);
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const carrier = "USPS";
+const buisnessContact = 'www.michaelvrms@gmail.com'
 
 let shipObj;
 
@@ -524,6 +525,12 @@ const resolvers = {
 
           await TempKey.deleteOne({ _id: tempToken._id });
 
+          await resolvers.Mutation.sendOrderEmail(
+            parent,
+            { firstName, lastName, address, total, tracking },
+            context
+          );
+
           return order;
         } catch (err) {
           throw new Error("Failed to Save Order, Contact Support.");
@@ -702,8 +709,8 @@ const resolvers = {
         });
 
         await transporter.sendMail({
-          from: "michaelvrms@gmail.com",
-          to: "michaelvrms@gmail.com",
+          from: "no-reply@paradisehempdispensary.com",
+          to: `${buisnessContact}`,
           subject: "New Verification",
           html: `
           <>
@@ -718,6 +725,61 @@ const resolvers = {
         console.log("Verif Message sent");
       } catch (err) {
         throw new Error("Verif Message Failed");
+      }
+    },
+    sendOrderEmail: async (
+      parent,
+      { firstName, lastName, address, total, tracking },
+      context
+    ) => {
+      try {
+        let transporter = nodemailer.createTransport({
+          host: mghost,
+          port: mgport,
+          auth: {
+            user: mguser,
+            pass: mgpass,
+          },
+        });
+
+        await transporter.sendMail({
+          from: "no-reply@paradisehempdispensary.com",
+          to: `${context.user.email}`,
+          subject: `Thank You for shopping with Paradise.`,
+          html: `
+            <p style="text-align: center; font-size: 24px;">
+             Your order has been successfully placed! 
+            </p>
+            <br>
+            <div style="text-align: center; font-size: 16px;"> 
+              <p> User: ${firstName} ${lastName} </p> 
+              <p> Shipping: ${address} </p> 
+              <a href=${tracking}>Track Shipment</a>
+              <p> Total: $ ${total / 100} </p> 
+            </div> 
+        `,
+        });
+
+        await transporter.sendMail({
+          from: "no-reply@paradisehempdispensary.com",
+          to: `${buisnessContact}`,
+          subject: `A customer has completed a purchase.`,
+          html: `
+            <p style="text-align: center; font-size: 24px;">
+             Order has been successfully placed! 
+            </p>
+            <br>
+            <div style="text-align: center; font-size: 16px;"> 
+              <p> User: ${firstName} ${lastName} </p> 
+              <p> Shipping: ${address} </p> 
+              <a href=${tracking}>Track Shipment</a>
+              <p> Total: $ ${total / 100} </p> 
+            </div> 
+        `,
+        });
+        console.log(" Order Message sent");
+      } catch (err) {
+        throw new Error("failed so send order confirmation.");
       }
     },
     sendMail: async (parent, args, context) => {
@@ -744,10 +806,10 @@ const resolvers = {
 
         await transporter.sendMail({
           from: email,
-          to: "michaelvrms@gmail.com",
+          to: `${buisnessContact}`,
           subject: "Customer Contact",
           html: `
-          <>
+        
             <p style="text-align: center; font-size: 24px;">
              ${name}
             </p>
@@ -755,7 +817,7 @@ const resolvers = {
             <div style="text-align: center; font-size: 16px;"> 
              ${sanitizedMessage}
             </div> 
-          </>
+
         `,
         });
 
@@ -796,11 +858,10 @@ const resolvers = {
         });
 
         await transporter.sendMail({
-          from: mguser,
+          from: "no-reply@paradisehempdispensary.com",
           to: email,
           subject: "Paradise Hemp Reset Code",
           html: `
-          <>
             <p style="text-align: center; font-size: 24px;">
               Please use this code to reset your password.
             </p>
@@ -809,7 +870,7 @@ const resolvers = {
             <div style="text-align: center; font-size: 48px; border: 1px solid #ccc; padding: 10px;">
               ${randInt}
             </div>
-          </>
+       
         `,
         });
 
