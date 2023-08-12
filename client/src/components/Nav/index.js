@@ -32,7 +32,7 @@ const Nav = () => {
         <header className="w-full h-14 drop-shadow-md">
           <div
             className="flex items-center justify-between w-full h-full px-2"
-            style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)", backgroundColor: 'rgba(5, 5, 5, 0.3)'}}
+            style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)", backgroundColor: 'rgba(5, 5, 5, 0.15)'}}
           >
             {/* site name container */}
             <Link

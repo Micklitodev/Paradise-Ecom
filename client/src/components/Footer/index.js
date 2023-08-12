@@ -8,7 +8,7 @@ const Footer = () => {
       className=" min-h-[75vh] w-full text-gray-700 py-10"
       style={{
         boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3",
-        backgroundColor: "rgba(10, 10, 10, 0.95)",
+        backgroundColor: "rgba(10, 10, 10, 0.45)",
       }}
     >
       <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-3 gap-20">

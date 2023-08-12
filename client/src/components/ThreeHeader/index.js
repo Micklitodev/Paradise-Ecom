@@ -28,10 +28,11 @@ const ThreeHeader = () => {
     camera.position.set(0, 0, 50);
 
     // lighting
-    const pointLight = new THREE.PointLight(0xffffff, 0.3);
+    // lighting
+    const pointLight = new THREE.PointLight(0xffffff, 0.5);
     pointLight.position.set(0, 0, 50);
 
-    const ambiant = new THREE.AmbientLight(0xffffff, 0.0);
+    const ambiant = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(pointLight, ambiant);
 
     // light helper
@@ -46,10 +47,10 @@ const ThreeHeader = () => {
     let bud = "";
 
     gltfloader.load(
-      "./weed/scene.gltf",
+      "./nug/scene.gltf",
       (gltf) => {
         bud = gltf.scene;
-        bud.position.set(65, 30, -25);
+        bud.position.set(1.6, -0.7, 48.2);
         bud.scale.set(1, 1, 1);
         scene.add(bud);
 
@@ -149,11 +150,10 @@ const ThreeHeader = () => {
               className="about left-40 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
               style={{
                 position: "absolute",
-                color: "white",
+
                 top: 260,
                 fontWeight: 900,
-                fontSize: 18,
-                textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                fontSize: 17,
                 borderRadius: 5,
                 maxWidth: "55%",
                 maxHeight: "340px",

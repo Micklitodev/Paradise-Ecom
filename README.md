@@ -56,20 +56,16 @@ name with a short description of what the contact pertains to. Thank you!
 ## Credits
 
 Model Information:
-
-Model Information:
-
-- title: Weed
-- source: https://sketchfab.com/3d-models/weed-411d81b3b95e4ae68aef511399a7deb9
-- author: Shanti (https://sketchfab.com/shanti.rize)
+* title:	Bubble Bear Nug
+* source:	https://sketchfab.com/3d-models/bubble-bear-nug-744527db35624d0a9fa851ef4df4947a
+* author:	jin (https://sketchfab.com/madjin)
 
 Model License:
-
-- license type: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
-- requirements: Author must be credited. Commercial use is allowed.
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Weed" (https://sketchfab.com/3d-models/weed-411d81b3b95e4ae68aef511399a7deb9) by Shanti (https://sketchfab.com/shanti.rize) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "Bubble Bear Nug" (https://sketchfab.com/3d-models/bubble-bear-nug-744527db35624d0a9fa851ef4df4947a) by jin (https://sketchfab.com/madjin) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 
 ## License
 
