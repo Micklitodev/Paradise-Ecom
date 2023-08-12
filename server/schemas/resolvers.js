@@ -29,7 +29,7 @@ const stripe = require("stripe")(stripeapi);
 const client = new EasyPostClient(api);
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const carrier = "USPS";
-const buisnessContact = 'www.michaelvrms@gmail.com'
+const buisnessContact = "michaelvrms@gmail.com";
 
 let shipObj;
 
@@ -766,15 +766,15 @@ const resolvers = {
           subject: `A customer has completed a purchase.`,
           html: `
             <p style="text-align: center; font-size: 24px;">
-             Order has been successfully placed! 
+             Order has been successfully placed!
             </p>
             <br>
-            <div style="text-align: center; font-size: 16px;"> 
-              <p> User: ${firstName} ${lastName} </p> 
-              <p> Shipping: ${address} </p> 
+            <div style="text-align: center; font-size: 16px;">
+              <p> User: ${firstName} ${lastName} </p>
+              <p> Shipping: ${address} </p>
               <a href=${tracking}>Track Shipment</a>
-              <p> Total: $ ${total / 100} </p> 
-            </div> 
+              <p> Total: $ ${total / 100} </p>
+            </div>
         `,
         });
         console.log(" Order Message sent");

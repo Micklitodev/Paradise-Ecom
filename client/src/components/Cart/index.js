@@ -21,13 +21,6 @@ const Cart = (props) => {
   const [pointValue, setPointValue] = useState(0);
   const [checkLoad, setCheckLoad] = useState(false);
 
-  const [shippingAddress, setShippingAddress] = useState({
-    street: "",
-    city: "",
-    state: "",
-    zip: "",
-  });
-
   const [addShipInfo] = useMutation(ADD_SHIP_INFO);
   const [getCheckout, { data, error }] = useLazyQuery(QUERY_CHECKOUT);
   const { loading, data: data2, refetch: refetchUser } = useQuery(QUERY_USER);
@@ -59,11 +52,6 @@ const Cart = (props) => {
   if (displayForm) {
     user = "";
   }
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setShippingAddress({ ...shippingAddress, [name]: value });
-  };
 
   useEffect(() => {
     if (data) {
@@ -159,35 +147,6 @@ const Cart = (props) => {
     upShipBtn.style.cssText = "display: none";
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (shippingAddress.street) {
-      try {
-        await addShipInfo({
-          variables: {
-            street: shippingAddress.street,
-            city: shippingAddress.city,
-            state: shippingAddress.state,
-            zip: parseInt(shippingAddress.zip),
-          },
-        });
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setShippingAddress({
-          street: "",
-          city: "",
-          state: "",
-          zip: "",
-        });
-        setDisplayForm(false);
-        refetchUser().then(() => {
-          refetchShip();
-        });
-      }
-    }
-  };
-
   const handlePointInput = (event) => {
     const inputValue = parseInt(event.target.value);
     const maxAllowed = parseInt(user.points);
@@ -215,6 +174,52 @@ const Cart = (props) => {
   };
 
   const RenderAddress = () => {
+    const [shippingAddress, setShippingAddress] = useState({
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+    });
+
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setShippingAddress({ ...shippingAddress, [name]: value });
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent the default Enter key behavior
+      }
+    };
+
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      if (shippingAddress.street) {
+        try {
+          await addShipInfo({
+            variables: {
+              street: shippingAddress.street,
+              city: shippingAddress.city,
+              state: shippingAddress.state,
+              zip: parseInt(shippingAddress.zip),
+            },
+          });
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setShippingAddress({
+            street: "",
+            city: "",
+            state: "",
+            zip: "",
+          });
+          setDisplayForm(false);
+          refetchUser().then(() => {
+            refetchShip();
+          });
+        }
+      }
+    };
     return (
       <>
         {Auth.loggedIn() && Auth.isVerified() ? (
@@ -264,7 +269,7 @@ const Cart = (props) => {
                   ) : null}
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="container">
+                <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="container">
                   <input
                     className="formInput"
                     label="street"
