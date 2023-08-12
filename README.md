@@ -18,7 +18,7 @@ React.js, Tailwind, Apollo, Graphql, Stripe, Three.js, JWT, Mongoose, Express, M
 
 ## Link
 
-[Click Here](notyet) to go to the repo link.
+[Click Here](https://paradisehemp-b6e5d1e70499.herokuapp.com/) to go to the repo link.
 
 ## Screenshot
 
