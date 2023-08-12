@@ -13,7 +13,7 @@ React.js, Tailwind, Apollo, Graphql, Stripe, Three.js, JWT, Mongoose, Express, M
 - [ Contributions ](#contributions)
 - [ Tests ](#tests)
 - [ Questions ](#questions)
-- [ Credits ] (#credits)
+- [ Credits ](#credits)
 - [ License ](#license)
 
 ## Link
