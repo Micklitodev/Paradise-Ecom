@@ -40,7 +40,7 @@ const SearchBar = () => {
           width: 300,
           borderRadius: 50,
           border: "solid 1px white",
-          backgroundColor: "rgb(244, 244, 244)",
+          backgroundColor: "rgb(254, 254, 254)",
           opacity: ".9",
           textAlign: "center",
           color: "grey",

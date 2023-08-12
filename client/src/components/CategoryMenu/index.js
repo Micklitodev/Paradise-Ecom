@@ -50,7 +50,7 @@ function CategoryMenu() {
         {categories.map((item) => (
           <div
             key={item._id}
-            className="flex flex-col items-center rounded-md borderwrap bg-black bg-opacity-40"
+            className="flex flex-col items-center rounded-md borderwrap bg-black bg-opacity-30"
             style={{}}
           >
             <Link

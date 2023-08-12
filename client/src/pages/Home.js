@@ -44,17 +44,13 @@ const Home = () => {
         <Nav />
         <div
           style={{
-            width: "100vw",
-            borderRadius: 0,
-            maxHeight: "100vh",
-            opacity: 0.8,
+            opacity: 0.999,
           }}
         >
           <Overlay>
             <ThreeHeader />
           </Overlay>
         </div>
-
         <div>
           <div id="recentlyadded" className="mb-20 mt-20">
             <RecentlyAdded />

@@ -49,7 +49,7 @@ const ThreeHeader = () => {
       "./weed/scene.gltf",
       (gltf) => {
         bud = gltf.scene;
-        bud.position.set(65, 30, -20);
+        bud.position.set(65, 30, -25);
         bud.scale.set(1, 1, 1);
         scene.add(bud);
 
@@ -136,12 +136,12 @@ const ThreeHeader = () => {
           <div style={{ height: "100vh", width: "100vw" }}>
             <br /> <br /> <br />
             <h2 className="text-center mt-40"> Warming Up </h2>
-            <img className="center mt-52 ml-10" src={spinner} alt="loading" />
+            {/* <img className="center mt-52 ml-10" src={spinner} alt="loading" /> */}
           </div>
         </>
       ) : (
         <>
-          <div className="container2 mr-2">
+          <div className="container2">
             <h1 style={{ position: "absolute", top: "19%" }}>
               Paradise Hemp Dispensary
             </h1>
@@ -152,7 +152,7 @@ const ThreeHeader = () => {
                 color: "white",
                 top: 260,
                 fontWeight: 900,
-                fontSize: 17,
+                fontSize: 18,
                 textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
                 borderRadius: 5,
                 maxWidth: "55%",
