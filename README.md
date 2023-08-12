@@ -18,11 +18,11 @@ React.js, Tailwind, Apollo, Graphql, Stripe, Three.js, JWT, Mongoose, Express, M
 
 ## Link
 
-[Click Here](https://paradisehemp-b6e5d1e70499.herokuapp.com/home) to go to the repo link.
+[Click Here](notyet) to go to the repo link.
 
 ## Screenshot
 
-![image](../images/paradisess.png)
+![image](./client/public/paradisess.png)
 
 ## Installation
 
