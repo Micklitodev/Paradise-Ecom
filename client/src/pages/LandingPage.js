@@ -14,7 +14,7 @@ const LandingPage = () => {
         style={{
           height: "100vh",
           width: "100vw",
-          backgroundColor: "rgba(10, 10, 10, 0.97)",
+          filter: displayModal ? "blur(20px)" : "none"
         }}
       >
         <div className="container2">
@@ -23,7 +23,7 @@ const LandingPage = () => {
           </h1>
           <button
             onClick={handleClick}
-            className="bg-green-500 bg-opacity-80 text-white mb-30 w-40 h-20"
+            className="bg-red-500 bg-opacity-50 text-white mb-30 w-40 h-20"
           >
             Enter Site
           </button>
@@ -32,8 +32,9 @@ const LandingPage = () => {
             All rights reserved to @Paradise Hemp Dispensary
           </em>
         </div>
+        </div>
+
         {displayModal && <Modal displayModal={setDisplayModal} />}
-      </div>
     </>
   );
 };

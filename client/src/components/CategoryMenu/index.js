@@ -43,14 +43,14 @@ function CategoryMenu() {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container">
       <h3 className="text-center text-uppercase">Categories</h3>
       <br />
-      <div className="grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+      <div className="box-shadow-custom mr-10 bg-white bg-opacity-10 rounded-md grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
         {categories.map((item) => (
           <div
             key={item._id}
-            className="flex flex-col items-center rounded-md borderwrap bg-black bg-opacity-30"
+            className="flex flex-col items-center rounded-md "
             style={{}}
           >
             <Link

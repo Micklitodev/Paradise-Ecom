@@ -66,7 +66,17 @@ function ProductList(props) {
       ) : (
         <h3>You haven't added any products yet!</h3>
       )}
-      {loading ? <img src={spinner} alt="loading" /> : null}
+      {loading ? (
+        <div className="text-center mt-40">
+          {" "}
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>{" "}
+        </div>
+      ) : null}
     </div>
   );
 }

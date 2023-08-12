@@ -41,9 +41,9 @@ const Modal = (props) => {
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "rgba(10, 10, 10, 0.98)",
+                backgroundColor: "rgba(250, 250, 250, 0.1)",
                 color: "white",
-                boxShadow: "0 0 1rem rgba(220, 220, 220, 0.5)",
+                boxShadow: "0 0 1rem rgba(220, 220, 220, 0.3)",
               }}
             >
               <div
@@ -52,7 +52,7 @@ const Modal = (props) => {
                   alignItems: "start",
                   justifyContent: "between",
                   padding: "1.25rem",
-                  borderBottom: "1px solid rgba(156, 163, 175, 0.5)",
+                  borderBottom: "1px solid rgba(246, 246, 246, 0.5)",
                   borderRadius: "t-lg",
                 }}
               >
@@ -79,7 +79,7 @@ const Modal = (props) => {
                   <span
                     style={{
                       backgroundColor: "transparent",
-                      color: "black",
+                      color: "white",
                       opacity: "0.5",
                       height: "1.5rem",
                       width: "1.5rem",
@@ -120,8 +120,9 @@ const Modal = (props) => {
                   alignItems: "center",
                   justifyContent: "end",
                   padding: "1.5rem",
-                  borderTop: "1px solid rgba(156, 163, 175, 0.5)",
+                  borderTop: "1px solid rgba(246, 246, 246, 0.5)",
                   borderRadius: "b-lg",
+            
                 }}
               >
                 <h4 style={{ marginRight: "60px" }}>
@@ -136,6 +137,7 @@ const Modal = (props) => {
                     padding: "0.75rem 1.5rem",
                     fontSize: "0.875rem",
                     outline: "none",
+                    opacity: 0.7,
                     focus: "outline-none",
                     marginRight: "0.25rem",
                     marginBottom: "0.25rem",
@@ -160,7 +162,7 @@ const Modal = (props) => {
                   }}
                   type="button"
                   onClick={handleAgree}
-                  className="bg-green-500 bg-opacity-80 text-white h-15"
+                  className="bg-red-500 bg-opacity-50 text-white h-15"
                 >
                   Agree
                 </button>

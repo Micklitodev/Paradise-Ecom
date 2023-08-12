@@ -65,7 +65,7 @@ function Success() {
             <Jumbotron>
               <h1 className="mt-20">Success!</h1>
               <br />
-              <div className="borderwrap container px-20 py-20 bg-black bg-opacity-40">
+              <div className="borderwrap container px-20 py-20 bg-white bg-opacity-10">
                 <h2 className="mb-20">
                   Thank You for your purchase with Paradise Hemp Dispensary
                 </h2>

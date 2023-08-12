@@ -104,7 +104,7 @@ const ResetLink = () => {
               <>
                 {!submitted ? (
                   <div
-                    className="container bg-black bg-opacity-40 borderwrap"
+                    className="container bg-white bg-opacity-10 borderwrap"
                     style={{ minHeight: "60vh" }}
                   >
                     <h2 className="text-2xl font-semibold">Reset Password</h2>
@@ -137,7 +137,7 @@ const ResetLink = () => {
                         <button
                           type="submit"
                           disabled={!formState.email}
-                          className="bg-green-400 bg-opacity-80 text-black"
+                          className="bg-red-400 bg-opacity-80 text-white"
                         >
                           Submit
                         </button>
@@ -150,7 +150,7 @@ const ResetLink = () => {
                   </div>
                 ) : (
                   <div
-                    className="container bg-black bg-opacity-40 borderwrap"
+                    className="container bg-white bg-opacity-10 borderwrap"
                     style={{ minHeight: "60vh" }}
                   >
                     <h2 className="text-2xl font-semibold">Reset Password</h2>
@@ -162,7 +162,7 @@ const ResetLink = () => {
                       email, the email did not relate to an account.{" "}
                       <Link
                         to="/login"
-                        className="text-green-500 hover:underline"
+                        className="text-red-500 hover:underline"
                       >
                         Try again!
                       </Link>{" "}
@@ -206,7 +206,7 @@ const ResetLink = () => {
                         <button
                           type="submit"
                           disabled={!codeInput.securityCode}
-                          className="bg-green-400 bg-opacity-80 text-black"
+                          className="bg-red-400 bg-opacity-80 text-black"
                         >
                           Submit
                         </button>

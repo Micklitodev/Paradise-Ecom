@@ -36,7 +36,7 @@ const OrderMap = (props) => {
           {ordersWithConsolidatedProducts.map((order) => (
             <div
               key={order._id}
-              className="container bg-black bg-opacity-40 borderwrap py-2"
+              className="container bg-white bg-opacity-10 borderwrap py-2"
             >
               <hr />
               <h3>
@@ -48,7 +48,7 @@ const OrderMap = (props) => {
                 href={order.tracking}
                 target="_blank"
                 rel="noreferrer"
-                className="text-green-500 hover:underline"
+                className="text-red-500 hover:underline"
               >
                 Track Shipment
               </a>

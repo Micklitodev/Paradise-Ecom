@@ -173,6 +173,29 @@ const Cart = (props) => {
     setPointValue(inputValue);
   };
 
+
+  if (!state.cartOpen) {
+    return (
+      <div id="shoppingCart" className="cart-closed" onClick={toggleCart}>
+        <CiShoppingCart
+          size={23}
+          style={{ marginLeft: 7, marginTop: 6, color: "white" }}
+        />
+        <p
+          style={{
+            textAlign: "center",
+            position: "relative",
+            top: 0,
+            fontSize: 10,
+            color: "white",
+          }}
+        >
+          Cart
+        </p>
+      </div>
+    );
+  }
+
   const RenderAddress = () => {
     const [shippingAddress, setShippingAddress] = useState({
       street: "",
@@ -229,11 +252,11 @@ const Cart = (props) => {
               Shipping Address:
               {user?.street ? (
                 <div>
-                  <p style={{ color: "#6499A4" }}>
+                  <p className="text-white">
                     {user.street} <br /> {user.city}, {user.state} {user.zip}
                   </p>
                   <button
-                    className="upShip text-green-300 opacity-80"
+                    className="upShip text-red-500 opacity-80"
                     onClick={toggleForm}
                   >
                     Update Shipping Address{" "}
@@ -246,7 +269,7 @@ const Cart = (props) => {
                     <>
                       <hr style={{ width: "118%", marginLeft: "-9%" }} />
                       Point Balance:
-                      <p style={{ color: "#6499A4" }}> {user.points} points </p>
+                      <p className="text-white"> {user.points} points </p>
                       Use{" "}
                       <input
                         style={{
@@ -367,7 +390,7 @@ const Cart = (props) => {
                     Close
                   </button>
                   <button
-                    className="text-green-300 opacity-80"
+                    className="text-red-500 opacity-80"
                     disabled={
                       !shippingAddress.street ||
                       !shippingAddress.city ||
@@ -389,28 +412,6 @@ const Cart = (props) => {
       </>
     );
   };
-
-  if (!state.cartOpen) {
-    return (
-      <div id="shoppingCart" className="cart-closed" onClick={toggleCart}>
-        <CiShoppingCart
-          size={23}
-          style={{ marginLeft: 7, marginTop: 6, color: "white" }}
-        />
-        <p
-          style={{
-            textAlign: "center",
-            position: "relative",
-            top: 0,
-            fontSize: 10,
-            color: "white",
-          }}
-        >
-          Cart
-        </p>
-      </div>
-    );
-  }
 
   const RenderPrices = () => {
     return (
@@ -438,14 +439,14 @@ const Cart = (props) => {
               <>
                 <div>
                   <p> Loading Cart </p>
-                  <img src={spinner} alt="load spin" />
+                  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                 </div>
               </>
             ) : (
               <>
                 {" "}
                 <button
-                  className="bg-green-300 bg-opacity-70 text-black h-15 mt-2"
+                  className="bg-red-400 bg-opacity-70 text-white h-15 mt-2"
                   onClick={submitCheckout}
                 >
                   Checkout
@@ -454,7 +455,7 @@ const Cart = (props) => {
             )}
           </>
         ) : (
-          <a href="/login"> (log in to check out) </a>
+          <a className='text-white' href="/login"> (log in to check out) </a>
         )}
       </div>
     );

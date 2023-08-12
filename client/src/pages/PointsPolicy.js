@@ -9,7 +9,7 @@ const PointsPolicy = () => {
       <Nav />
       <h1 className="text-center mt-20"> POINTS POLICY </h1>
       <div
-        className="container borderwrap bg-black bg-opacity-40 px-2 py-2 mb-20 "
+        className="container borderwrap bg-white bg-opacity-10 px-2 py-2 mb-20 "
         style={{ width: "60%" }}
       >
         <h3>Points Accumulation and Redemption: </h3>

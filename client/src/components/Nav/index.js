@@ -32,7 +32,10 @@ const Nav = () => {
         <header className="w-full h-14 drop-shadow-md">
           <div
             className="flex items-center justify-between w-full h-full px-2"
-            style={{ boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)", backgroundColor: 'rgba(5, 5, 5, 0.15)'}}
+            style={{
+              boxShadow: "0 0 1rem rgba(5,5, 5, 0.2)",
+              backgroundColor: "rgba(5, 5, 5, 0.09)",
+            }}
           >
             {/* site name container */}
             <Link
@@ -191,7 +194,7 @@ const Nav = () => {
             className={
               !nav
                 ? "hidden"
-                : "absolute bg-black w-full px-8 pb-4 md:hidden space-y-2 text-right"
+                : "absolute bg-yellow-600 bg-opacity-40 opacity-90 w-full px-8 pb-4 md:hidden space-y-2 text-right"
             }
           >
             <li>

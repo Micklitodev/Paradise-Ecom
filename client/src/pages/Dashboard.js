@@ -48,6 +48,7 @@ const Dashboard = () => {
         </>
       )}
       <Cart /> 
+      <br /> 
       <Footer />
     </>
   );

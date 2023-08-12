@@ -40,7 +40,7 @@ function Login(props) {
       <Nav />
       <div className="mt-40 mb-40">
         <div
-          className="container bg-black bg-opacity-40 borderwrap"
+          className="container bg-white bg-opacity-10 borderwrap"
           style={{ minHeight: "60vh" }}
         >
           <h2 className="text-2xl font-semibold">Login</h2>
@@ -85,7 +85,7 @@ function Login(props) {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-green-400 bg-opacity-80 text-black"
+                className="bg-red-400 bg-opacity-80 text-white"
               >
                 Submit
               </button>
@@ -93,14 +93,14 @@ function Login(props) {
             <div>
               <br />
               <em style={{ fontSize: 13 }}>
-                <Link to="/signup" className="text-gray-300">
+                <Link to="/signup" className="text-gray-200">
                   Don't have an account?
                 </Link>
               </em>
               <br />
               <br />
               <em style={{ fontSize: 13 }}>
-                <Link to="/resetlink" className="text-gray-300">
+                <Link to="/resetlink" className="text-gray-200">
                   Forgot username or password?
                 </Link>
               </em>

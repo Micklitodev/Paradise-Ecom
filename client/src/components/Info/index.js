@@ -4,7 +4,7 @@ const Info = () => {
     <>
       <div className="container mx-auto">
         <h3 className="text-center text-uppercase py-2">Promotions</h3>
-        <div className="container bg-black bg-opacity-40 borderwrap">
+        <div className="container  bg-white bg-opacity-10 borderwrap">
           <h4 className="px-2 py-2"> Earn Points on Your Purchase: </h4>
           <p
             className="text-center "
@@ -32,7 +32,7 @@ const Info = () => {
           <br />
           <p className="py-2 px-2">
             For more info visit our points policy by clicking
-            <Link style={{ color: "#6499A4" }} to="/pointspolicy">
+            <Link className="text-red-500 opacity-80" to="/pointspolicy">
               {" "}
               Here
             </Link>

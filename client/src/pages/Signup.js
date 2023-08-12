@@ -42,7 +42,7 @@ const Signup = () => {
       <Nav />
       <div className="mt-24 mb-40">
         <div
-          className="container bg-black bg-opacity-40 borderwrap"
+          className="container bg-white bg-opacity-10 borderwrap"
           style={{ minHeight: "60vh" }}
         >
           <br />
@@ -112,7 +112,7 @@ const Signup = () => {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-green-400 bg-opacity-80 text-black"
+                className="bg-red-400 bg-opacity-80 text-white"
               >
                 Submit
               </button>
@@ -120,7 +120,7 @@ const Signup = () => {
             <div>
               <br />
               <em style={{ fontSize: 13 }}>
-                <Link to="/login" className="text-gray-300">
+                <Link to="/login" className="text-gray-200">
                   Already have an account?
                 </Link>
               </em>

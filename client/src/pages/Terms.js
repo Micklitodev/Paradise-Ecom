@@ -9,7 +9,7 @@ const Terms = () => {
       <Nav />
       <h1 className="text-center mt-20 mb-20"> TERMS OF USE </h1>
       <div
-        className="container borderwrap px-2 py-2 bg-black bg-opacity-40"
+        className="container borderwrap px-2 py-2 bg-white bg-opacity-10"
         style={{ width: "60%" }}
       >
         <h3> WARNING: </h3>

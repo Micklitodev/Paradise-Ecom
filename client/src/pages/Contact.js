@@ -72,7 +72,7 @@ const Contact = () => {
           ) : (
             <>
               <div className="mt-20">
-                <div className="borderwrap bg-black bg-opacity-40 container ">
+                <div className="borderwrap bg-white bg-opacity-10 container ">
                   <h3 className="text-2xl font-semibold">Contact Us</h3>
                   <br />
 
@@ -131,7 +131,7 @@ const Contact = () => {
                         disabled={
                           !formData.name || !formData.email || !formData.message
                         }
-                        className=" bg-green-400 bg-opacity-80 text-black py-1 w-40"
+                        className=" bg-red-400 bg-opacity-80 text-black py-1 w-40"
                         type="submit"
                       >
                         Submit

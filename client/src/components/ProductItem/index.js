@@ -117,10 +117,10 @@ function ProductItem(item) {
   } else {
     return (
       <>
-        <div className="card px-2 mx-1 py-1 borderwrap bg-black bg-opacity-40">
+        <div className="card px-10 mx-1 py-1 borderwrap bg-white bg-opacity-10">
           <Link to={`/products/${_id}`}>
             <img
-              style={{ height: 220, width: 260 }}
+              style={{ height: 220, width: 280 }}
               alt={name}
               src={`${image}`}
             />
@@ -133,7 +133,7 @@ function ProductItem(item) {
             <span>${price}</span>
           </div>
           <button
-            className="bg-green-300 bg-opacity-50 text-black h-15 mt-2"
+            className="bg-red-500 bg-opacity-40 text-white h-15 mt-2"
             onClick={addToCart}
           >
             Add to cart

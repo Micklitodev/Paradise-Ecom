@@ -12,7 +12,7 @@ const Checkout = () => {
       <br />
       <br />
       <br />
-      <div className="container borderwrap bg-black bg-opacity-40 px-4 py-4 mb-20">
+      <div className="container borderwrap bg-white bg-opacity-10 px-4 py-4 mb-20">
         <Cart CheckoutPage={true} />{" "}
       </div>
       <Footer />

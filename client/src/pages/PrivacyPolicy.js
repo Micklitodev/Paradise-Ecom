@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       <Nav />
       <h1 className="mt-20 text-center"> PRIVACY POLICY </h1>
       <div
-        className="container borderwrap bg-black bg-opacity-40 px-2 py-2"
+        className="container borderwrap bg-white bg-opacity-10 px-2 py-2"
         style={{ width: "65%" }}
       >
         <h3>PRIVACY POLICY</h3>

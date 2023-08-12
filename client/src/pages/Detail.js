@@ -12,7 +12,6 @@ import {
 } from "../utils/actions";
 import { QUERY_PRODUCTS } from "../utils/queries";
 import { idbPromise } from "../utils/helpers";
-import spinner from "../assets/spinner.gif";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
@@ -73,15 +72,6 @@ function Detail() {
     }
   };
 
-  const removeFromCart = () => {
-    dispatch({
-      type: REMOVE_FROM_CART,
-      _id: currentProduct._id,
-    });
-
-    idbPromise("cart", "delete", { ...currentProduct });
-  };
-
   return (
     <>
       <Nav />
@@ -92,7 +82,7 @@ function Detail() {
             ← Back to Products
           </Link>
 
-          <div className="bg-black mt-2 rounded-md bg-opacity-40 py-1 px-10">
+          <div className="bg-white box-shadow-custom mt-2 rounded-md bg-opacity-10 py-1 px-10">
             <h2 className="text-2xl font-bold my-4">{currentProduct.name}</h2>
 
             <p>{currentProduct.description}</p>
@@ -100,17 +90,10 @@ function Detail() {
             <p className="text-lg font-bold mt-4">
               <strong>Price:</strong> ${currentProduct.price}{" "}
               <button
-                className="bg-green-400 bg-opacity-80 h-15 mt-2"
+                className="bg-red-400 bg-opacity-70 h-15 mt-2"
                 onClick={addToCart}
               >
                 Add to Cart
-              </button>
-              <button
-                disabled={!cart.find((p) => p._id === currentProduct._id)}
-                onClick={removeFromCart}
-                className="bg-red-400 bg-opacity-80 h-15 mt-2"
-              >
-                Remove from Cart
               </button>
             </p>
 
@@ -123,7 +106,9 @@ function Detail() {
         </div>
       ) : null}
       {loading ? (
-        <img src={spinner} alt="loading" className="mx-auto my-8" />
+        <div className="text-center mt-40"> 
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
       ) : null}
       <Cart />
       <br />

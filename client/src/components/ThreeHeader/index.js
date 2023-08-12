@@ -69,7 +69,7 @@ const ThreeHeader = () => {
     // check window width and update position
     function checkWindowWidth() {
       if (window.innerWidth <= 770 && bud !== "") {
-        bud.position.set(0, 30, -5);
+               bud.position.set(0, -0.7, 48.8);
       }
     }
 
@@ -136,8 +136,9 @@ const ThreeHeader = () => {
         <>
           <div style={{ height: "100vh", width: "100vw" }}>
             <br /> <br /> <br />
-            <h2 className="text-center mt-40"> Warming Up </h2>
-            {/* <img className="center mt-52 ml-10" src={spinner} alt="loading" /> */}
+            <h2 className="text-center mt-40"> Warming Up! </h2>
+            <div className="text-center mt-46"> <div class="lds-ring"><div></div><div></div><div></div><div></div></div> </div>
+           
           </div>
         </>
       ) : (
