@@ -16,41 +16,43 @@ const ManageProducts = () => {
     return (
       <>
         <Nav />
-        <h2
-          className="mt-20"
-          style={{
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          {" "}
-          Manage Products{" "}
-        </h2>
-        <div
-          className="borderwrap bg-black bg-opacity-40 container p-4"
-          style={{ maxWidth: "1020px" }}
-        >
-          <h3 className="text-2xl font-bold"> Update / Delete Product</h3>
-          <br />
-          <SearchBar />
-          <div className="mt-20">
-            <h3 className="text-2xl font-bold mb-4"> Add Product </h3>
-            <button
-              onClick={() => {
-                setDisplayModal(true);
-                console.log(displayModal);
-              }}
-              className="bg-green-400 ml-4 px-2 py-2 bg-opacity-80 text-black "
-            >
-              Add Product
-            </button>
+        <div>
+          <h2
+            className="mt-20"
+            style={{
+              display: "grid",
+              placeItems: "center",
+            }}
+          >
+            {" "}
+            Manage Products{" "}
+          </h2>
+          <div
+            className="borderwrap bg-white bg-opacity-10 container p-4"
+            style={{ maxWidth: "1020px" }}
+          >
+            <h3 className="text-2xl font-bold"> Update / Delete Product</h3>
+            <br />
+            <SearchBar />
+            <div className="mt-20">
+              <h3 className="text-2xl font-bold mb-4"> Add Product </h3>
+              <button
+                onClick={() => {
+                  setDisplayModal(true);
+                  console.log(displayModal);
+                }}
+                className="bg-red-400 ml-4 px-2 py-2 bg-opacity-80 text-white "
+              >
+                Add Product
+              </button>
+            </div>
           </div>
-          {displayModal ? (
-            <>
-              <AdminProdAdd displayModal={setDisplayModal} />
-            </>
-          ) : null}
         </div>
+        {displayModal ? (
+          <>
+            <AdminProdAdd displayModal={setDisplayModal} />
+          </>
+        ) : null}
       </>
     );
   } else {

@@ -523,17 +523,17 @@ const resolvers = {
 
           // delete tempkey token so endpoint cannot be hit again
 
-          await TempKey.deleteOne({ _id: tempToken._id });
-
           await resolvers.Mutation.sendOrderEmail(
             parent,
-            { firstName, lastName, address, total, tracking },
+            { firstName, lastName, address, total, tracking, tempProducts },
             context
           );
 
           return order;
         } catch (err) {
           throw new Error("Failed to Save Order, Contact Support.");
+        } finally {
+          await TempKey.deleteOne({ _id: tempToken._id });
         }
       }
 
@@ -729,7 +729,7 @@ const resolvers = {
     },
     sendOrderEmail: async (
       parent,
-      { firstName, lastName, address, total, tracking },
+      { firstName, lastName, address, total, tracking, tempProducts },
       context
     ) => {
       try {
@@ -747,16 +747,95 @@ const resolvers = {
           to: `${context.user.email}`,
           subject: `Thank You for shopping with Paradise.`,
           html: `
-            <p style="text-align: center; font-size: 24px;">
-             Your order has been successfully placed! 
-            </p>
-            <br>
-            <div style="text-align: center; font-size: 16px;"> 
-              <p> User: ${firstName} ${lastName} </p> 
-              <p> Shipping: ${address} </p> 
-              <a href=${tracking}>Track Shipment</a>
-              <p> Total: $ ${total / 100} </p> 
-            </div> 
+          <html>
+          <head>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                background-color: #f5f5f5;
+              }
+              h1 {
+                color: #333;
+              }
+              p {
+                font-size: 16px;
+                line-height: 1.5;
+                color: #555;
+              }
+              img {
+                width: 200px;
+                height: 180px;
+                border-radius: 5px;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+              }
+              th, td {
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+              }
+              th {
+                background-color: #f9f9f9;
+              }
+              .footer {
+                margin-top: 20px;
+                text-align: center;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>Order Confirmation</h1>
+              <p>Dear ${firstName} ${lastName},</p>
+              <p>Thank you for your order. We are excited to process your order and send it to you as soon as possible.</p>
+              <h2>Order Details</h2>
+              <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tempProducts
+                  .map(
+                    (product) => `
+                  <tr>
+                    <td>${product.name}</td>
+                    <td><img src='${product.image}' alt=''/> </td>
+                    <td>$${product.price}</td>
+                  </tr>
+                `
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+
+              <p><strong>Total:</strong> $ ${total / 100}</p>
+              <p>If you have any questions or concerns, please feel free to contact our customer support team at [Customer Support Email].</p>
+              <div class="footer">
+                <p>Thank you for shopping with us!</p>
+                <p> Paradise Hemp Dispensary </p>
+                <p> 122 test email </p>
+                <p>Contact: (222) 222 - 2222 | Email: test@test.com </p>
+              </div>
+            </div>
+          </body>
+          </html>
         `,
         });
 
@@ -765,16 +844,12 @@ const resolvers = {
           to: `${buisnessContact}`,
           subject: `A customer has completed a purchase.`,
           html: `
+          <div>
             <p style="text-align: center; font-size: 24px;">
-             Order has been successfully placed!
+              A new order has been placed, Please view details in Admin Portal. 
             </p>
             <br>
-            <div style="text-align: center; font-size: 16px;">
-              <p> User: ${firstName} ${lastName} </p>
-              <p> Shipping: ${address} </p>
-              <a href=${tracking}>Track Shipment</a>
-              <p> Total: $ ${total / 100} </p>
-            </div>
+          </div>
         `,
         });
         console.log(" Order Message sent");
@@ -869,6 +944,12 @@ const resolvers = {
             <br>
             <div style="text-align: center; font-size: 48px; border: 1px solid #ccc; padding: 10px;">
               ${randInt}
+            </div>
+            <br /> 
+            <div> 
+              <p> Paradise Hemp Dispensary </p>
+              <p> 122 test email </p>
+              <p>Contact: (222) 222 - 2222 | Email: test@test.com </p>
             </div>
        
         `,

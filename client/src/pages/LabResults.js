@@ -7,7 +7,7 @@ const LabResultCOA = () => {
   return (
     <>
       <Nav />
-      <div className="container mb-40 mt-20" style={{ width: "60%" }}>
+      <div className="container mb-60 mt-20" style={{ width: "60%" }}>
         <h1 className="text-center mb-20"> LAB RESULTS / COA </h1>
         <div className="container borderwrap bg-white bg-opacity-10 py-28">
           <p>

@@ -77,7 +77,7 @@ const VerifUsers = () => {
           </div>
         ) : null}
 
-        <div className="borderwrap bg-black bg-opacity-40 container mx-auto">
+        <div className="borderwrap bg-white bg-opacity-10 container mx-auto">
           {!filteredUser?.length ? (
             <>
               <div className="mt-20" style={{ height: "20vh" }}>

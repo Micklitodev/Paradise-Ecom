@@ -135,6 +135,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
             zIndex: "50",
             outline: "none",
             focus: "outline-none",
+            backdropFilter: displayModal ? "blur(20px)" : "none",
           }}
         >
           <div style={{ width: "auto", margin: "6rem auto", maxWidth: 750 }}>
@@ -147,10 +148,10 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                 display: "flex",
                 flexDirection: "column",
                 width: "full",
-                backgroundColor: "var(--custom-modal)",
-                opacity: 0.99,
+                backgroundColor: "rgba(255,255,255, .1)",
                 outline: "none",
                 focus: "outline-none",
+                boxShadow: "0 0 1rem rgba(220, 220, 220, 0.3)",
               }}
             >
               <div
@@ -159,7 +160,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                   alignItems: "start",
                   justifyContent: "between",
                   padding: "1.25rem",
-                  borderBottom: "1px solid rgba(156, 163, 175, 0.5)",
+                  borderBottom: "1px solid rgba(246, 246, 246, 0.5)",
                   borderRadius: "t-lg",
                 }}
               >
@@ -314,7 +315,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                       <button
                         type="button"
                         onClick={handleImageUploadClick}
-                        className="py-1 bg-blue-400 bg-opacity-80 text-white rounded hover:bg-blue-500"
+                        className="py-1 bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 text-white rounded hover:bg-blue-500"
                       >
                         Upload Image
                       </button>
@@ -347,7 +348,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                         !formData.description
                       }
                       type="submit"
-                      className={`py-2 bg-green-400 bg-opacity-80 text-white rounded`}
+                      className={`py-2 bg-yellow-400 bg-opacity-80 text-white rounded`}
                     >
                       {action === "update" ? "Update Product" : "Add Product"}
                     </button>
@@ -360,7 +361,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                   alignItems: "center",
                   justifyContent: "end",
                   padding: "1.5rem",
-                  borderTop: "1px solid rgba(156, 163, 175, 0.5)",
+                  borderTop: "1px solid rgba(246, 246, 246, 0.5)",
                   borderRadius: "b-lg",
                 }}
               >
@@ -378,7 +379,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                   }}
                   type="button"
                   onClick={() => displayModal(false)}
-                  className="bg-red-400 text-black"
+                  className="bg-red-500 opacity-70 text-white"
                 >
                   Close
                 </button>

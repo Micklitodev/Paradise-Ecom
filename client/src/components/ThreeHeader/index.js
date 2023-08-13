@@ -69,7 +69,7 @@ const ThreeHeader = () => {
     // check window width and update position
     function checkWindowWidth() {
       if (window.innerWidth <= 770 && bud !== "") {
-               bud.position.set(0, -0.7, 48.8);
+        bud.position.set(0, -0.7, 48.1);
       }
     }
 
@@ -137,8 +137,15 @@ const ThreeHeader = () => {
           <div style={{ height: "100vh", width: "100vw" }}>
             <br /> <br /> <br />
             <h2 className="text-center mt-40"> Warming Up! </h2>
-            <div className="text-center mt-46"> <div class="lds-ring"><div></div><div></div><div></div><div></div></div> </div>
-           
+            <div className="text-center mt-46">
+              {" "}
+              <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>{" "}
+            </div>
           </div>
         </>
       ) : (
@@ -148,18 +155,19 @@ const ThreeHeader = () => {
               Paradise Hemp Dispensary
             </h1>
             <h5
-              className="about left-40 p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
+              className="about p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
               style={{
                 position: "absolute",
-
-                top: 260,
+                top: "calc(50% + 60px)", 
+                left: "120px",
                 fontWeight: 900,
-                fontSize: 17,
+                fontSize: 18,
                 borderRadius: 5,
                 maxWidth: "55%",
                 maxHeight: "340px",
                 overflow: "auto",
                 zIndex: 2,
+                transform: "translateY(-50%)", 
               }}
             >
               At Paradise Hemp Dispensary, we believe that nature holds the key

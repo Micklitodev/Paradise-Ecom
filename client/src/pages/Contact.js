@@ -149,7 +149,7 @@ const Contact = () => {
           {" "}
           <div>
             <Jumbotron>
-              <h2 className="mt-20">
+              <h2 className="mt-20 mb-40">
                 <Link className="text-green-400" to="/login">
                   Login{" "}
                 </Link>
@@ -157,6 +157,8 @@ const Contact = () => {
               </h2>
             </Jumbotron>
           </div>
+          <br />
+          <br />
         </>
       )}
       <br />

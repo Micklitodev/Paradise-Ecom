@@ -12,7 +12,7 @@ const LithiumWarn = () => {
         LITHIUM ION BATTERY WARNING:{" "}
       </h1>
       <div
-        className="container borderwrap bg-white bg-opacity-10 px-4 py-4"
+        className="container borderwrap mb-40 bg-white bg-opacity-10 px-4 py-4"
         style={{ width: "60%" }}
       >
         <h3>LITHIUM ION BATTERY WARNING:</h3>
