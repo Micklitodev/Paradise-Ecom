@@ -80,7 +80,7 @@ const VerifForm = (props) => {
     return (
       <>
         <div
-          className="container borderwrap bg-black bg-opacity-40"
+          className="container borderwrap bg-white bg-opacity-10"
           style={{ minHeight: "35vh" }}
         >
           <h2 className="text-2xl font-semibold">Verify ID</h2>
@@ -102,9 +102,9 @@ const VerifForm = (props) => {
               />
               <button
                 onClick={(e) => handleUploadButtonClick(e, "idFront")}
-                className={`py-1 bg-blue-400 ${
+                className={`py-1 bg-red-400 ${
                   formState.idFront ? "bg-opacity-40" : "bg-opacity-80"
-                } text-black`}
+                } text-white`}
                 style={{ height: 62 }}
               >
                 {formState.idFront ? "Uploaded!" : "Select ID Front"}
@@ -124,9 +124,9 @@ const VerifForm = (props) => {
               />
               <button
                 onClick={(e) => handleUploadButtonClick(e, "idBack")}
-                className={`py-1 bg-blue-400 ${
+                className={`py-1 bg-red-400 ${
                   formState.idBack ? "bg-opacity-40" : "bg-opacity-80"
-                } text-black`}
+                } text-white`}
                 style={{ height: 62 }}
               >
                 {formState.idBack ? "Uploaded!" : "Select ID Back"}
@@ -137,7 +137,7 @@ const VerifForm = (props) => {
               <button
                 type="submit"
                 disabled={!formState.idFront || !formState.idBack}
-                className="py-5 px-16 bg-green-400 bg-opacity-80 text-black"
+                className="py-5 px-16 bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 text-white"
               >
                 Submit
               </button>
@@ -153,7 +153,7 @@ const VerifForm = (props) => {
       <>
         {error ? (
           <>
-            <div style={{ maxHeight: "20vh" }}>
+            <div style={{ maxHeight: "40vh" }}>
               <Jumbotron>
                 <h2> Error </h2>
                 <h4> Failed please reload and try again. </h4>
@@ -162,7 +162,7 @@ const VerifForm = (props) => {
           </>
         ) : (
           <>
-            <div style={{ maxHeight: "20vh" }}>
+            <div style={{ maxHeight: "50vh" }}>
               <Jumbotron>
                 <h2> Submitted! </h2>
                 <h4>Please wait for review! </h4>

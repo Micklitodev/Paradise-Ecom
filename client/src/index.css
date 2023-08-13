@@ -60,7 +60,6 @@ h2 {
 
 h3 {
   font-size: 1.3rem;
-  color: white;
 }
 
 h4 {
@@ -87,7 +86,6 @@ ul {
 a {
   color: var(--tertiary);
   text-decoration: none;
-  font-weight: bold;
 }
 
 header {
@@ -187,9 +185,9 @@ form {
 .unverifiedbar {
   z-index: 1;
   margin-top: 54px;
-  background-color: var(--error);
+  background-color: rgba(249, 30, 30, 0.381);
   text-align: center;
-  color: rgb(15, 15, 15);
+  color: rgb(255, 255, 255);
   width: 100vw;
   position: fixed;
 }
@@ -197,9 +195,9 @@ form {
 .pendingreviewbar {
   z-index: 1;
   margin-top: 54px;
-  background-color: rgb(255, 231, 114);
+  background-color: rgba(247, 180, 73, 0.613);
   text-align: center;
-  color: rgb(15, 15, 15);
+  color: rgb(255, 255, 255);
   width: 100vw;
   position: fixed;
 }
@@ -311,6 +309,10 @@ textarea {
 
 .error-text {
   color: var(--error);
+}
+
+.custom-backdrop-blur {
+  backdrop-filter: blur(20px);
 }
 
 /* down arrow  */

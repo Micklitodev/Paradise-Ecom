@@ -112,7 +112,7 @@ const Signup = () => {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-red-400 bg-opacity-80 text-white"
+                className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 bg-opacity-80 text-white"
               >
                 Submit
               </button>
@@ -132,6 +132,6 @@ const Signup = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default Signup;

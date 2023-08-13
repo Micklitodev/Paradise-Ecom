@@ -122,7 +122,6 @@ const Modal = (props) => {
                   padding: "1.5rem",
                   borderTop: "1px solid rgba(246, 246, 246, 0.5)",
                   borderRadius: "b-lg",
-            
                 }}
               >
                 <h4 style={{ marginRight: "60px" }}>

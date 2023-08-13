@@ -90,7 +90,7 @@ function Detail() {
             <p className="text-lg font-bold mt-4">
               <strong>Price:</strong> ${currentProduct.price}{" "}
               <button
-                className="bg-red-400 bg-opacity-70 h-15 mt-2"
+                className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 h-15 mt-2"
                 onClick={addToCart}
               >
                 Add to Cart
@@ -106,8 +106,13 @@ function Detail() {
         </div>
       ) : null}
       {loading ? (
-        <div className="text-center mt-40"> 
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div className="text-center mt-40">
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
       ) : null}
       <Cart />

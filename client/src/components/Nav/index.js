@@ -33,8 +33,9 @@ const Nav = () => {
           <div
             className="flex items-center justify-between w-full h-full px-2"
             style={{
-              boxShadow: "0 0 1rem rgba(5,5, 5, 0.2)",
-              backgroundColor: "rgba(5, 5, 5, 0.09)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 0 1rem rgba(128, 0, 128, 0.1)",
+              backgroundColor: "rgba(128, 0, 128, 0.07)",
             }}
           >
             {/* site name container */}
@@ -194,7 +195,7 @@ const Nav = () => {
             className={
               !nav
                 ? "hidden"
-                : "absolute bg-yellow-600 bg-opacity-40 opacity-90 w-full px-8 pb-4 md:hidden space-y-2 text-right"
+                : "absolute bg-red bg-opacity-10 custom-backdrop-blur w-full px-8 pb-4 md:hidden space-y-2 text-right"
             }
           >
             <li>
@@ -266,8 +267,10 @@ const Nav = () => {
                   </Link>
                 </li>
                 <hr />
-                <li>
-                  <SearchBar />
+                <li className="h-10">
+                  <div className="absolute right-5">
+                    <SearchBar />
+                  </div>
                 </li>
               </>
             ) : null}
@@ -282,8 +285,10 @@ const Nav = () => {
                   </Link>
                 </li>
                 <hr />
-                <li>
-                  <SearchBar />
+                <li className="h-10">
+                  <div className="absolute right-5">
+                    <SearchBar />
+                  </div>
                 </li>
               </>
             ) : null}

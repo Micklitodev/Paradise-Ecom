@@ -6,12 +6,12 @@ db.once("open", async () => {
 
   const categories = await Category.insertMany([
     { name: "Edible", image: "edible.png" }, // 0
-    { name: "Flower", image: "flower.png" }, //1
-    { name: "Pens", image: "pen.png" }, //2
-    { name: "Accessories", image: "accessories.png" }, //3
-    { name: "Hookah", image: "hookah.png" }, //4
-    { name: "Glass", image: "glass.png" }, //5
-    { name: "CBD", image: "cbd.png" }, // 6
+    { name: "CBD", image: "cbd.png" }, // 1
+    { name: "Hookah", image: "hookah.png" }, //2
+    { name: "Pens", image: "pen.png" }, //3
+    { name: "Glass", image: "glass.png" }, //4
+    { name: "Accessories", image: "accessories.png" }, //5
+    { name: "Flower", image: "flower.png" }, //6
     { name: "Nootropics", image: "nootropic.png" }, //7
     { name: "Batteries", image: "batteries.png" }, //8
   ]);

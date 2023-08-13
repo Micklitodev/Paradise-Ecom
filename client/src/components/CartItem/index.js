@@ -36,14 +36,14 @@ const CartItem = ({ item }) => {
   return (
     <div className="flex-row">
       <div>
-        <img style={{maxHeight: 125}} src={`${item.image}`} alt="" />
+        <img style={{ maxHeight: 125 }} src={`${item.image}`} alt="" />
       </div>
       <div>
         <div>
           {item.name}, ${item.price}
         </div>
         <div style={{ display: "inline" }}>
-          <span>Qty:{" "}</span>
+          <span>Qty: </span>
           <input
             type="number"
             min={0}
@@ -52,7 +52,7 @@ const CartItem = ({ item }) => {
           />
         </div>
         <BiTrashAlt
-          style={{ position: "relative", top: -2, display: 'inline' }}
+          style={{ position: "relative", top: -2, display: "inline" }}
           size={22}
           onClick={() => removeFromCart(item)}
         />

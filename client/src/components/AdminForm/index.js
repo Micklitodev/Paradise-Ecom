@@ -315,7 +315,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                       <button
                         type="button"
                         onClick={handleImageUploadClick}
-                        className="py-1 bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 text-white rounded hover:bg-blue-500"
+                        className="py-1 bg-red-400 opacity-80 text-white rounded hover:bg-blue-500"
                       >
                         Upload Image
                       </button>
@@ -348,7 +348,7 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
                         !formData.description
                       }
                       type="submit"
-                      className={`py-2 bg-yellow-400 bg-opacity-80 text-white rounded`}
+                      className={`py-2 bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 text-white rounded`}
                     >
                       {action === "update" ? "Update Product" : "Add Product"}
                     </button>

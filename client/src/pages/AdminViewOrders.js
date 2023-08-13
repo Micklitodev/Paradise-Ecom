@@ -15,7 +15,16 @@ const AdminOrderView = () => {
   const { loading, data } = useQuery(ADMIN_ORDER_VIEW);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center mt-40">
+        <div className="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    );
   }
 
   if (Auth.isAdmin()) {

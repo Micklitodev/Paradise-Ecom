@@ -18,14 +18,21 @@ const NotVerifiedBar = () => {
         message = (
           <div className="unverifiedbar">
             ID images were rejected. Please re-submit. Click{" "}
-            <a href="/dashboard">here</a> to re-submit.
+            <a href="/dashboard" style={{ color: "rgba(186, 166, 255, 0.9)" }}>
+              here
+            </a>{" "}
+            to re-submit.
           </div>
         );
       } else if (!userData.isIdSubmitted) {
         message = (
           <div className="unverifiedbar">
             You must submit your ID before purchasing. Click{" "}
-            <a href="/dashboard">here</a> to verify your age.
+            <a href="/dashboard" style={{ color: "rgba(186, 166, 255, 0.9)" }}>
+              {" "}
+              here{" "}
+            </a>{" "}
+            to verify your age.
           </div>
         );
       } else {

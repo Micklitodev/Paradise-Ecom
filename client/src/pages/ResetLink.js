@@ -137,7 +137,7 @@ const ResetLink = () => {
                         <button
                           type="submit"
                           disabled={!formState.email}
-                          className="bg-red-400 bg-opacity-80 text-white"
+                          className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 text-white"
                         >
                           Submit
                         </button>
@@ -206,7 +206,7 @@ const ResetLink = () => {
                         <button
                           type="submit"
                           disabled={!codeInput.securityCode}
-                          className="bg-red-400 bg-opacity-80 text-black"
+                          className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 bg-opacity-80 text-black"
                         >
                           Submit
                         </button>

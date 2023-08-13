@@ -19,7 +19,6 @@ function ProductItem(item) {
   const { image, name, _id, price, quantity, description, cloverId, category } =
     item;
 
-
   const { cart } = state;
 
   const addToCart = () => {
@@ -89,7 +88,7 @@ function ProductItem(item) {
         </button>
 
         <button
-          className="bg-blue-400 text-white rounded"
+          className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 text-white rounded"
           onClick={() => {
             setDisplayModal(true);
           }}
@@ -133,7 +132,7 @@ function ProductItem(item) {
             <span>${price}</span>
           </div>
           <button
-            className="bg-red-500 bg-opacity-40 text-white h-15 mt-2"
+            className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 bg-opacity-40 text-white h-15 mt-2"
             onClick={addToCart}
           >
             Add to cart

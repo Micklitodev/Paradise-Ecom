@@ -64,7 +64,7 @@ const OrderMap = (props) => {
                       />
                       <div className="ml-2">
                         <p className="text-center w-20">{name}</p>
-                        {qty > 1 && (
+                        {qty > 0 && (
                           <p className="text-center w-20">Qty: {qty}</p>
                         )}
                       </div>

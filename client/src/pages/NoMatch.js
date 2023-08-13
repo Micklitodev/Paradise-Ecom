@@ -11,7 +11,7 @@ const NoMatch = () => {
         <h1>404 Page Not Found</h1>
         <button
           onClick={() => window.location.assign("/home")}
-          className=" center mt-80 bg-green-400 bg-opacity-80 text-black"
+          className=" center mt-80 bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 bg-opacity-80 text-black"
         >
           Go Back Home
         </button>

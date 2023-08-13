@@ -52,13 +52,13 @@ const Home = () => {
           </Overlay>
         </div>
         <div>
-          <div id="recentlyadded" className="mb-20 mt-20">
+          <div id="recentlyadded" className="mb-40 mt-20">
             <RecentlyAdded />
           </div>
-          <div className="mb-20">
+          <div className="mb-40">
             <CategoryMenu />
           </div>
-          <div className="mb-20">
+          <div className="mb-40">
             <Info />
           </div>
           <Cart />

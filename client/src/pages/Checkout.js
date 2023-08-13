@@ -1,18 +1,18 @@
 import Cart from "../components/Cart";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import Redirector from "../utils/redirector"
-import useScrollHelper from '../utils/scrollhelper'
+import Redirector from "../utils/redirector";
+import useScrollHelper from "../utils/scrollhelper";
 const Checkout = () => {
-  Redirector.checkTokens()
-  useScrollHelper()
+  Redirector.checkTokens();
+  useScrollHelper();
   return (
     <>
       <Nav />
       <br />
       <br />
       <br />
-      <div className="container borderwrap bg-white bg-opacity-10 px-4 py-4 mb-20">
+      <div className="container borderwrap bg-white bg-opacity-10 px-4 py-4 mb-40">
         <Cart CheckoutPage={true} />{" "}
       </div>
       <Footer />

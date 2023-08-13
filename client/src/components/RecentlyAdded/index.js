@@ -7,7 +7,7 @@ import ProductItem from "../ProductItem";
 
 const arrowStyle = {
   color: "rgba(230, 230, 230, 0.8)",
-  fontSize: "30px",
+  fontSize: "35px",
   marginLeft: "-5%",
   marginRight: "-5%",
   zIndex: 1,
@@ -22,7 +22,9 @@ const RecentlyAdded = () => {
 
   return (
     <>
-      <h3 className="text-center py-2">New Items</h3>
+      <h2 className="text-center py-2" style={{ fontWeight: 900 }}>
+        New Items
+      </h2>
       <div style={{ maxWidth: "80vw", position: "relative", left: "9%" }}>
         <Slide
           prevArrow={

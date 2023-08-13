@@ -3,9 +3,9 @@ const Info = () => {
   return (
     <>
       <div className="container mx-auto">
-        <h3 className="text-center text-uppercase py-2">Promotions</h3>
+        <h2 className="text-center text-uppercase py-2">Promotions</h2>
         <div className="container  bg-white bg-opacity-10 borderwrap">
-          <h4 className="px-2 py-2"> Earn Points on Your Purchase: </h4>
+          <h3 className="px-2 py-2"> Earn Points on Your Purchase: </h3>
           <p
             className="text-center "
             style={{
@@ -30,13 +30,13 @@ const Info = () => {
             experience with us!
           </p>
           <br />
-          <p className="py-2 px-2">
+          <em className="py-2 px-2" style={{ fontSize: 13 }}>
             For more info visit our points policy by clicking
             <Link className="text-red-500 opacity-80" to="/pointspolicy">
               {" "}
               Here
             </Link>
-          </p>
+          </em>
 
           <br />
           <br />

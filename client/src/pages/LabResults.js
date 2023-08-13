@@ -19,7 +19,7 @@ const LabResultCOA = () => {
               className="text-red-500"
             >
               {" "}
-              HERE{" "}
+              here{" "}
             </a>
             for all Lab Results / COA
           </p>

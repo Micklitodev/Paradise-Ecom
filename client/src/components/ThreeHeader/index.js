@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import spinner from "../../assets/spinner.gif";
 
 const ThreeHeader = () => {
   const canvasRef = useRef(null);
@@ -130,6 +129,22 @@ const ThreeHeader = () => {
     };
   }, []);
 
+  const handleScroll = (event) => {
+    event.preventDefault();
+    const target = event.target;
+
+    if (target) {
+      const offset = -80;
+      const targetPosition =
+        target.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <>
       {isLoaded !== 100 ? (
@@ -138,36 +153,42 @@ const ThreeHeader = () => {
             <br /> <br /> <br />
             <h2 className="text-center mt-40"> Warming Up! </h2>
             <div className="text-center mt-46">
-              {" "}
-              <div class="lds-ring">
+              <div className="lds-ring">
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
-              </div>{" "}
+              </div>
             </div>
           </div>
         </>
       ) : (
         <>
           <div className="container2">
-            <h1 style={{ position: "absolute", top: "19%" }}>
+            <h1
+              style={{
+                position: "absolute",
+                top: "19%",
+                textShadow: "0 14px 4px rgba(255, 255, 255, 0.3)",
+              }}
+            >
               Paradise Hemp Dispensary
             </h1>
             <h5
               className="about p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
               style={{
                 position: "absolute",
-                top: "calc(50% + 60px)", 
+                top: "calc(50% + 60px)",
                 left: "120px",
                 fontWeight: 900,
                 fontSize: 18,
                 borderRadius: 5,
-                maxWidth: "55%",
-                maxHeight: "340px",
+                width: "54%",
+                maxHeight: "400px",
                 overflow: "auto",
                 zIndex: 2,
-                transform: "translateY(-50%)", 
+                textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                transform: "translateY(-50%)",
               }}
             >
               At Paradise Hemp Dispensary, we believe that nature holds the key
@@ -188,12 +209,16 @@ const ThreeHeader = () => {
             </h5>
           </div>{" "}
           <div style={{ marginTop: -60 }}>
-            <a className="h-28 w-40 hidden md:block" href="#recentlyadded">
+            <a
+              className="h-28 w-40 hidden md:block"
+              href="#recentlyadded"
+              onClick={handleScroll}
+            >
               <div
                 style={{
                   marginBottom: 30,
-                  height: 30,
-                  width: 30,
+                  height: 32,
+                  width: 32,
                 }}
                 className="scroll-down"
               ></div>

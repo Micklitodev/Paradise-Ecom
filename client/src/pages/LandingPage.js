@@ -14,7 +14,7 @@ const LandingPage = () => {
         style={{
           height: "100vh",
           width: "100vw",
-          filter: displayModal ? "blur(20px)" : "none"
+          filter: displayModal ? "blur(20px)" : "none",
         }}
       >
         <div className="container2">
@@ -32,9 +32,9 @@ const LandingPage = () => {
             All rights reserved to @Paradise Hemp Dispensary
           </em>
         </div>
-        </div>
+      </div>
 
-        {displayModal && <Modal displayModal={setDisplayModal} />}
+      {displayModal && <Modal displayModal={setDisplayModal} />}
     </>
   );
 };

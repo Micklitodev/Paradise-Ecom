@@ -40,14 +40,13 @@ const SearchBar = () => {
           width: 300,
           borderRadius: 50,
           border: "solid 1px white",
-          backgroundColor: "rgb(254, 254, 254)",
+          backgroundColor: "rgba(4, 4, 4, 0.03)",
           opacity: ".9",
           textAlign: "center",
-          color: "grey",
+          color: "white",
         }}
         type="text"
         name="search"
-        placeholder="Search by product or category"
         value={search.search}
         onChange={handleChange}
       />
@@ -58,7 +57,7 @@ const SearchBar = () => {
         onClick={handleSubmit}
       >
         <CiSearch style={{ color: "white" }} size={20} />
-        <p style={{ maxHeight: "2px", color: "white", fontSize: 10 }}>search</p>
+        <p style={{ maxHeight: "2px", color: "white", fontSize: 10 }}>Search</p>
       </button>
     </div>
   );

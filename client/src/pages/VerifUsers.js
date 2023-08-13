@@ -114,7 +114,7 @@ const VerifUsers = () => {
                   Reject
                 </button>
                 <button
-                  className="bg-blue-400 text-white py-1 px-20 mx-14"
+                  className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 text-white py-1 px-20 mx-14"
                   onClick={handleAccept}
                 >
                   Accept

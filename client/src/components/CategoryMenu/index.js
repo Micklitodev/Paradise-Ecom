@@ -44,34 +44,46 @@ function CategoryMenu() {
 
   return (
     <div className="container">
-      <h3 className="text-center text-uppercase">Categories</h3>
+      <h2 className="text-center text-uppercase">Categories</h2>
       <br />
-      <div className="box-shadow-custom mr-10 bg-white bg-opacity-10 rounded-md grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-        {categories.map((item) => (
-          <div
-            key={item._id}
-            className="flex flex-col items-center rounded-md "
-            style={{}}
-          >
-            <Link
-              to={`/products/categories/${item._id}`}
-              onClick={() => {
-                handleClick(item._id);
-              }}
-              className="block w-48 sm:w-56 rounded-md py-4"
-            >
-              <div className="flex-shrink-0">
-                <img
-                  src={`./images/${item.image}`}
-                  alt="categoryimg"
-                  className="max-h-48 w-full object-cover"
-                />
+      <div
+        className="box-shadow-custom bg-white bg-opacity-10 rounded-md grid grid-cols-1 md:grid-cols-3 gap-4
+"
+      >
+        {categories.map((item, index) => {
+          if (index % 3 === 0) {
+            // Start of a new set of three items
+            return (
+              <div key={index} className="grid gap-4">
+                {categories.slice(index, index + 3).map((category) => (
+                  <div
+                    key={category._id}
+                    className="flex items-center rounded-md"
+                  >
+                    <Link
+                      to={`/products/categories/${category._id}`}
+                      onClick={() => {
+                        handleClick(category._id);
+                      }}
+                      className="rounded-md py-4 px-6"
+                    >
+                      <div className="flex-shrink-0">
+                        <img
+                          src={`./images/${category.image}`}
+                          alt="categoryimg"
+                          className="h-300 max-w-full rounded-lg"
+                        />
+                      </div>
+                      <br />
+                      <p className="text-center">{category.name}</p>
+                    </Link>
+                  </div>
+                ))}
               </div>
-              <br />
-              <p className="text-center">{item.name}</p>
-            </Link>
-          </div>
-        ))}
+            );
+          }
+          return null; // Skips rendering for other items in between sets
+        })}
       </div>
     </div>
   );

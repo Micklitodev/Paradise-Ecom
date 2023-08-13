@@ -173,13 +173,12 @@ const Cart = (props) => {
     setPointValue(inputValue);
   };
 
-
   if (!state.cartOpen) {
     return (
       <div id="shoppingCart" className="cart-closed" onClick={toggleCart}>
         <CiShoppingCart
           size={23}
-          style={{ marginLeft: 7, marginTop: 6, color: "white" }}
+          style={{ marginLeft: 7, marginTop: 3.5, color: "white" }}
         />
         <p
           style={{
@@ -292,12 +291,16 @@ const Cart = (props) => {
                   ) : null}
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="container">
+                <form
+                  onSubmit={handleSubmit}
+                  onKeyDown={handleKeyDown}
+                  className="container"
+                >
                   <input
                     className="formInput"
                     label="street"
                     name="street"
-                    placeholder="112 test street"
+                    placeholder="112 test street, apt 2"
                     value={shippingAddress.street}
                     onChange={handleInputChange}
                   />
@@ -315,6 +318,7 @@ const Cart = (props) => {
                     className="formInput"
                     label="state"
                     name="state"
+                    placeholder="GA"
                     list="statesList"
                     autoComplete="off"
                     value={shippingAddress.state}
@@ -377,7 +381,7 @@ const Cart = (props) => {
                     className="formInput"
                     label="zip"
                     name="zip"
-                    placeholder="30041"
+                    placeholder="30345"
                     value={shippingAddress.zip}
                     onChange={handleInputChange}
                   />
@@ -439,14 +443,18 @@ const Cart = (props) => {
               <>
                 <div>
                   <p> Loading Cart </p>
-                  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                  <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
                 </div>
               </>
             ) : (
               <>
-                {" "}
                 <button
-                  className="bg-red-400 bg-opacity-70 text-white h-15 mt-2"
+                  className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 bg-opacity-70 text-white h-15 mt-2"
                   onClick={submitCheckout}
                 >
                   Checkout
@@ -455,7 +463,10 @@ const Cart = (props) => {
             )}
           </>
         ) : (
-          <a className='text-white' href="/login"> (log in to check out) </a>
+          <a className="text-white" href="/login">
+            {" "}
+            (log in to check out){" "}
+          </a>
         )}
       </div>
     );
@@ -496,7 +507,7 @@ const Cart = (props) => {
         <div className="close" onClick={toggleCart}>
           [close]
         </div>
-        <h2>Shopping Cart</h2>
+        <h2> Shopping Cart </h2>
         <br />
         {state.cart.length ? (
           <div>
