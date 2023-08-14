@@ -3,9 +3,9 @@ const Info = () => {
   return (
     <>
       <div className="container mx-auto">
-        <h2 className="text-center text-uppercase py-2">Promotions</h2>
+        <h3 className="text-center text-uppercase py-2" style={{textTransform: 'uppercase'}}>Promotions</h3>
         <div className="container  bg-white bg-opacity-10 borderwrap">
-          <h3 className="px-2 py-2"> Earn Points on Your Purchase: </h3>
+        <br /> 
           <p
             className="text-center "
             style={{

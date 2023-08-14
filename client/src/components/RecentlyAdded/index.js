@@ -22,9 +22,9 @@ const RecentlyAdded = () => {
 
   return (
     <>
-      <h2 className="text-center py-2" style={{ fontWeight: 900 }}>
-        New Items
-      </h2>
+      <h3 className="text-center py-2" style={{ fontWeight: 'bolder', textTransform: 'uppercase' }}>
+        Recently Added
+      </h3>
       <div style={{ maxWidth: "80vw", position: "relative", left: "9%" }}>
         <Slide
           prevArrow={

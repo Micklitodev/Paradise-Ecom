@@ -31,7 +31,7 @@ const ThreeHeader = () => {
     const pointLight = new THREE.PointLight(0xffffff, 0.5);
     pointLight.position.set(0, 0, 50);
 
-    const ambiant = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambiant = new THREE.AmbientLight(0xf5d8ff, 0.8);
     scene.add(pointLight, ambiant);
 
     // light helper
@@ -65,7 +65,6 @@ const ThreeHeader = () => {
       }
     );
 
-    // check window width and update position
     function checkWindowWidth() {
       if (window.innerWidth <= 770 && bud !== "") {
         bud.position.set(0, -0.7, 48.1);
