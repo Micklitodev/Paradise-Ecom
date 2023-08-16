@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { useMutation } from "@apollo/client";
 import { SEND_MAIL } from "../utils/mutations";
@@ -47,7 +46,6 @@ const Contact = () => {
 
   return (
     <>
-      <Nav />
       <br />
       {Auth.loggedIn() ? (
         <>

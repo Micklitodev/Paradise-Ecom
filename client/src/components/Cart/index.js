@@ -9,8 +9,8 @@ import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
 import { CiShoppingCart } from "react-icons/ci";
 import { QUERY_USER, QUERY_CHECKOUT, CALC_SHIP } from "../../utils/queries";
 import { ADD_SHIP_INFO } from "../../utils/mutations";
-import spinner from "../../assets/spinner.gif";
 import "./style.css";
+import { Slide } from "react-awesome-reveal";
 
 const stripeapi = process.env.REACT_APP_STRIPE_CLIENT_API;
 const stripePromise = loadStripe(stripeapi);
@@ -175,23 +175,27 @@ const Cart = (props) => {
 
   if (!state.cartOpen) {
     return (
-      <div id="shoppingCart" className="cart-closed" onClick={toggleCart}>
-        <CiShoppingCart
-          size={23}
-          style={{ marginLeft: 7, marginTop: 3.5, color: "white" }}
-        />
-        <p
-          style={{
-            textAlign: "center",
-            position: "relative",
-            top: 0,
-            fontSize: 10,
-            color: "white",
-          }}
-        >
-          Cart
-        </p>
-      </div>
+      <>
+        <div id="shoppingCart" className="cart-closed" onClick={toggleCart}>
+          <Slide direction="right">
+            <CiShoppingCart
+              size={23}
+              style={{ marginLeft: 7, marginTop: 3.5, color: "white" }}
+            />
+            <p
+              style={{
+                textAlign: "center",
+                position: "relative",
+                top: 0,
+                fontSize: 10,
+                color: "white",
+              }}
+            >
+              Cart
+            </p>
+          </Slide>
+        </div>
+      </>
     );
   }
 

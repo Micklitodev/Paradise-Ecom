@@ -1,7 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import { SEARCH_QUERY } from "../utils/queries";
 import { useEffect } from "react";
-import Nav from "../components/Nav";
 import ProductItem from "../components/ProductItem";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
@@ -30,7 +29,6 @@ const SearchRes = () => {
 
   return (
     <>
-      <Nav />
       <br />
       <div className="mt-20">
         <h2 className="text-center">Search</h2>

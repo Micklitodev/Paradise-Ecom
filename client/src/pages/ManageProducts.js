@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Auth from "../utils/auth";
-import Nav from "../components/Nav";
 import AdminProdAdd from "../components/AdminProdAdd";
 import Jumbotron from "../components/Jumbotron";
 import useScrollHelper from "../utils/scrollhelper";
@@ -15,7 +14,6 @@ const ManageProducts = () => {
   if (Auth.isAdmin() === true) {
     return (
       <>
-        <Nav />
         <div>
           <h2
             className="mt-20"

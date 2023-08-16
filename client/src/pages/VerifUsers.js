@@ -1,6 +1,5 @@
 import React from "react";
 import Auth from "../utils/auth";
-import Nav from "../components/Nav";
 import { useQuery, useMutation } from "@apollo/client";
 import { USER_VERIF_ADMIN } from "../utils/mutations";
 import { QUERY_USER_ADMIN } from "../utils/queries";
@@ -69,7 +68,6 @@ const VerifUsers = () => {
   if (Auth.isAdmin() === true) {
     return (
       <>
-        <Nav />
         <h2 className="text-center mt-20">Verify Users</h2>
         {filteredUser?.length ? (
           <div className="text-center">

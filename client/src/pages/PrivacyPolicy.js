@@ -1,4 +1,3 @@
-import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import useScrollHelper from "../utils/scrollhelper";
 
@@ -6,7 +5,6 @@ const PrivacyPolicy = () => {
   useScrollHelper();
   return (
     <>
-      <Nav />
       <h1 className="mt-20 text-center"> PRIVACY POLICY </h1>
       <div
         className="container borderwrap mb-40 bg-white bg-opacity-10 px-2 py-2"

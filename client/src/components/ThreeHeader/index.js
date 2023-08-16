@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Fade } from "react-awesome-reveal";
 
 const ThreeHeader = () => {
   const canvasRef = useRef(null);
@@ -26,7 +27,6 @@ const ThreeHeader = () => {
 
     camera.position.set(0, 0, 50);
 
-    // lighting
     // lighting
     const pointLight = new THREE.PointLight(0xffffff, 0.5);
     pointLight.position.set(0, 0, 50);
@@ -163,50 +163,53 @@ const ThreeHeader = () => {
         </>
       ) : (
         <>
-          <div className="container2">
-            <h1
-              style={{
-                position: "absolute",
-                top: "19%",
-                textShadow: "0 14px 4px rgba(255, 255, 255, 0.3)",
-              }}
-            >
-              Paradise Hemp Dispensary
-            </h1>
-            <h5
-              className="about p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
-              style={{
-                position: "absolute",
-                top: "calc(50% + 60px)",
-                left: "120px",
-                fontWeight: 900,
-                fontSize: 18,
-                borderRadius: 5,
-                width: "54%",
-                maxHeight: "400px",
-                overflow: "auto",
-                zIndex: 2,
-                textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-                transform: "translateY(-50%)",
-              }}
-            >
-              At Paradise Hemp Dispensary, we believe that nature holds the key
-              to well-being, and we are committed to providing our customers
-              with the highest quality hemp products available. Founded with a
-              passion for natural alternatives, we have curated a diverse
-              selection of premium hemp products that cater to the needs of both
-              seasoned enthusiasts and newcomers to the world of hemp. From
-              premium CBD oils and tinctures to soothing topicals and edibles,
-              our collection is thoughtfully crafted to deliver the best that
-              hemp has to offer. Paradise Hemp Dispensary is not just a place to
-              buy hemp products; it's a community that fosters wellness,
-              sustainability, and a shared passion for nature's bountiful
-              offerings. We invite you to experience the natural bliss of
-              Paradise Hemp Dispensary. Join us to a happier, and more
-              harmonious existence as we embrace the incredible potential of
-              hemp together. Your paradise awaits!
-            </h5>
-          </div>{" "}
+          <Fade>
+            <div className="container2">
+              <h1
+                style={{
+                  position: "absolute",
+                  top: "19%",
+                  textShadow: "0 14px 4px rgba(255, 255, 255, 0.3)",
+                }}
+              >
+                Paradise Hemp Dispensary
+              </h1>
+              <h5
+                className="about p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
+                style={{
+                  position: "absolute",
+                  top: "calc(50% + 60px)",
+                  left: "120px",
+                  fontWeight: 900,
+                  fontSize: 18,
+                  borderRadius: 5,
+                  width: "54%",
+                  maxHeight: "400px",
+                  overflow: "auto",
+                  zIndex: 2,
+                  backgroundColor: "rgb(255,255,255, 0.1)",
+                  textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                  transform: "translateY(-50%)",
+                }}
+              >
+                At Paradise Hemp Dispensary, we believe that nature holds the
+                key to well-being, and we are committed to providing our
+                customers with the highest quality hemp products available.
+                Founded with a passion for natural alternatives, we have curated
+                a diverse selection of premium hemp products that cater to the
+                needs of both seasoned enthusiasts and newcomers to the world of
+                hemp. From premium CBD oils and tinctures to soothing topicals
+                and edibles, our collection is thoughtfully crafted to deliver
+                the best that hemp has to offer. Paradise Hemp Dispensary is not
+                just a place to buy hemp products; it's a community that fosters
+                wellness, sustainability, and a shared passion for nature's
+                bountiful offerings. We invite you to experience the natural
+                bliss of Paradise Hemp Dispensary. Join us to a happier, and
+                more harmonious existence as we embrace the incredible potential
+                of hemp together. Your paradise awaits!
+              </h5>
+            </div>
+          </Fade>
           <div style={{ marginTop: -60 }}>
             <a
               className="h-28 w-40 hidden md:block"

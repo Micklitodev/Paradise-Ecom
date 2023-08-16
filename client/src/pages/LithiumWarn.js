@@ -1,4 +1,3 @@
-import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import useScrollHelper from "../utils/scrollhelper";
 
@@ -6,7 +5,6 @@ const LithiumWarn = () => {
   useScrollHelper();
   return (
     <>
-      <Nav />
       <h1 className="mt-20" style={{ textAlign: "center" }}>
         {" "}
         LITHIUM ION BATTERY WARNING:{" "}

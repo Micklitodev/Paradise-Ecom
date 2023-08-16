@@ -1,6 +1,5 @@
 import React from "react";
 import Auth from "../utils/auth";
-import Nav from "../components/Nav";
 import { useQuery } from "@apollo/client";
 import { ADMIN_ORDER_VIEW } from "../utils/queries";
 import Jumbotron from "../components/Jumbotron";
@@ -30,7 +29,6 @@ const AdminOrderView = () => {
   if (Auth.isAdmin()) {
     return (
       <>
-        <Nav />
         <h2
           className="mt-20"
           style={{

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import Nav from "../components/Nav";
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
 import {
@@ -74,7 +73,6 @@ function Detail() {
 
   return (
     <>
-      <Nav />
       <br />
       {currentProduct && cart ? (
         <div className="container mx-auto my-8 px-4 max-w-md mt-20">

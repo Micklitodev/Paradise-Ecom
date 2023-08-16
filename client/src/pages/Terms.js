@@ -1,4 +1,3 @@
-import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import useScrollHelper from "../utils/scrollhelper";
 
@@ -6,7 +5,6 @@ const Terms = () => {
   useScrollHelper();
   return (
     <>
-      <Nav />
       <h1 className="text-center mt-20 mb-20"> TERMS OF USE </h1>
       <div
         className="container borderwrap px-2 py-2 bg-white bg-opacity-10"

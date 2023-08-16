@@ -1,5 +1,4 @@
 import OrderHistory from "../components/OrderHistory";
-import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import VerifForm from "../components/VerifForm";
 import Footer from "../components/Footer";
@@ -9,6 +8,7 @@ import { QUERY_USER } from "../utils/queries";
 import Jumbotron from "../components/Jumbotron";
 import useScrollHelper from "../utils/scrollhelper";
 import Cart from "../components/Cart";
+import {Fade} from 'react-awesome-reveal'
 
 const Dashboard = () => {
   Redirector.checkTokens();
@@ -18,8 +18,8 @@ const Dashboard = () => {
   console.log(data);
   return (
     <>
-      <Nav />
       <br />
+      <Fade>
       <h2 className="mt-20 text-center">Dashboard</h2>
       {data ? (
         <>
@@ -47,6 +47,7 @@ const Dashboard = () => {
           </Jumbotron>
         </>
       )}
+      </Fade>
       <Cart />
       <br />
       <Footer />

@@ -1,4 +1,3 @@
-import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import useScrollHelper from "../utils/scrollhelper";
 
@@ -6,7 +5,6 @@ const PointsPolicy = () => {
   useScrollHelper();
   return (
     <>
-      <Nav />
       <h1 className="text-center mt-20"> POINTS POLICY </h1>
       <div
         className="container borderwrap bg-white bg-opacity-10 px-2 py-2 mb-20 "

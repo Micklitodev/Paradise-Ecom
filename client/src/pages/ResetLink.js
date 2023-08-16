@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
 import Jumbotron from "../components/Jumbotron";
-import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { useMutation } from "@apollo/client";
 import { AUTH_RESET_PROVIDER } from "../utils/mutations";
@@ -74,7 +73,6 @@ const ResetLink = () => {
 
   return (
     <>
-      <Nav />
       <div className="mt-40 mb-40">
         {ChangeReject ? (
           <>

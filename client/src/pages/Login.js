@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
-import Nav from "../components/Nav";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
+import { Fade } from "react-awesome-reveal";
 
 function Login(props) {
   Redirector.checkTokens();
@@ -37,7 +37,7 @@ function Login(props) {
 
   return (
     <>
-      <Nav />
+      <Fade> 
       <div className="mt-40 mb-40">
         <div
           className="container bg-white bg-opacity-10 borderwrap"
@@ -107,6 +107,7 @@ function Login(props) {
           <br />
         </div>
       </div>
+      </Fade>
       <Footer />
     </>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 import CategoryMenu from "../components/CategoryMenu";
 import Cart from "../components/Cart";
-import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
@@ -18,7 +17,6 @@ const Home = () => {
   if (Auth.isAdmin()) {
     return (
       <>
-        <Nav />
         <div style={{ display: "grid", placeItems: "center", marginTop: 50 }}>
           <br />
           <h1
@@ -41,7 +39,7 @@ const Home = () => {
   } else {
     return (
       <>
-        <Nav />
+
         <div
           style={{
             opacity: 0.999,

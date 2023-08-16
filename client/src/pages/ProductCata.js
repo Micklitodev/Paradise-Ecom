@@ -1,5 +1,4 @@
 import ProductList from "../components/ProductList";
-import Nav from "../components/Nav";
 import Cart from "../components/Cart";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
@@ -12,7 +11,6 @@ const ProductCata = () => {
   const action = url.split("/").pop();
   return (
     <>
-      <Nav />
       <br />
       <h2 className="text-center mt-20"> Detailed Category </h2>
       <hr />

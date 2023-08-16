@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
-import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
+import { Fade } from "react-awesome-reveal";
 
 const Signup = () => {
   Redirector.checkTokens();
@@ -39,7 +39,7 @@ const Signup = () => {
 
   return (
     <>
-      <Nav />
+      <Fade> 
       <div className="mt-24 mb-40">
         <div
           className="container bg-white bg-opacity-10 borderwrap"
@@ -129,6 +129,7 @@ const Signup = () => {
           <br />
         </div>
       </div>
+      </Fade>
       <Footer />
     </>
   );
