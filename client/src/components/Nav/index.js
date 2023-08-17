@@ -59,6 +59,11 @@ const Nav = () => {
                     {Auth.isAdmin() ? (
                       <>
                         <li className="mx-1">
+                          <Link to="/Overview" className="text-white">
+                            Overview
+                          </Link>
+                        </li>
+                        <li className="mx-1">
                           <Link to="/adminorderview" className="text-white">
                             View Orders
                           </Link>

@@ -214,7 +214,7 @@ const Cart = (props) => {
 
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
-        event.preventDefault(); // Prevent the default Enter key behavior
+        event.preventDefault(); 
       }
     };
 
@@ -447,7 +447,7 @@ const Cart = (props) => {
               <>
                 <div>
                   <p> Loading Cart </p>
-                  <div class="lds-ring">
+                  <div className="lds-ring">
                     <div></div>
                     <div></div>
                     <div></div>
