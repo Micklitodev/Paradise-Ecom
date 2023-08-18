@@ -49,7 +49,7 @@ const LineChart = ({ orders }) => {
           data: Object.values(groupedData).map((data) => data.total),
           fill: false,
           borderColor: "rgb(75, 192, 192)",
-          tension: 0.1,
+          tension: 0.3,
         },
       ],
     };
@@ -66,6 +66,37 @@ const LineChart = ({ orders }) => {
           title: {
             display: true,
             text: `Total Gross: $${gross / 100} `,
+            color: "rgba(255, 60, 5, 0.7)",
+          },
+        },
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+
+              color: "rgba(255, 60, 5, 0.8)",
+            },
+            ticks: {
+              color: "rgba(245, 245, 245, 0.8)", //color of the x-axis  labels
+            },
+            grid: {
+              color: "rgba(225, 225, 225, 0.4)", // color of the x-axis grid line
+            },
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+
+              color: "rgba(255, 60, 5, 0.8)",
+            },
+            ticks: {
+              color: "rgba(245, 245, 245, 0.8)", //color of the y-axis labels
+            },
+            grid: {
+              color: "rgba(225, 225, 225, 0.4)", //color of the x-axis lines
+            },
           },
         },
       },
@@ -86,7 +117,13 @@ const LineChart = ({ orders }) => {
         style={{ display: "block", position: "relative" }}
       >
         <canvas
-          className="bg-white bg-opacity-10 rounded"
+          style={{
+            maxHeight: 500,
+            backgroundColor: "rgba(250,250,250,0.05)",
+            zIndex: 2,
+            backdropFilter: "blur(20px)",
+          }}
+          className="rounded"
           ref={chartRef}
           id="lineChart"
         />

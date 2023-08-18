@@ -53,6 +53,14 @@ const AdminOrderView = () => {
         </h2>
         <br />
         <div>
+          <p className="text-center">
+            {`${startOfMonth.toLocaleString("default", {
+              month: "short",
+            })} ${startOfMonth.getDate()}, ${startOfMonth.getFullYear()} - 
+          ${endOfMonth.toLocaleString("default", {
+            month: "short",
+          })} ${endOfMonth.getDate()}, ${endOfMonth.getFullYear()}`}
+          </p>
           <LineChart orders={orders} />
         </div>
       </>
@@ -60,7 +68,7 @@ const AdminOrderView = () => {
   } else {
     return (
       <>
-        <div className="center mt-20 ">
+        <div className="center mt-20">
           <Jumbotron>
             <h2> Err no auth to access this page.</h2>
           </Jumbotron>

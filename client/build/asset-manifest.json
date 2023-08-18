@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.05798ccf.css",
-    "main.js": "/static/js/main.d2d4d19e.js",
+    "main.css": "/static/css/main.bd8e29a4.css",
+    "main.js": "/static/js/main.89b18944.js",
     "static/media/paradise55.png": "/static/media/paradise55.8823e1cc11531868e954.png",
     "index.html": "/index.html",
-    "main.05798ccf.css.map": "/static/css/main.05798ccf.css.map",
-    "main.d2d4d19e.js.map": "/static/js/main.d2d4d19e.js.map"
+    "main.bd8e29a4.css.map": "/static/css/main.bd8e29a4.css.map",
+    "main.89b18944.js.map": "/static/js/main.89b18944.js.map"
   },
   "entrypoints": [
-    "static/css/main.05798ccf.css",
-    "static/js/main.d2d4d19e.js"
+    "static/css/main.bd8e29a4.css",
+    "static/js/main.89b18944.js"
   ]
 }
