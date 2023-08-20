@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import Jumbotron from "../Jumbotron";
 
 const LineChart = ({ orders }) => {
   const chartRef = useRef(null);
@@ -112,22 +113,35 @@ const LineChart = ({ orders }) => {
 
   return (
     <>
-      <div
-        className="container"
-        style={{ display: "block", position: "relative" }}
-      >
-        <canvas
-          style={{
-            maxHeight: 500,
-            backgroundColor: "rgba(250,250,250,0.05)",
-            zIndex: 2,
-            backdropFilter: "blur(20px)",
-          }}
-          className="rounded"
-          ref={chartRef}
-          id="lineChart"
-        />
-      </div>
+      {orders.length > 0 ? (
+        <>
+          <div
+            className="container"
+            style={{ display: "block", position: "relative" }}
+          >
+            <canvas
+              style={{
+                maxHeight: 500,
+                backgroundColor: "rgba(250,250,250,0.05)",
+                zIndex: 2,
+                backdropFilter: "blur(20px)",
+              }}
+              className="rounded"
+              ref={chartRef}
+              id="lineChart"
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          {" "}
+          <div>
+            <Jumbotron>
+              <h2> No order data to display analytics </h2>
+            </Jumbotron>
+          </div>{" "}
+        </>
+      )}
     </>
   );
 };

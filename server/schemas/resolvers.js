@@ -580,7 +580,7 @@ const resolvers = {
     userVerifAdmin: async (parent, args, context) => {
       if (context.user.isAdmin === true) {
         try {
-          const user = await User.findById(args._id).select("-_v -password");
+          const user = await User.findById(args._id).select("-__v -password");
           if (args.action === "accept") {
             user.isVerified = true;
             await resolvers.Mutation.userVerifNotif(
@@ -598,7 +598,7 @@ const resolvers = {
           const updatedUser = await user.save();
           return updatedUser;
         } catch (err) {
-          return console.log("something went wrong uva509");
+          return console.log(err);
         }
       } else {
         throw new AuthenticationError("Must be Admin to make this Request");
@@ -790,11 +790,9 @@ const resolvers = {
           <body>
             <div class="container">
               <h1>Account Verification</h1>
-              <p>Dear ${firstName} ${lastName},</p>
               <h2>Your Account has been successfully verified! </h2>
               <p>If you have any questions or concerns, please feel free to contact our customer support team at [Customer Support Email].</p>
               <div class="footer">
-                <p>Thank you for shopping with us!</p>
                 <p> Paradise Hemp Dispensary </p>
                 <p> 122 test email </p>
                 <p>Contact: (222) 222 - 2222 | Email: test@test.com </p>
@@ -805,7 +803,7 @@ const resolvers = {
         `,
         });
 
-        console.log("Verif Message sent");
+        console.log("Verif Message sent - User");
       } catch (err) {
         throw new Error("userNotif Message Failed");
       }

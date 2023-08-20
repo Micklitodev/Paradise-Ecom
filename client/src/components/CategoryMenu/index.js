@@ -61,7 +61,7 @@ function CategoryMenu() {
                     className="flex items-center rounded-md"
                   >
                     <Link
-                      to={`/products/categories/${category._id}`}
+                      to={`/products/categories/${category._id}?${category.name}`}
                       onClick={() => {
                         handleClick(category._id);
                       }}

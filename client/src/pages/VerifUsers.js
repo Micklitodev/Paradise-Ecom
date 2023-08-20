@@ -22,14 +22,14 @@ const VerifUsers = () => {
     filteredUser = user.filter((u) => u.idFront && !u.isVerified);
   }
 
-  const handleAccept = (e) => {
+  const handleAccept = async (e) => {
     if (window.confirm("Are you sure you want to accept this user?")) {
       const target = e.target.parentNode;
       try {
         console.log("accepted user:", target.getAttribute("value"));
 
         const id = target.getAttribute("value");
-        const { data } = userVerifAdmin({
+        const { data } = await userVerifAdmin({
           variables: {
             action: "accept",
             id: id,
@@ -39,7 +39,7 @@ const VerifUsers = () => {
       } catch (err) {
         console.log(err);
       } finally {
-        window.location.assign("/verifusers");
+        window.location.reload();
       }
     }
   };

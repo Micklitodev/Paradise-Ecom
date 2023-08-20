@@ -8,11 +8,16 @@ const ProductCata = () => {
   Redirector.checkTokens();
   useScrollHelper();
   const url = window.location.href;
-  const action = url.split("/").pop();
+  const parts = url.split("/");
+  const action = parts[parts.length - 1].split("?")[0];
+  const description = parts[parts.length - 1].split("?")[1];
+
+  console.log(action);
+
   return (
     <>
       <br />
-      <h2 className="text-center mt-20"> Detailed Category </h2>
+      <h2 className="text-center mt-20"> {description} </h2>
       <hr />
       <div className="mx-10">
         <ProductList action={action} />

@@ -169,19 +169,19 @@ const ThreeHeader = () => {
                 style={{
                   position: "absolute",
                   top: "19%",
-                  textShadow: "0 14px 4px rgba(255, 255, 255, 0.3)",
+                  textShadow: "0 14px 4px rgba(255, 255, 255, 0.15)",
                 }}
               >
                 Paradise Hemp Dispensary
               </h1>
               <h5
-                className="about p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
+                className="about box-shadow-custom p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
                 style={{
                   position: "absolute",
                   top: "calc(50% + 60px)",
                   left: "120px",
                   fontWeight: 900,
-                  fontSize: 18,
+                  fontSize: 19,
                   borderRadius: 5,
                   width: "54%",
                   maxHeight: "400px",
