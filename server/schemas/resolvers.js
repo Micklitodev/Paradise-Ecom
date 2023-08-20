@@ -16,6 +16,7 @@ const {
 } = require("../utils/auth");
 const crypto = require("crypto");
 const he = require("he");
+
 require("dotenv").config();
 const api = process.env.EP_KEY;
 const stripeapi = process.env.STRIPE_KEY;
@@ -28,8 +29,21 @@ const nodemailer = require("nodemailer");
 const stripe = require("stripe")(stripeapi);
 const client = new EasyPostClient(api);
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const carrier = "USPS";
+
+const buisnessStreet1 = "14865 HWY 92";
+const buisnessStreet2 = "SUITE 5";
+const buisnessCity = "WOODSTOCK";
+const buisnessState = "GA";
+const buisnessZip = "30188";
+const buisnessCountry = "US";
+const buisnessCompany = "Paradise Hemp Dispensary";
+const buisnessPhone = "4702223333";
 const buisnessContact = "michaelvrms@gmail.com";
+const taxPercent = 8.75;
+const buisnessFromEmail = "no-reply@paradisehempdispensary.com";
+const buisnessWebsite = "www.paradisehempdispensary.com";
 
 let shipObj;
 
@@ -254,14 +268,14 @@ const resolvers = {
 
         const shipment = await client.Shipment.create({
           from_address: {
-            street1: "14865 HWY 92",
-            street2: "SUITE 5",
-            city: "WOODSTOCK",
-            state: "GA",
-            zip: "30188",
-            country: "US",
-            company: "Paradise Hemp",
-            phone: "4704081148",
+            street1: `${buisnessStreet1}`,
+            street2: `${buisnessStreet2}`,
+            city: `${buisnessCity}`,
+            state: `${buisnessState}`,
+            zip: `${buisnessZip}`,
+            country: `${buisnessCountry}`,
+            company: `${buisnessCompany}`,
+            phone: `${buisnessPhone}`,
           },
           to_address: {
             name: `${user.firstName} ${user.lastName}`,
@@ -270,7 +284,7 @@ const resolvers = {
             state: user.state,
             zip: user.zip,
             country: "US",
-            phone: "4155559999",
+            phone: "4045555555",
           },
           parcel: {
             length: selectedBox.dimensions.L,
@@ -363,7 +377,7 @@ const resolvers = {
           display_name: "Tax",
           description: "Sales Tax",
           jurisdiction: "GA",
-          percentage: 8.75,
+          percentage: `${taxPercent}`,
           inclusive: false,
         });
 
@@ -718,7 +732,7 @@ const resolvers = {
         });
 
         await transporter.sendMail({
-          from: "no-reply@paradisehempdispensary.com",
+          from: `${buisnessFromEmail}`,
           to: `${buisnessContact}`,
           subject: "New Verification",
           html: `
@@ -752,7 +766,7 @@ const resolvers = {
         });
 
         await transporter.sendMail({
-          from: "no-reply@paradisehempdispensary.com",
+          from: `${buisnessFromEmail}`,
           to: `${email}`,
           subject: "Verification Success",
           html: `
@@ -791,11 +805,13 @@ const resolvers = {
             <div class="container">
               <h1>Account Verification</h1>
               <h2>Your Account has been successfully verified! </h2>
-              <p>If you have any questions or concerns, please feel free to contact our customer support team at [Customer Support Email].</p>
+              <p>If you have any questions or concerns, please feel free to contact our customer support team at ${buisnessPhone}.</p>
               <div class="footer">
-                <p> Paradise Hemp Dispensary </p>
-                <p> 122 test email </p>
-                <p>Contact: (222) 222 - 2222 | Email: test@test.com </p>
+                <p> ${buisnessCompany} </p>
+                <p> ${buisnessWebsite} </p>
+                <p> ${buisnessStreet1}, ${buisnessStreet2} </p>
+                <p> ${buisnessCity}, ${buisnessState} ${buisnessZip} </p>
+                <p>Contact: ${buisnessPhone} | Email: ${buisnessContact} </p>
               </div>
             </div>
           </body>
@@ -824,7 +840,7 @@ const resolvers = {
         });
 
         await transporter.sendMail({
-          from: "no-reply@paradisehempdispensary.com",
+          from: `${buisnessFromEmail}`,
           to: `${context.user.email}`,
           subject: `Thank You for shopping with Paradise.`,
           html: `
@@ -905,14 +921,16 @@ const resolvers = {
                   .join("")}
               </tbody>
             </table>
-
+              <a href=${tracking}> Track Shipment </a> 
               <p><strong>Total:</strong> $ ${total / 100}</p>
-              <p>If you have any questions or concerns, please feel free to contact our customer support team at [Customer Support Email].</p>
+             <p>If you have any questions or concerns, please feel free to contact our customer support team at ${buisnessPhone}.</p>
               <div class="footer">
-                <p>Thank you for shopping with us!</p>
-                <p> Paradise Hemp Dispensary </p>
-                <p> 122 test email </p>
-                <p>Contact: (222) 222 - 2222 | Email: test@test.com </p>
+                <p> Thank you for shopping with us! </p> 
+                <p> ${buisnessCompany} </p>
+                <p> ${buisnessWebsite} </p>
+                <p> ${buisnessStreet1}, ${buisnessStreet2} </p>
+                <p> ${buisnessCity}, ${buisnessState} ${buisnessZip} </p>
+                <p>Contact: ${buisnessPhone} | Email: ${buisnessContact} </p>
               </div>
             </div>
           </body>
@@ -921,7 +939,7 @@ const resolvers = {
         });
 
         await transporter.sendMail({
-          from: "no-reply@paradisehempdispensary.com",
+          from: `${buisnessFromEmail}`,
           to: `${buisnessContact}`,
           subject: `A customer has completed a purchase.`,
           html: `
@@ -965,7 +983,6 @@ const resolvers = {
           to: `${buisnessContact}`,
           subject: "Customer Contact",
           html: `
-        
             <p style="text-align: center; font-size: 24px;">
              ${name}
             </p>
@@ -973,7 +990,6 @@ const resolvers = {
             <div style="text-align: center; font-size: 16px;"> 
              ${sanitizedMessage}
             </div> 
-
         `,
         });
 
@@ -1014,7 +1030,7 @@ const resolvers = {
         });
 
         await transporter.sendMail({
-          from: "no-reply@paradisehempdispensary.com",
+          from: `${buisnessFromEmail}`,
           to: email,
           subject: "Paradise Hemp Reset Code",
           html: `
@@ -1027,18 +1043,21 @@ const resolvers = {
               ${randInt}
             </div>
             <br /> 
-            <div> 
-              <p> Paradise Hemp Dispensary </p>
-              <p> 122 test email </p>
-              <p>Contact: (222) 222 - 2222 | Email: test@test.com </p>
-            </div>
-       
+            <p> If you did not try to reset your password please navigate to our website and notify us threw the contact form. </p>
+            <p>If you have any questions or concerns, please feel free to contact our customer support team at ${buisnessPhone}.</p>
+              <div class="footer">
+                <p> ${buisnessCompany} </p>
+                <p> ${buisnessWebsite} </p>
+                <p> ${buisnessStreet1}, ${buisnessStreet2} </p>
+                <p> ${buisnessCity}, ${buisnessState} ${buisnessZip} </p>
+                <p>Contact: ${buisnessPhone} | Email: ${buisnessContact} </p>
+              </div>
         `,
         });
 
         console.log("Reset Message sent");
       } catch (err) {
-        throw Error(" 500 - Email send failed.");
+        throw Error("500 - Email send failed.");
       }
     },
     authResetValidator: async (parent, args, context) => {

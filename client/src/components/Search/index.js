@@ -15,6 +15,9 @@ const SearchBar = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if(search.search === ''){
+      return
+    }
     try {
       window.location.assign(`/search/${search.search}`);
     } catch (e) {

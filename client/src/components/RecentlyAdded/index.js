@@ -25,7 +25,7 @@ const RecentlyAdded = () => {
       <h3 className="text-center py-2" style={{ fontWeight: 'bolder', textTransform: 'uppercase' }}>
         Recently Added
       </h3>
-      <div style={{ maxWidth: "80vw", position: "relative", left: "9%" }}>
+      <div style={{ maxWidth: "80vw", position: "relative", left: "10%" }}>
         <Slide
           prevArrow={
             <div style={{ ...arrowStyle }} onClick={console.log("hit")}>

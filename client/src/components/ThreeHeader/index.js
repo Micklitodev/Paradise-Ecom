@@ -175,7 +175,7 @@ const ThreeHeader = () => {
                 Paradise Hemp Dispensary
               </h1>
               <h5
-                className="about box-shadow-custom p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
+                className="about p-4 absolute top-72 md:top-96 text-white font-bold text-base text-shadow-2xs  rounded-md border-solid border-grey max-w-55vw max-h-96 md:max-h-96 overflow-auto hidden md:block"
                 style={{
                   position: "absolute",
                   top: "calc(50% + 60px)",
@@ -187,7 +187,6 @@ const ThreeHeader = () => {
                   maxHeight: "400px",
                   overflow: "auto",
                   zIndex: 2,
-                  backgroundColor: "rgb(255,255,255, 0.1)",
                   textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
                   transform: "translateY(-50%)",
                 }}

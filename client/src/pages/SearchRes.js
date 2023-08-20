@@ -50,7 +50,7 @@ const SearchRes = () => {
     <>
       <br />
       <div className="mt-20">
-        <h2 className="text-center">Search</h2>
+        <h2 className="text-center">Search Results for "{searchParams}"</h2>
         <hr />
         <div className="text-center">
           <button

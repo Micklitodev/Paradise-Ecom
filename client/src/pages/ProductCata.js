@@ -17,7 +17,7 @@ const ProductCata = () => {
   return (
     <>
       <br />
-      <h2 className="text-center mt-20"> {description} </h2>
+      <h2 className="text-center mt-20"> Category - {description} </h2>
       <hr />
       <div className="mx-10">
         <ProductList action={action} />
