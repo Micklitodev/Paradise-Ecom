@@ -296,6 +296,10 @@ const resolvers = {
           throw new Error("Shipping price was not set.");
         }
 
+        if (context.user.isAdmin) {
+          throw new Error("Admin cannot make orders.");
+        }
+
         const url = new URL(context.headers.referer).origin;
         const order = new Order({ products: args.products });
         const shippingPrice = parseInt(args.shipPrice * 100);
@@ -579,6 +583,11 @@ const resolvers = {
           const user = await User.findById(args._id).select("-_v -password");
           if (args.action === "accept") {
             user.isVerified = true;
+            await resolvers.Mutation.userVerifNotif(
+              parent,
+              { email: user.email },
+              context
+            );
           }
           if (args.action === "reject") {
             user.isIdRejected = true;
@@ -725,6 +734,80 @@ const resolvers = {
         console.log("Verif Message sent");
       } catch (err) {
         throw new Error("Verif Message Failed");
+      }
+    },
+    userVerifNotif: async (parent, { email }, context) => {
+      if (!context.user.isAdmin) {
+        throw new AuthenticationError("Error, Bad Origin");
+      }
+
+      try {
+        let transporter = nodemailer.createTransport({
+          host: mghost,
+          port: mgport,
+          auth: {
+            user: mguser,
+            pass: mgpass,
+          },
+        });
+
+        await transporter.sendMail({
+          from: "no-reply@paradisehempdispensary.com",
+          to: `${email}`,
+          subject: "Verification Success",
+          html: `
+          <>
+          <head>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                background-color: #f5f5f5;
+              }
+              h1 {
+                color: #333;
+              }
+              p {
+                font-size: 16px;
+                line-height: 1.5;
+                color: #555;
+              }
+              .footer {
+                margin-top: 20px;
+                text-align: center;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>Account Verification</h1>
+              <p>Dear ${firstName} ${lastName},</p>
+              <h2>Your Account has been successfully verified! </h2>
+              <p>If you have any questions or concerns, please feel free to contact our customer support team at [Customer Support Email].</p>
+              <div class="footer">
+                <p>Thank you for shopping with us!</p>
+                <p> Paradise Hemp Dispensary </p>
+                <p> 122 test email </p>
+                <p>Contact: (222) 222 - 2222 | Email: test@test.com </p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `,
+        });
+
+        console.log("Verif Message sent");
+      } catch (err) {
+        throw new Error("userNotif Message Failed");
       }
     },
     sendOrderEmail: async (

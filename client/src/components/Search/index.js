@@ -33,27 +33,30 @@ const SearchBar = () => {
         gap: "5px",
       }}
     >
-      <input
-        className="searchbar"
-        style={{
-          maxHeight: 35,
-          width: 300,
-          borderRadius: 50,
-          border: "solid 1px white",
-          backgroundColor: "rgba(4, 4, 4, 0.03)",
-          opacity: ".9",
-          textAlign: "center",
-          color: "white",
-        }}
-        type="text"
-        name="search"
-        value={search.search}
-        onChange={handleChange}
-      />
+      <form onSubmit={handleSubmit}>
+        <input
+          className="searchbar"
+          style={{
+            maxHeight: 35,
+            width: 300,
+            borderRadius: 50,
+            border: "solid 1px white",
+            backgroundColor: "rgba(4, 4, 4, 0.03)",
+            opacity: ".9",
+            textAlign: "center",
+            color: "white",
+          }}
+          type="text"
+          name="search"
+          value={search.search}
+          onChange={handleChange}
+        />
+      </form>
       <button
         className="mb-2.5"
         style={{ padding: 5, minHeight: 40 }}
         disabled={!search.search}
+        type="submit"
         onClick={handleSubmit}
       >
         <CiSearch style={{ color: "white" }} size={20} />

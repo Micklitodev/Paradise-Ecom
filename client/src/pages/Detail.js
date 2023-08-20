@@ -4,7 +4,6 @@ import { useQuery } from "@apollo/client";
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
 import {
-  REMOVE_FROM_CART,
   UPDATE_CART_QUANTITY,
   ADD_TO_CART,
   UPDATE_PRODUCTS,
@@ -14,6 +13,7 @@ import { idbPromise } from "../utils/helpers";
 import Footer from "../components/Footer";
 import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
+import Auth from "../utils/auth";
 
 function Detail() {
   Redirector.checkTokens();
@@ -76,9 +76,12 @@ function Detail() {
       <br />
       {currentProduct && cart ? (
         <div className="container mx-auto my-8 px-4 max-w-md mt-20">
-          <Link to="/home" className="hover:underline text-white">
-            ← Back to Products
-          </Link>
+          <button
+            onClick={() => window.history.back()}
+            className="hover:underline text-white"
+          >
+            ← Back to Previous Page
+          </button>
 
           <div className="bg-white box-shadow-custom mt-2 rounded-md bg-opacity-10 py-1 px-10">
             <h2 className="text-2xl font-bold my-4">{currentProduct.name}</h2>
@@ -87,12 +90,16 @@ function Detail() {
 
             <p className="text-lg font-bold mt-4">
               <strong>Price:</strong> ${currentProduct.price}{" "}
-              <button
-                className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 h-15 mt-2"
-                onClick={addToCart}
-              >
-                Add to Cart
-              </button>
+              {Auth.isAdmin() ? null : (
+                <>
+                  <button
+                    className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 h-15 mt-2"
+                    onClick={addToCart}
+                  >
+                    Add to Cart
+                  </button>
+                </>
+              )}
             </p>
 
             <img
@@ -113,7 +120,7 @@ function Detail() {
           </div>
         </div>
       ) : null}
-      <Cart />
+      {Auth.isAdmin() ? null : <Cart />}
       <br />
       <br />
       <Footer />

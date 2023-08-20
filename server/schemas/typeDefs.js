@@ -116,6 +116,7 @@ const typeDefs = gql`
     idUpload(idFront: String!, idBack: String!): User
     login(email: String!, password: String!): Auth
     agreement(userChoice: String!): JSON
+    userVerifNotif: JSON
     sendVerifNotif: JSON
     sendOrderEmail: JSON
     sendMail(name: String!, email: String!, message: String!): JSON

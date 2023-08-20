@@ -7,6 +7,8 @@ import Redirector from "../utils/redirector";
 import useScrollHelper from "../utils/scrollhelper";
 import Jumbotron from "../components/Jumbotron";
 import Cart from "../components/Cart";
+import Auth from "../utils/auth";
+import Search from "../components/Search";
 
 const SearchRes = () => {
   Redirector.checkTokens();
@@ -67,6 +69,14 @@ const SearchRes = () => {
             <Jumbotron>
               <h3> No search results found. </h3>
               <p> Please try again </p>
+              {Auth.isAdmin() ? (
+                <>
+                  <div className="absolute center ml-8 mt-40">
+                    {" "}
+                    <Search />{" "}
+                  </div>
+                </>
+              ) : null}
             </Jumbotron>
           </>
         )}

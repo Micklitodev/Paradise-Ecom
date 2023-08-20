@@ -214,7 +214,7 @@ const Cart = (props) => {
 
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
-        event.preventDefault(); 
+        event.preventDefault();
       }
     };
 
@@ -267,32 +267,6 @@ const Cart = (props) => {
 
                   <br />
                   <br />
-
-                  {user?.points && props?.CheckoutPage ? (
-                    <>
-                      <hr style={{ width: "118%", marginLeft: "-9%" }} />
-                      Point Balance:
-                      <p className="text-white"> {user.points} points </p>
-                      Use{" "}
-                      <input
-                        style={{
-                          textAlign: "center",
-                          maxWidth: "fit-content",
-                        }}
-                        type="number"
-                        pattern="^[0-9]+$"
-                        label="points"
-                        name="points"
-                        defaultValue={0}
-                        max={parseInt(user.points)}
-                        min={50}
-                        onInput={handlePointInput}
-                      />
-                      Points.
-                      <br />
-                      <br />
-                    </>
-                  ) : null}
                 </div>
               ) : (
                 <form
@@ -494,6 +468,33 @@ const Cart = (props) => {
             </div>
             <br />
             <RenderAddress />
+            {user?.points && props?.CheckoutPage ? (
+              <>
+                <hr />
+                <div className="container">
+                  Point Balance:
+                  <p className="text-white"> {user.points} points </p>
+                  Use{" "}
+                  <input
+                    style={{
+                      textAlign: "center",
+                      maxWidth: "fit-content",
+                    }}
+                    type="number"
+                    pattern="^[0-9]+$"
+                    label="points"
+                    name="points"
+                    defaultValue={0}
+                    max={parseInt(user.points)}
+                    min={50}
+                    onInput={handlePointInput}
+                  />
+                  Points.
+                  <br />
+                  <br />
+                </div>
+              </>
+            ) : null}
             <hr />
             <RenderPrices />
           </div>

@@ -127,7 +127,21 @@ function ProductItem(item) {
           </Link>
           <div>
             <div>
-              {quantity} {pluralize("item", quantity)} in stock
+              {quantity < 5 && Auth.isAdmin() !== true ? (
+                <>
+                  {" "}
+                  {quantity} {pluralize("item", quantity)} in stock
+                </>
+              ) : (
+                <>
+                  {Auth.isAdmin() === true ? (
+                    <>
+                      {" "}
+                      {quantity} {pluralize("item", quantity)} in stock
+                    </>
+                  ) : null}
+                </>
+              )}
             </div>
             <span>${price}</span>
           </div>

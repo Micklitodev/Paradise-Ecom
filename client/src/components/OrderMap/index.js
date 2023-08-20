@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Auth from '../../utils/auth'
 
 const OrderMap = (props) => {
   const consolidateProducts = (products) => {
@@ -44,6 +45,7 @@ const OrderMap = (props) => {
                 {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
               </h3>
               <p className="text-center">Address: {order.address}</p>
+              {Auth.isAdmin() ? <> {order.shipmentId} </> : null}
               <a
                 href={order.tracking}
                 target="_blank"
