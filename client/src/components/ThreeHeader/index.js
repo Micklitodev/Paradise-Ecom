@@ -164,10 +164,8 @@ const ThreeHeader = () => {
           <Fade>
             <div className="container2">
               <h1
-                className="text-center"
+                className="text-center mb-96"
                 style={{
-                  position: "absolute",
-                  top: "19%",
                   textShadow: "0 14px 4px rgba(255, 255, 255, 0.15)",
                 }}
               >
