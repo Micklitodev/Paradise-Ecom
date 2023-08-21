@@ -44,7 +44,12 @@ function CategoryMenu() {
 
   return (
     <div className="container">
-      <h3 className="text-center text-uppercase" style={{textTransform: "uppercase"}}>Categories</h3>
+      <h3
+        className="text-center text-uppercase"
+        style={{ textTransform: "uppercase" }}
+      >
+        Categories
+      </h3>
       <br />
       <div
         className="box-shadow-custom bg-white bg-opacity-10 rounded-md grid grid-cols-1 md:grid-cols-3 gap-4

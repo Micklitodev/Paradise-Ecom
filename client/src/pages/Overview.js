@@ -34,10 +34,8 @@ const AdminOrderView = () => {
 
   const orders = data.adminOrderView.filter((order) => {
     const purchaseDate = new Date(order.purchaseDate * 1);
-    console.log(purchaseDate);
     return purchaseDate >= startOfMonth && purchaseDate < endOfMonth;
   });
-  console.log(orders);
 
   if (Auth.isAdmin()) {
     return (

@@ -12,7 +12,6 @@ const Footer = () => {
     >
       <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-3 gap-20">
         <div className="md:col-span-2 ml-5">
-          {/* section 1 */}
           <h3 className=" font-semibold uppercase mb-4">
             Paradise Hemp Dispensary
           </h3>
@@ -36,7 +35,6 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* section 2 */}
         <div className="ml-5">
           <h3 className=" font-semibold uppercase mb-4">Footer Menu</h3>
           <ul className="space-y-4">

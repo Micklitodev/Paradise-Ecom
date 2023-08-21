@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery, useQuery, useMutation } from "@apollo/client";
 import { idbPromise } from "../../utils/helpers";
@@ -72,15 +72,15 @@ const Cart = (props) => {
     }
   }, [state.cart.length, dispatch]);
 
-  function toggleCart() {
+  const toggleCart = useCallback(() => {
     dispatch({ type: TOGGLE_CART });
-  }
+  }, [dispatch]);
 
   useEffect(() => {
     if (props.CheckoutPage) {
       toggleCart();
     }
-  }, []);
+  }, [props.CheckoutPage, toggleCart]);
 
   function calculateTotal() {
     let lowestRate = 0;
@@ -460,10 +460,10 @@ const Cart = (props) => {
             {" "}
             <div style={{ maxWidth: 500 }}>
               {state.cart.map((item) => (
-                <>
-                  <CartItem key={item._id} item={item} />
+                <React.Fragment key={item._id}>
+                  <CartItem item={item} />
                   <br />
-                </>
+                </React.Fragment>
               ))}
             </div>
             <br />

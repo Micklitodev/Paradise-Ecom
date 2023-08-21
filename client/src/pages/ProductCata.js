@@ -12,8 +12,6 @@ const ProductCata = () => {
   const action = parts[parts.length - 1].split("?")[0];
   const description = parts[parts.length - 1].split("?")[1];
 
-  console.log(action);
-
   return (
     <>
       <br />

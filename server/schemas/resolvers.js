@@ -736,12 +736,10 @@ const resolvers = {
           to: `${buisnessContact}`,
           subject: "New Verification",
           html: `
-          <>
             <p style="text-align: center; font-size: 24px;">
              ${firstName} ${lastName} is awaiting ID verification. 
             </p>
             <br>
-          </>
         `,
         });
 
@@ -770,7 +768,6 @@ const resolvers = {
           to: `${email}`,
           subject: "Verification Success",
           html: `
-          <>
           <head>
             <style>
               body {
@@ -805,6 +802,7 @@ const resolvers = {
             <div class="container">
               <h1>Account Verification</h1>
               <h2>Your Account has been successfully verified! </h2>
+              <p> Please log out and log back in if this unverified banner is till present. </p>
               <p>If you have any questions or concerns, please feel free to contact our customer support team at ${buisnessPhone}.</p>
               <div class="footer">
                 <p> ${buisnessCompany} </p>
@@ -821,6 +819,7 @@ const resolvers = {
 
         console.log("Verif Message sent - User");
       } catch (err) {
+        console.log(err);
         throw new Error("userNotif Message Failed");
       }
     },

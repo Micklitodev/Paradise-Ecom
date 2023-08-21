@@ -13,12 +13,15 @@ const UserData = (props) => {
             <br />
             <h3> Account Information </h3>
             <hr />
-            <br /> 
-            <p> Name: {user.firstName} {user.lastName} </p>
-            {user.street ? (<p> Address: {user.street} </p>) : null }
-            {user.city ? (<p> City: {user.city} </p>) : null }
-            {user.state ? (<p> State: {user.state} </p>) : null }
-            {user.zip ? (<p> Zip: {user.zip} </p>) : null }
+            <br />
+            <p>
+              {" "}
+              Name: {user.firstName} {user.lastName}{" "}
+            </p>
+            {user.street ? <p> Address: {user.street} </p> : null}
+            {user.city ? <p> City: {user.city} </p> : null}
+            {user.state ? <p> State: {user.state} </p> : null}
+            {user.zip ? <p> Zip: {user.zip} </p> : null}
             <p> Points: {user.points} </p>
           </div>{" "}
         </>

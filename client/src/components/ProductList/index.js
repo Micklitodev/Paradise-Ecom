@@ -98,7 +98,7 @@ function ProductList(props) {
       {loading ? (
         <div className="text-center mt-40">
           {" "}
-          <div class="lds-ring">
+          <div className="lds-ring">
             <div></div>
             <div></div>
             <div></div>

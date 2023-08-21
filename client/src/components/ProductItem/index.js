@@ -109,7 +109,7 @@ function ProductItem(item) {
             quantity={quantity}
           />
         ) : (
-          console.log("display: false")
+          <></>
         )}
       </div>
     );

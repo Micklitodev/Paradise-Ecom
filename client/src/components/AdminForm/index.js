@@ -143,7 +143,6 @@ const AdminForm = ({ action, productData, onSubmitSuccess, displayModal }) => {
               style={{
                 border: "none",
                 borderRadius: "10px",
-                boxShadow: "lg",
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",

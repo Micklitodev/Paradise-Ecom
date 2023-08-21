@@ -57,9 +57,7 @@ const ThreeHeader = () => {
 
         setIsLoaded(100);
       },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
+      (xhr) => {},
       (error) => {
         console.log(error);
       }

@@ -109,7 +109,7 @@ const LineChart = ({ orders }) => {
     }
     // create chart instance
     chartRef.current.chart = new Chart(ctx, config);
-  }, [orders]);
+  }, [orders, gross]);
 
   return (
     <>

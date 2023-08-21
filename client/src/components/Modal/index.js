@@ -37,7 +37,6 @@ const Modal = (props) => {
             <div
               style={{
                 borderRadius: "10px",
-                boxShadow: "lg",
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",

@@ -37,7 +37,6 @@ const ManageProducts = () => {
               <button
                 onClick={() => {
                   setDisplayModal(true);
-                  console.log(displayModal);
                 }}
                 className="bg-gradient-to-r from-red-400 to-yellow-600 opacity-80 ml-4 px-2 py-2 bg-opacity-80 text-white "
               >

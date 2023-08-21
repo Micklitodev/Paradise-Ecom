@@ -39,7 +39,6 @@ const Home = () => {
   } else {
     return (
       <>
-
         <div
           style={{
             opacity: 0.999,

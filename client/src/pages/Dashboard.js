@@ -27,13 +27,9 @@ const Dashboard = () => {
             ← Back to Home
           </Link>
         </div>
-        {/* <h3 style={{ textAlign: "center" }}>
-          Order History for {data.user?.firstName}{" "}
-          {data.user?.lastName}
-        </h3> */}
         {data ? (
-          <> 
-          <UserData props={data}/>
+          <>
+            <UserData props={data} />
             <div>
               <OrderHistory data={data} />
               {!Auth.isVerified() ? (

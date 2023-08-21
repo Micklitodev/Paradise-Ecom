@@ -3,9 +3,14 @@ const Info = () => {
   return (
     <>
       <div className="container mx-auto">
-        <h3 className="text-center text-uppercase py-2" style={{textTransform: 'uppercase'}}>Promotions</h3>
+        <h3
+          className="text-center text-uppercase py-2"
+          style={{ textTransform: "uppercase" }}
+        >
+          Promotions
+        </h3>
         <div className="container  bg-white bg-opacity-10 borderwrap">
-        <br /> 
+          <br />
           <p
             className="text-center "
             style={{

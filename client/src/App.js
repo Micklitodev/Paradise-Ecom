@@ -31,7 +31,7 @@ import SearchRes from "./pages/SearchRes";
 import ResetLink from "./pages/ResetLink";
 import Checkout from "./pages/Checkout";
 import Nav from "./components/Nav";
-import Overview from './pages/Overview'
+import Overview from "./pages/Overview";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -58,7 +58,7 @@ function App() {
       <Router>
         <div>
           <StoreProvider>
-          <Nav />
+            <Nav />
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/home" element={<Home />} />
@@ -86,7 +86,6 @@ function App() {
               <Route path="/VerifUsers" element={<VerifUsers />} />
               <Route path="/AdminOrderView" element={<AdminOrderView />} />
               <Route path="/Overview" element={<Overview />} />
-
 
               <Route path="*" element={<NoMatch />} />
             </Routes>

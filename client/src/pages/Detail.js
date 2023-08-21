@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
@@ -112,7 +112,7 @@ function Detail() {
       ) : null}
       {loading ? (
         <div className="text-center mt-40">
-          <div class="lds-ring">
+          <div className="lds-ring">
             <div></div>
             <div></div>
             <div></div>

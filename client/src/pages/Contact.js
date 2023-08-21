@@ -30,7 +30,7 @@ const Contact = () => {
     try {
       setFormSubmitted(true);
 
-      const { data } = sendMail({
+      await sendMail({
         variables: { ...formData },
       });
     } catch (err) {

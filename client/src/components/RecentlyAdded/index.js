@@ -28,7 +28,7 @@ const RecentlyAdded = () => {
       <div style={{ maxWidth: "80vw", position: "relative", left: "10%" }}>
         <Slide
           prevArrow={
-            <div style={{ ...arrowStyle }} onClick={console.log("hit")}>
+            <div style={{ ...arrowStyle }} >
               &lt;
             </div>
           }

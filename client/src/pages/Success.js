@@ -51,7 +51,7 @@ function Success() {
     }
 
     saveOrder();
-  }, [addOrder]);
+  }, [addOrder, error]);
 
   return (
     <>
