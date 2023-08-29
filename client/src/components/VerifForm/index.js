@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Auth from "../../utils/auth";
 import { storage } from "../../firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useMutation } from "@apollo/client";
 import { ID_UPLOAD } from "../../utils/mutations";
 import Jumbotron from "../Jumbotron";
@@ -9,25 +9,18 @@ import { v4 as uuidv4 } from "uuid";
 
 const VerifForm = (props) => {
   const [formState, setFormState] = useState({ idFront: "", idBack: "" });
-
   const [idUpload, { error }] = useMutation(ID_UPLOAD);
   const uniqueId = uuidv4();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      fileUploadHandler();
-
-      const protocol = "https";
-      const host = "firebasestorage.googleapis.com/";
-      const bucket = "paradise-hemp-imgbucket";
-      const dir = "idphotos";
-
-      const { idFront, idBack } = formState;
+     const urls = await fileUploadHandler();
+      console.log(urls)
 
       const variables = {
-        idFront: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${uniqueId}-${idFront.name}?alt=media`,
-        idBack: `${protocol}://${host}v0/b/${bucket}.appspot.com/o/${dir}%2F${uniqueId}-${idBack.name}?alt=media`,
+        idFront: `${urls.idFrontUrl}`,
+        idBack: `${urls.idBackUrl}`,
       };
 
       const { data } = await idUpload({
@@ -43,6 +36,7 @@ const VerifForm = (props) => {
       console.log(e);
     } finally {
       setFormState({ idFront: "", idBack: "" });
+      window.location.reload()
     }
   };
 
@@ -60,12 +54,13 @@ const VerifForm = (props) => {
       storage,
       `idphotos/${uniqueId}-${formState.idBack.name}`
     );
-    const idFrontUpload = uploadBytes(idFrontRef, formState.idFront);
-    const idBackUpload = uploadBytes(idBackRef, formState.idBack);
+    await uploadBytes(idFrontRef, formState.idFront);
+    await uploadBytes(idBackRef, formState.idBack);
 
-    await Promise.all([idFrontUpload, idBackUpload]).then((res) => {
-      window.location.assign("/dashboard");
-    });
+    const idFrontUrl = await getDownloadURL(idFrontRef);
+    const idBackUrl = await getDownloadURL(idBackRef);
+
+    return { idFrontUrl, idBackUrl }
   };
 
   const handleUploadButtonClick = (event, fieldName) => {
